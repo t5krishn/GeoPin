@@ -1,0 +1,4 @@
+-- Maps table seeds here (Example)
+-- INSERT INTO maps (name, user_id) VALUES ('Sprockets', 1);
+-- INSERT INTO maps (name, user_id) VALUES ('Chains', 2);
+-- INSERT INTO maps (name, user_id) VALUES ('Bearings', 2);
