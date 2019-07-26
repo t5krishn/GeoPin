@@ -7,20 +7,41 @@
 
 const express = require('express');
 const router  = express.Router();
+const methodOverride = require("method-override");
 
 module.exports = (db) => {
-  router.get("/", (req, res) => {
-    let query = `SELECT * FROM pins`;
-    db.query(query)
-      .then(data => {
-        const pins = data.rows;
-        res.json({ pins });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+
+  router.use(methodOverride("_method"));
+
+  // Add new pin btn is clicked map editing page
+  router.post("/maps/:mapid/pins", (req, res) => {
+    let query = `
+      INSERT INTO pins (map_id, label, address, description)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *
+    `;
+    const body = req.body;
+    const mapid = req.params.mapid;
+    const queryParams = [mapid, body.label, body.address, body.description];
+    db.query(query, queryParams)
+    .then(res => {
+      if (res.rows) {
+        return res.rows[0];
+      } else {
+        return null;
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
   });
+
+  // Edit pin btn is clicked, send a put request
+  router.put("/maps/:mapid/pins/:pinid", (res, req) => {
+    let query = ``;
+  })
+
   return router;
 };
