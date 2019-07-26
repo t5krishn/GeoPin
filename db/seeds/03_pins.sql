@@ -1,0 +1,3 @@
+-- Pins table seeds here (Example)
+-- INSERT INTO pins (name) VALUES ('Alice');
+-- INSERT INTO pins (name) VALUES ('Kira');
