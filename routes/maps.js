@@ -38,13 +38,14 @@ module.exports = (db) => {
   // After pressing submit, this post request is sent to the server:
   // Map id and owner_id is not submitted by user
   router.post("/create", (req, res) => {
+    // Delete owner id form after!!!!
     const query = `
-      INSERT INTO maps (title, subject, description, city)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO maps (title, subject, description, city, owner_id)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `;
     const params = req.body;
-    const queryParams = [params.title, params.subject, params.description, params.city];
+    const queryParams = [params.title, params.subject, params.description, params.city, params.owner_id];
 
     // NEED TO USE COOKIES TO INSERT owner_id INTO DB
 
