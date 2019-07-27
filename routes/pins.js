@@ -39,8 +39,17 @@ module.exports = (db) => {
   });
 
   // Edit pin btn is clicked, send a put request
-  router.put("/maps/:mapid/pins/:pinid", (res, req) => {
-    let query = ``;
+  router.put("/maps/:mapid/pins/:pinid/edit", (res, req) => {
+    const query = `UPDATE pins`;
+    const queryParams = [];
+
+  });
+
+  // Delete pin btn is clicked, send a delete request
+  router.delete("/maps/:mapid/pins/:pinid/delete", (res, req) => {
+    const query = ``;
+    const pinid = req.params.pinid;
+
   })
 
   return router;
