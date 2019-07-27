@@ -21,5 +21,11 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  // All maps for a given user
+  router.get("/:userid/maps", (req, res) => {
+    // If user is logged in, direct them to their maps page, if not, direct to login
+    res.render("index")
+  });
   return router;
 };
