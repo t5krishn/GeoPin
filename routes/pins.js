@@ -39,9 +39,38 @@ module.exports = (db) => {
   });
 
   // Edit pin btn is clicked, send a put request
+  // In HTML we need to autopopulate input with values from pin_id
+  // Scripts needs one function to
+
+  // Get request needs to aquire information about that pin_id
+  // Returns pin information to ajax
+  router.get("/maps/:mapid/pins/:pinid/edit", (res, req) => {
+    const pinid = req.params.pinid;
+    const query = `
+      SELECT * FROM pins
+      WHERE id = $1
+    `;
+    const queryParams = [pinid];
+    db.query(query, queryParams)
+    .then(res => {
+      const pin = res.rows
+      if (pin) {
+        return pin;
+      } else {
+        return null;
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
+
   router.put("/maps/:mapid/pins/:pinid/edit", (res, req) => {
     const query = `UPDATE pins`;
     const queryParams = [];
+    const body = req.body;
 
   });
 
