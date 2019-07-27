@@ -7,6 +7,8 @@
 
     <title>Home Page</title>
 
+    <link rel="stylesheet" href="/styles/index.css" type="text/css" />
+
     <!-- External Style and Scripts -->
     <%include ./partials/_external_tags.ejs%>
 
@@ -21,10 +23,8 @@
     <div class="hero">
       <h1>GeoPin</h1>
       <h2>There's a map for everything</h2>
-        <button type="button" onclick="smoothScrollToLink()" id="browse-button" title="Go to browsegit " class="btn btn-primary">Browse</button>
-        <button onclick="topFunction()" id="scrollToTop" title="Go to top"><i class="fas fa-angle-double-up"></i></button>
-        <button type="button" class="btn btn-primary">Create new</button>
-      </form>
+      <button type="button" onclick="smoothScrollToLink()" id="browse-button" title="Go to browse section " class="btn btn-primary">Browse</button>
+      <a href="/maps/create" class="btn btn-primary">Create New</a>
     </div>
 
     <main id="main-content">
