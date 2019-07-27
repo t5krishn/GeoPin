@@ -2,7 +2,7 @@
 
 DROP TABLE IF EXISTS pins CASCADE;
 CREATE TABLE pins (
-  id SERIAL PRIMARY KEY NOT NULL,
+  id SERIAL PRIMARY KEY,
   label TEXT NOT NULL,
   description TEXT,
   longitude FLOAT NOT NULL,
