@@ -9,23 +9,25 @@
 <body>
 
   <!-- We need user information about the map -->
-  <form method ="POST" action ="/create">
-    <div class="form-group">
+  <form method ="POST" action ="/maps/create">
+    <div class="form-group" >
       <!-- title of map -->
       <label for="map-title">Enter a title</label>
-      <input type="text" name="mapTitle">
+      <input type="text" name="title">
       <!-- subject of map -->
       <label for="map-subject">What is the subject of your map</label>
-      <input type="text" name="mapSubject">
+      <input type="text" name="subject">
       <!-- description of map -->
       <label for="map-description">Give your map a description</label>
-      <input type="text" name="mapDescription">
+      <input type="text" name="description">
       <!-- city of map -->
       <label for="map-city">What city is your map in?</label>
       <input type="text" name="city">
       <!-- owner id !!!! DELETE AFTER WARDS -->
       <label for="map-owner">Owner Id</label>
       <input type="text" name="owner_id">
+
+      <input type="submit" value="Submit">
     </div>
   </form>
 
