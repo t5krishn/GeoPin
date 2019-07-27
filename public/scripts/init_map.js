@@ -11,12 +11,11 @@ function initMap() {
     draggable: true,
     title: 'Hello World!',
     animation: google.maps.Animation.DROP,
-    label: 'hahahahhahaha',
     icon: ''
   });
 
-  map.addListener('click' , function(event) {
-    console.log(map);
-    console.log(event.latLng.lat());
-  });
+  // map.addListener('click' , function(event) {
+  //   console.log(map);
+  //   console.log(event.latLng.lat());
+  // });
 }
