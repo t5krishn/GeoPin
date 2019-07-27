@@ -33,13 +33,13 @@ app.use(express.static("public"));
 
 // // Separated Routes for each Resource
 // // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
+// const usersRoutes = require("./routes/users");
 const mapsRoutes = require("./routes/maps");
 const pinsRoutes = require("./routes/pins");
 
 // // Mount all resource routes
 // // Note: Feel free to replace the example routes below with your own
-app.use("/users", usersRoutes(db));
+// app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db));
 app.use("/pins", pinsRoutes(db));
 
