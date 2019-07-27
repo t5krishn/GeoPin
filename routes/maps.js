@@ -14,6 +14,7 @@ module.exports = (db) => {
   // Homepage browses random maps from map database
   router.get("/", (req, res) => {
     let query = `SELECT * FROM maps`;
+    console.log("I RAN");
     db.query(query)
       .then(res => {
         if (res.rows) {
