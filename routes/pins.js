@@ -14,6 +14,7 @@ module.exports = (db) => {
   router.use(methodOverride("_method"));
 
   // Add new pin btn is clicked map editing page
+  // Pin creation happens after user clicks on button #pin-submit
   router.post("/maps/:mapid/pins", (req, res) => {
     let query = `
       INSERT INTO pins (map_id, label, address, description)
@@ -25,8 +26,9 @@ module.exports = (db) => {
     const queryParams = [mapid, body.label, body.address, body.description];
     db.query(query, queryParams)
     .then(res => {
-      if (res.rows) {
-        return res.rows[0];
+      const pin = res.rows;
+      if (pin) {
+        return pin;
       } else {
         return null;
       }
@@ -38,12 +40,11 @@ module.exports = (db) => {
     });
   });
 
-  // Edit pin btn is clicked, send a put request
-  // In HTML we need to autopopulate input with values from pin_id
-  // Scripts needs one function to
-
   // Get request needs to aquire information about that pin_id
   // Returns pin information to ajax
+  // Edit pin btn has id of "edit-pin-btn"
+
+  // When edit btn is clicked, get request is sent to aquire pin information based on pin_id
   router.get("/maps/:mapid/pins/:pinid/edit", (res, req) => {
     const pinid = req.params.pinid;
     const query = `
@@ -67,6 +68,7 @@ module.exports = (db) => {
     });
   });
 
+  // PUT is called when edit form submit button is clicked
   router.put("/maps/:mapid/pins/:pinid/edit", (res, req) => {
     const query = `UPDATE pins`;
     const queryParams = [];
