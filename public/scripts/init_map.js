@@ -9,10 +9,14 @@ function initMap() {
     position: myLatLng,
     map: map,
     draggable: true,
-    title: 'Hello World!'
+    title: 'Hello World!',
+    animation: google.maps.Animation.DROP,
+    label: 'hahahahhahaha',
+    icon: ''
   });
 
   map.addListener('click' , function(event) {
-    console.log(marker.getPosition);
+    console.log(map);
+    console.log(event.latLng.lat());
   });
 }
