@@ -77,6 +77,7 @@ function placeSearchInit() {
       <h4>Address: ${place.formatted_address}</h4>
       <h4>Type: ${snakeToString(place.types)}</h4>
       <h4>Rating: ${place.rating}</h4>
+      <img src="${place.photos[0].getUrl({"maxWidth": 100, "maxHeight": 100})}">
     </div>
     `;
     $("#search-results-container").append(result);
