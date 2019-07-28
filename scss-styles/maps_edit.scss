@@ -63,12 +63,14 @@
       margin: 2%;
       border: 1px solid black;
       overflow: auto;
+      height: 85%;
     }
   }
 }
 
 #pin-container {
   right: 0;
+  height: 60%;
 }
 
 #pin-create-form {
