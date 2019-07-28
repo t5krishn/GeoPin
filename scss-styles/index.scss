@@ -1,0 +1,29 @@
+@import "fonts";
+@import "colors";
+@import "mixins";
+
+.hero {
+  height: 60vh;
+  width: 100%;
+  background-image: url(../assets/geopin-hero.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  margin-top: 10vh;
+  z-index: -200;
+  @include flexThis(center, center, column);
+}
+
+.hero::after{
+  z-index: -100;
+  content: "";
+  position: absolute;
+  background-color: $black;
+  opacity: 0.5;
+  top:0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- To add: read title from map object into page -->
+    <title>Edit Map</title>
+
+    <!-- External Style and Scripts -->
+    <%include ./partials/_external_tags.ejs%>
+
+
+    <link rel="stylesheet" href="/styles/maps_edit.css" type="text/css" />
+
+  </head>
+
+  <body>
+    <!-- to add: skiplink -->
+    <%include ./partials/_nav.ejs%>
+    <main>
+      <div id="map-container">
+
+        <div id="search-container" class="edit-container">
+          <h2>Your Places</h2>
+
+          <!-- Placeholder demo of create/edit pin form -->
+          <form id="pin-create-form" action="/maps/:map_id/pins/:pin_id/create" method="POST">
+            <div class="form-row">
+              <label for="pin-label">Label:</label>
+              <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>
+            </div>
+            <div class="form-row">
+              <label for="pin-description">Description:</label>
+              <textarea class="form-input" id="pin-description" name="description" placeholder="Describe your pin..."></textarea>
+            </div>
+            <div class="form-row">
+              <label for="pin-thumbnail">Thumbnail URL:</label>
+              <textarea class="form-input" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..."></textarea>
+            </div>
+            <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
+          </form>
+        </div> <!-- search-container -->
+
+        <div id="map">
+        </div> <!-- map -->
+
+        <div id="pin-container" class="edit-container">
+          <h2>Your Pins</h2>
+          <div class="form-row">
+            <p>This is my pin</p>
+            <span>
+              <form class="edit-form" action="/users/:owner_id/maps/:map_id/pins/:pin_id/edit/?_method=PUT" method="POST">
+                <button class="edit-pin-btn pin-btn" type="button"><i class="fas fa-edit"></i></button>
+              </form>
+              <form class="delete-form" action="/users/:owner_id/maps/:map_id/pins/:pin_id/delete/?_method=DELETE" method="POST">
+                <button class="delete-pin-btn pin-btn" type="button"><i class="fas fa-minus-circle"></i></button>
+              </form>
+            </span>
+          </div> <!-- single pin row -->
+        </div> <!-- pin-container -->
+        <!--  -->
+      </div>
+    </main>
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
+    <script src="/scripts/init_map.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwTwnh2Y7IqPIcltHVnlKMyBPI8pF5UcY&callback=initMap" async defer></script>
+  </body>
+</html>

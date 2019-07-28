@@ -1,3 +1,13 @@
-<nav class='navbar fixed-top navbar-dark bg-dark'>
-    <span style='color: white'>GeoPin</span>  
+<nav id="main-nav" class='navbar fixed-top navbar-dark bg-dark'>
+    <span>GeoPin</span>
+    <span>
+      <button type="button" onclick="smoothScrollToLink()" id="nav-browse-button" title="Go to browse section " class="nav-button btn btn-primary">Browse</button>
+      <a href="/maps/123/edit" class="nav-button btn btn-primary">Temp Edit Maps Link</a>
+      <a href="/" class="nav-button btn btn-primary">Home</a>
+    </span>
+
+    <span>
+      <a href="/users/login" class="nav-button btn btn-primary">Login/Register</a>
+      <a href="/maps/create" class="nav-button btn btn-primary">Create Map</a>
+    </span>
 </nav>
