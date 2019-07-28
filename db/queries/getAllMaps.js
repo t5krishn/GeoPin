@@ -3,6 +3,7 @@ const getAllMaps = function (pool) {
     const query = `
         SELECT *
         FROM maps
+        LIMIT 10
     `;
     return pool.query(query, [])
         .then(res => {
