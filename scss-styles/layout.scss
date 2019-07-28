@@ -1,9 +1,66 @@
-// See: https://sass-lang.com/
+@import "fonts";
+@import "colors";
+
+img{
+  max-width: 100%;
+  display: block;
+}
+
+.visuallyhidden:not(:focus):not(:active) {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          margin: -1px;
+          border: 0;
+          padding: 0;
+          white-space: nowrap;
+          clip-path: inset(100%);
+          clip: rect(0 0 0 0);
+          overflow: hidden;
+    }
+
+.skip-link {
+    position: absolute;
+    left: -1000px;
+    top: 5px;
+    z-index: 999;
+    background: white;
+    color: black;
+}
+
+.skip-link:focus {
+    left: 0;
+}
 
 body {
-  background-color: #EEE;
+  height: auto !important;
+  background-color: $white;
+  color: $black;
+  $font-family: $primary-font;
 
-  h1 {
-    color: #244751;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $primary-color;
+    font-family: $header-font;
+    margin: 0;
+    padding: 0;
   }
+
+  p,
+  a,
+  button {
+    margin: 0;
+    padding: 0;
+  }
+
+  .btn {
+    background-color: $tertiary-color;
+    border-color: $tertiary-color;
+    color: $black;
+  }
+
 }

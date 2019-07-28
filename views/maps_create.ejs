@@ -10,31 +10,50 @@
   <!-- External Style and Scripts -->
   <%include ./partials/_external_tags.ejs%>
 
+  <link rel="stylesheet" href="/styles/maps_create.css" type="text/css" />
 </head>
 <body>
 
-  <!-- We need user information about the map -->
-  <form method ="POST" action ="/maps/create">
-    <div class="form-group" >
-      <!-- title of map -->
-      <label for="map-title">Enter a title</label>
-      <input type="text" name="title">
-      <!-- subject of map -->
-      <label for="map-subject">What is the subject of your map</label>
-      <input type="text" name="subject">
-      <!-- description of map -->
-      <label for="map-description">Give your map a description</label>
-      <input type="text" name="description">
-      <!-- city of map -->
-      <label for="map-city">What city is your map in?</label>
-      <input type="text" name="city">
-      <!-- owner id !!!! DELETE AFTER WARDS -->
-      <label for="map-owner">Owner Id</label>
-      <input type="text" name="owner_id">
+  <main>
+    <%- include ./partials/_nav.ejs%>
+    <div class="wrapper">
 
-      <input type="submit" value="Submit">
-    </div>
-  </form>
+      <!-- We need user information about the map -->
+      <form method ="POST" action ="/maps/create" id="map-create-form">
+        <div class="form-group" >
+          <!-- title of map -->
+          <label for="map-title">Enter a title</label>
+          <input type="text" name="title">
+        </div> <!-- title -->
+
+        <!-- subject of map -->
+        <div class="form-group" >
+          <label for="map-subject">What is the subject of your map</label>
+          <input type="text" name="subject">
+        </div> <!-- subject -->
+
+        <!-- description of map -->
+        <div class="form-group" >
+          <label for="map-description">Give your map a description</label>
+          <input type="text" name="description">
+        </div>  <!-- description -->
+
+        <!-- city of map -->
+        <div class="form-group" >
+          <label for="map-city">What city is your map in?</label>
+          <input type="text" name="city">
+        </div>  <!-- city -->
+
+        <!-- owner id !!!! DELETE AFTER WARDS -->
+        <div class="form-group" >
+          <label for="map-owner">Owner Id</label>
+          <input type="text" name="owner_id">
+        </div>  <!-- owner id -->
+
+        <input type="submit" value="Submit">
+      </form>
+    </div> <!-- wrapper -->
+  </main>
 
 </body>
 </html>
