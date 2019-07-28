@@ -14,7 +14,7 @@ const addUser = function (pool, userParams) {
                 return null;
             }
         })
-        .catch(err => { console.log(e) });
+        .catch(err => { console.log(err) });
 }
 
 module.exports = addUser;

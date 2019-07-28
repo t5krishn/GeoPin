@@ -8,7 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (pool) => {
+module.exports = (pool, db) => {
 
   // Localhost:8080/
   // Homepage browses random maps from map database
@@ -37,23 +37,21 @@ module.exports = (pool) => {
 
   // After pressing submit, this post request is sent to the server:
   // Map id and owner_id is not submitted by user
-  router.post("/create", (req, response) => {
+  router.post("/create", (req, res) => {
     // Delete owner id form after!!!!
-    const query = `
-      INSERT INTO maps (title, subject, description, city, owner_id)
-      VALUES ($1, $2, $3, $4, $5)
-      RETURNING *;
-    `;
+
     const params = req.body;
     const queryParams = [params.title, params.subject, params.description, params.city, params.owner_id];
+
     // NEED TO USE COOKIES TO INSERT owner_id INTO DB
-    pool.query(query, queryParams)
-    .then(res => {
-      if (res.rows) {
+    db.addMap(pool, queryParams)
+    .then(map => {
+      console.log(map[0].id);
+      if (map) {
         // FIX THIS so that it renders the edit page for the new map id
-        response.render("maps_create")
-        return res.rows[0];
+        res.redirect(`/maps/${map[0].id}/edit/`)
       } else {
+        console.log("error");
         return null;
       }
     })
@@ -66,7 +64,13 @@ module.exports = (pool) => {
 
   // After submitting the form, the server gets a GET request and renders the map editing page:
   router.get("/:mapid/edit", (req, res) => {
-    res.render("maps_edit");
+
+    let templateVars = {
+      map_id: req.params.mapid
+    };
+    console.log(templateVars);
+
+    res.render("maps_edit", templateVars);
   });
 
   return router;
