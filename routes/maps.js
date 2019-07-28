@@ -8,13 +8,13 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (db) => {
+module.exports = (pool) => {
 
   // Localhost:8080/
   // Homepage browses random maps from map database
   router.get("/", (req, res) => {
     let query = `SELECT * FROM maps`;
-    db.query(query)
+    pool.query(query)
       .then(res => {
         if (res.rows) {
           return res.rows[0];
@@ -47,7 +47,7 @@ module.exports = (db) => {
     const params = req.body;
     const queryParams = [params.title, params.subject, params.description, params.city, params.owner_id];
     // NEED TO USE COOKIES TO INSERT owner_id INTO DB
-    db.query(query, queryParams)
+    pool.query(query, queryParams)
     .then(res => {
       if (res.rows) {
         // FIX THIS so that it renders the edit page for the new map id
