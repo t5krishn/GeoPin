@@ -9,7 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const methodOverride = require("method-override");
 
-module.exports = (db) => {
+module.exports = (pool) => {
 
   router.use(methodOverride("_method"));
 
@@ -24,7 +24,7 @@ module.exports = (db) => {
     const body = req.body;
     const mapid = req.params.mapid;
     const queryParams = [mapid, body.label, body.address, body.description];
-    db.query(query, queryParams)
+    pool.query(query, queryParams)
     .then(res => {
       const pin = res.rows;
       if (pin) {
@@ -52,7 +52,7 @@ module.exports = (db) => {
       WHERE id = $1
     `;
     const queryParams = [pinid];
-    db.query(query, queryParams)
+    pool.query(query, queryParams)
     .then(res => {
       const pin = res.rows
       if (pin) {
