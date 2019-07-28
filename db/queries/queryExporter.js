@@ -19,8 +19,10 @@ module.exports = {
     deleteMap,
     deletePin,
     deleteUser,
+    getAllMaps,
     getAllMapsForUser,
     getAllPinsForMap,
+    
     getUserWithId,
     getUserWithName,
     updateMap,
