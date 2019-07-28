@@ -40,7 +40,7 @@ function placeSearchInit() {
                     createMarker(results[i]);
                 }
                 map.setCenter(results[0].geometry.location);
-                // console.log(results);
+                console.log(results.length);
             }
         }
     );
