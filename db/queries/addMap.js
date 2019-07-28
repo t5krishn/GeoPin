@@ -1,3 +1,4 @@
+// mapParams should be an array
 
 const addMap = function (pool, mapParams) {
     const query = `
@@ -14,7 +15,7 @@ const addMap = function (pool, mapParams) {
                 return null;
             }
         })
-        .catch(err => { console.log(e) });
+        .catch(err => { console.log(err) });
 }
 
 
