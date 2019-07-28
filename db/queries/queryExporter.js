@@ -1,29 +1,35 @@
 const addMap = require('./addMap');
-const addMarker = require('./addMarker');
+const addPin = require('./addPin');
 const addUser = require('./addUser');
 const deleteMap = require('./deleteMap');
-const deleteMarker = require('./deleteMarker');
+const deletePin = require('./deletePin');
 const deleteUser = require('./deleteUser');
+const getAllMaps = require('./getAllMaps');
 const getAllMapsForUser = require('./getAllMapsForUser');
-const getAllMarkersForMap = require('./getAllMarkersForMap');
-const getUsersWithId = require('./getUsersWithId');
-const getUsersWithName = require('./getUsersWithName');
+const getAllPinsForMap = require('./getAllPinsForMap');
+const getMapWithId = require('./getMapWithId');
+const getPinWithId = require('./getPinWithId');
+const getUserWithId = require('./getUserWithId');
+const getUserWithName = require('./getUserWithName');
 const updateMap = require('./updateMap');
-const updateMarker = require('./updateMarker');
+const updatePin = require('./updatePin');
 const updateUser = require('./updateUser');
 
 module.exports = { 
     addMap,
-    addMarker,
+    addPin,
     addUser,
     deleteMap,
-    deleteMarker,
+    deletePin,
     deleteUser,
+    getAllMaps,
     getAllMapsForUser,
-    getAllMarkersForMap,
-    getUsersWithId,
-    getUsersWithName,
+    getAllPinsForMap,
+    getMapWithId,
+    getPinWithId,
+    getUserWithId,
+    getUserWithName,
     updateMap,
-    updateMarker,
+    updatePin,
     updateUser
 };

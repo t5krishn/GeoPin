@@ -1,5 +1,5 @@
-const deleteUser = function () {
-
+const deleteUser = function (userId) {
+    
 }
 
 module.exports = deleteUser;
