@@ -34,7 +34,7 @@ function placeSearchInit() {
     // });
 
     service.textSearch({
-        query: 'sushi in toronto'},
+        query: '28 Florence Street'},
         function(results, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 for (var i = 0; i < results.length; i++) {
@@ -71,15 +71,21 @@ function placeSearchInit() {
   }
 
   function appendResults(place) {
-    const result = `
+    let result = `
     <div class="result">
       <h4>Name: ${place.name}</h4>
       <h4>Address: ${place.formatted_address}</h4>
       <h4>Type: ${snakeToString(place.types)}</h4>
-      <h4>Rating: ${place.rating}</h4>
-      <img src="${place.photos[0].getUrl({"maxWidth": 100, "maxHeight": 100})}">
-    </div>
     `;
+    // For places that don't have a rating
+    if (place.rating) {
+      result += `<h4>Rating: ${place.rating}</h4>`;
+    }
+    // For places that don't have a photo
+    if (place.photos) {
+      result += `<img src="${place.photos[0].getUrl({"maxWidth": 100, "maxHeight": 100})}">`
+    }
+    result += `</div>`;
     $("#search-results-container").append(result);
   }
 
