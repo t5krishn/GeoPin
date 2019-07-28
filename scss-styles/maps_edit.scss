@@ -6,6 +6,7 @@
 #map-container {
   margin-top: 10vh;
   height: 90vh;
+  max-height: 90vh;
   width: 100%;
   position: relative;
 
@@ -56,6 +57,13 @@
 
 #search-container {
   left: 0;
+  overflow: scroll;
+  #search-results-container {
+    .result {
+      margin: 2%;
+      border: 1px solid black;
+    }
+  }
 }
 
 #pin-container {
