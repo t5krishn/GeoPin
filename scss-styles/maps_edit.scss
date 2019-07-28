@@ -1,0 +1,61 @@
+@import "maps";
+@import "fonts";
+@import "colors";
+@import "mixins";
+
+#map-container {
+  margin-top: 10vh;
+  height: 90vh;
+  width: 100%;
+  position: relative;
+
+}
+
+.edit-container {
+  position: absolute;
+  height: 450px / 750px * 100%;
+  max-width: 325px;
+  width: 200px / 715px * 100%;
+  top: 15%;
+  background-color: $secondary-color;
+  border: solid 2px $primary-color;
+  z-index: 100;
+  color: $black;
+  padding: 10px;
+
+  h2 {
+    color: $black;
+    text-align: center;
+  }
+
+  .single-pin-row {
+    @include flexThis(space-between, center, row);
+
+    span {
+      @include flexThis(space-between, center, row);
+    }
+
+    .pin-btn {
+      @include flexThis(center, center, row);
+      background-color: $tertiary-color;
+      border-radius: 100%;
+      border: 1px solid $tertiary-color;
+      color: $black;
+      height: 30px;
+      width: 30px;
+
+      i {
+        font-size: .9rem;
+      }
+    }
+  }
+
+}
+
+#search-container {
+  left: 0;
+}
+
+#pin-container {
+  right: 0;
+}
