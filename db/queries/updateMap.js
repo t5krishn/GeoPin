@@ -1,12 +1,15 @@
 // mapParams is an array with 
 //      --> title, subject, description, city ONLY
+//      --> mapParams will need to make the empty fields null in order for sql query to work
+//      --> COALESCE will make sure that if first item is null, use the second
 const updateMap = function (pool, map_id, mapParams) {
 
     const query = `
         UPDATE maps
-        SET title= COALESCE($2), subject=$3, description=$4, city=$5
+        SET title= COALESCE($2, title), subject=COALESCE($3, subject), description=COALESCE($4, description), city=COALESCE($5, city)
         WHERE maps.id = $1
     `;
+    
     return pool.query(query, [map_id, ...mapParams  /* title, subject, description, city */])
         .then(res => {
             if (res.rows) {
@@ -20,3 +23,4 @@ const updateMap = function (pool, map_id, mapParams) {
 }
 
 module.exports = updateMap;
+
