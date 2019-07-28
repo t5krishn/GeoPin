@@ -65,7 +65,7 @@ module.exports = (db) => {
   });
 
   // After submitting the form, the server gets a GET request and renders the map editing page:
-  router.get("/maps/:mapid/edit", (req, res) => {
+  router.get("/:mapid/edit", (req, res) => {
     res.render("maps_edit");
   });
 
