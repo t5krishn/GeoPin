@@ -33,6 +33,7 @@ img{
 }
 
 body {
+  height: auto !important;
   background-color: $white;
   color: $black;
   $font-family: $primary-font;
@@ -47,6 +48,19 @@ body {
     font-family: $header-font;
     margin: 0;
     padding: 0;
+  }
+
+  p,
+  a,
+  button {
+    margin: 0;
+    padding: 0;
+  }
+
+  .btn {
+    background-color: $tertiary-color;
+    border-color: $tertiary-color;
+    color: $black;
   }
 
 }

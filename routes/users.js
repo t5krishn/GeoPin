@@ -8,9 +8,9 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (db) => {
+module.exports = (pool) => {
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
+    pool.query(`SELECT * FROM users;`)
       .then(data => {
         const users = data.rows;
         res.json({ users });

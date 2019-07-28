@@ -1,12 +1,12 @@
-const getAllMapsForUser = function (pool, user_id) {
+const getAllPinsForMap = function (pool, map_id) {
 
     const query = `
         SELECT *
-        FROM maps
-        JOIN users ON maps.owner_id = users.id 
-            AND maps.owner_id = $1;
-    `;
-    return pool.query(query, [user_id])
+        FROM pins
+        JOIN maps ON maps.id = pins.map_id
+            AND maps.id = $1;
+        `;
+    return pool.query(query, [map_id])
         .then(res => {
             if (res.rows) {
                 return res.rows;
@@ -17,4 +17,5 @@ const getAllMapsForUser = function (pool, user_id) {
         .catch(err => { console.log(err) });
 
 }
-module.exports = getAllMapsForUser;
+
+module.exports = getAllPinsForMap;

@@ -1,0 +1,82 @@
+@import "maps";
+@import "fonts";
+@import "colors";
+@import "mixins";
+
+#map-container {
+  margin-top: 10vh;
+  height: 90vh;
+  width: 100%;
+  position: relative;
+
+}
+
+.edit-container {
+  position: absolute;
+  height: 450px / 750px * 100%;
+  max-width: 325px;
+  width: 200px / 715px * 100%;
+  top: 15%;
+  background-color: $secondary-color;
+  border: solid 2px $primary-color;
+  z-index: 100;
+  color: $black;
+  padding: 10px;
+
+  h2 {
+    color: $black;
+    text-align: center;
+  }
+
+  .form-row {
+    @include flexThis(space-between, center, row);
+    width: 100%;
+    margin: 0;
+
+    span {
+      @include flexThis(space-between, center, row);
+    }
+
+    .pin-btn {
+      @include flexThis(center, center, row);
+      background-color: $tertiary-color;
+      border-radius: 100%;
+      border: 1px solid $tertiary-color;
+      color: $black;
+      height: 30px;
+      width: 30px;
+
+      i {
+        font-size: .9rem;
+      }
+    }
+  }
+
+}
+
+#search-container {
+  left: 0;
+}
+
+#pin-container {
+  right: 0;
+}
+
+#pin-create-form {
+  @include flexThis(center, center, column);
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  background-color: $tertiary-color;
+
+
+  .form-input {
+    width: 50%;
+    border: none;
+    border-radius: 5px;
+  }
+}
+
+#create-pin-btn {
+  background-color: $primary-color;
+}

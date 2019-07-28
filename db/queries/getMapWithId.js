@@ -1,12 +1,12 @@
-// userParams should be an array
-const addUser = function (pool, userParams) {
+const getMapWithId = function (pool, mapId) {
+    
     const query = `
-        INSERT INTO users (name, password)
-        VALUES ($1, $2)
-        RETURNING *;
+        SELECT *
+        FROM maps
+        WHERE maps.id = $1
     `;
 
-    return pool.query(query, userParams)
+    return pool.query(query, [mapId])
         .then(res => {
             if (res.rows) {
                 return res.rows[0];
@@ -15,6 +15,7 @@ const addUser = function (pool, userParams) {
             }
         })
         .catch(err => { console.log(err) });
+
 }
 
-module.exports = addUser;
+module.exports = getMapWithId;

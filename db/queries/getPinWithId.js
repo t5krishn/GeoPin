@@ -1,12 +1,11 @@
-// userParams should be an array
-const addUser = function (pool, userParams) {
+const getPinWithId = function (pool, pin_id) {
     const query = `
-        INSERT INTO users (name, password)
-        VALUES ($1, $2)
-        RETURNING *;
+        SELECT *
+        FROM pins
+        WHERE pins.id = $1
     `;
 
-    return pool.query(query, userParams)
+    return pool.query(query, [pin_id])
         .then(res => {
             if (res.rows) {
                 return res.rows[0];
@@ -17,4 +16,4 @@ const addUser = function (pool, userParams) {
         .catch(err => { console.log(err) });
 }
 
-module.exports = addUser;
+module.exports = getPinWithId;
