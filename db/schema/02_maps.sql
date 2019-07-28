@@ -8,5 +8,6 @@ CREATE TABLE maps (
   description TEXT,
   city TEXT NOT NULL,
   -- pin_count INTEGER NOT NULL,
+  -- deleted flag instead of dropping user from db
   owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
