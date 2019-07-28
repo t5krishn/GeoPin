@@ -28,8 +28,10 @@
     text-align: center;
   }
 
-  .single-pin-row {
+  .form-row {
     @include flexThis(space-between, center, row);
+    width: 100%;
+    margin: 0;
 
     span {
       @include flexThis(space-between, center, row);
@@ -58,4 +60,23 @@
 
 #pin-container {
   right: 0;
+}
+
+#pin-create-form {
+  @include flexThis(center, center, column);
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  background-color: $tertiary-color;
+
+
+  .form-input {
+    width: 50%;
+    border: none;
+    border-radius: 5px;
+  }
+}
+
+#create-pin-btn {
+  background-color: $primary-color;
 }
