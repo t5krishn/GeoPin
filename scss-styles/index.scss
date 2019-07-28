@@ -11,19 +11,95 @@
   background-size: cover;
   position: relative;
   margin-top: 10vh;
-  z-index: -200;
+  z-index: -1000;
   @include flexThis(center, center, column);
 }
 
 .hero::after{
-  z-index: -100;
   content: "";
+  z-index: -1000;
   position: absolute;
-  background-color: $black;
-  opacity: 0.5;
+  background-color: $black-transparent-gradient;
   top:0;
   bottom: 0;
   right: 0;
   left: 0;
+}
 
+// Browse Maps Section
+#all-maps {
+  @include flexThis(center, center, column);
+  padding: 10vh 0;
+}
+
+.wrapper {
+  width: 80%;
+  @include flexThis(space-around, center, row);
+  flex-wrap: wrap;
+  background-color: $secondary-color;
+}
+
+.single-map {
+  width: 40%;
+  padding: 2%;
+  color: $black;
+  text-align: left;
+  display: block;
+  text-decoration: none !important;
+  color: inherit;
+  border-radius: 25px;
+  transition: 0.3s;
+
+  div {
+    width: 90%;
+  }
+
+  h4 {
+    color: $black;
+  }
+
+  .map-thumbnail {
+    background-image: url(../assets/map-thumbnail.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: inherit;
+    min-height: 250px;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 2vh;
+    position: relative;
+    h4,
+    p,
+    i {
+      color: $white;
+      z-index: 500;
+    }
+
+    .hover-read {
+      padding: 20px;
+      opacity: 0;
+      border-radius: inherit;
+      background-color: $black-transparent-gradient;
+      transition: 0.3s;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      @include flexThis(space-between, center, column);
+    }
+  }
+
+  .map-footer {
+    text-align: right;
+  }
+}
+
+.single-map:hover {
+  .hover-read {
+    opacity: 1;
+  }
 }
