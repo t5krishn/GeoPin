@@ -36,10 +36,10 @@
   width: 80%;
   @include flexThis(space-around, center, row);
   flex-wrap: wrap;
-  background-color: $secondary-color;
 }
 
 .single-map {
+  border: solid 2px transparent;
   width: 40%;
   padding: 2%;
   color: $black;
@@ -72,7 +72,7 @@
     h4,
     p,
     i {
-      color: $white;
+      color: $black;
       z-index: 500;
     }
 
@@ -80,7 +80,7 @@
       padding: 20px;
       opacity: 0;
       border-radius: inherit;
-      background-color: $black-transparent-gradient;
+      background-color: $blue-transparent-gradient;
       transition: 0.3s;
       height: 100%;
       width: 100%;
@@ -99,6 +99,11 @@
 }
 
 .single-map:hover {
+  border: solid 2px $primary-color;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(202,245,239,1);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(202,245,239,1);
+  box-shadow: 10px 10px 5px 0px rgba(202,245,239,1);
+
   .hover-read {
     opacity: 1;
   }
