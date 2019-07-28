@@ -26,6 +26,22 @@
         <div id="search-container" class="edit-container">
           <h2>Your Places</h2>
 
+          <!-- Placeholder demo of create/edit pin form -->
+          <form id="pin-create-form" action="/maps/:map_id/pins/:pin_id/create" method="POST">
+            <div class="form-row">
+              <label for="pin-label">Label:</label>
+              <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>
+            </div>
+            <div class="form-row">
+              <label for="pin-description">Description:</label>
+              <textarea class="form-input" id="pin-description" name="description" placeholder="Describe your pin..."></textarea>
+            </div>
+            <div class="form-row">
+              <label for="pin-thumbnail">Thumbnail URL:</label>
+              <textarea class="form-input" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..."></textarea>
+            </div>
+            <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
+          </form>
         </div> <!-- search-container -->
 
         <div id="map">
@@ -33,18 +49,18 @@
 
         <div id="pin-container" class="edit-container">
           <h2>Your Pins</h2>
-          <div class="single-pin-row">
+          <div class="form-row">
             <p>This is my pin</p>
             <span>
-              <form action="/users/:owner_id/maps/:map_id/pins/:pin_id/edit/?_method=PUT" method="POST">
-                <button id="edit-pin-btn" class="pin-btn" type="button"><i class="fas fa-edit"></i></button>
+              <form class="edit-form" action="/users/:owner_id/maps/:map_id/pins/:pin_id/edit/?_method=PUT" method="POST">
+                <button class="edit-pin-btn pin-btn" type="button"><i class="fas fa-edit"></i></button>
               </form>
-              <form action="/users/:owner_id/maps/:map_id/pins/:pin_id/delete/?_method=DELETE" method="POST">
-                <button id="delete-pin-btn" class="pin-btn" type="button"><i class="fas fa-minus-circle"></i></button>
+              <form class="delete-form" action="/users/:owner_id/maps/:map_id/pins/:pin_id/delete/?_method=DELETE" method="POST">
+                <button class="delete-pin-btn pin-btn" type="button"><i class="fas fa-minus-circle"></i></button>
               </form>
             </span>
-          </div>
-        </div>
+          </div> <!-- single pin row -->
+        </div> <!-- pin-container -->
         <!--  -->
       </div>
     </main>
