@@ -64,11 +64,10 @@ module.exports = (pool, db) => {
 
   // After submitting the form, the server gets a GET request and renders the map editing page:
   router.get("/:mapid/edit", (req, res) => {
-
+    // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
     let templateVars = {
       map_id: req.params.mapid
     };
-    console.log(templateVars);
 
     res.render("maps_edit", templateVars);
   });
