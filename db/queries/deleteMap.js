@@ -2,7 +2,7 @@ const deleteMap = function (pool, map_id) {
 
     const query = `
         UPDATE maps
-        SET maps.deleted = TRUE
+        SET deleted = TRUE
         WHERE maps.id = $1
         RETURNING *;
     `;

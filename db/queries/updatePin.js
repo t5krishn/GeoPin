@@ -18,7 +18,7 @@ const updatePin = function (pool, pin_id, pinParams) {
     return pool.query(query, [pin_id, ...pinParams  /* label, description, longitude, latitude, pin_thumbnail_url */])
     .then(res => {
         if (res.rows) {
-            return res.rows;
+            return res.rows[0];
         } else {
             return null;
         }

@@ -1,7 +1,7 @@
 const getAllPinsForMap = function (pool, map_id) {
 
     const query = `
-        SELECT *
+        SELECT pins.*
         FROM pins
         JOIN maps ON maps.id = pins.map_id
             AND maps.id = $1

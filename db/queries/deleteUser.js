@@ -2,7 +2,7 @@ const deleteUser = function (pool, user_id) {
 
     const query = `
         UPDATE users
-        SET users.deleted = TRUE
+        SET deleted = TRUE
         WHERE users.id = $1
         RETURNING *;
     `;
