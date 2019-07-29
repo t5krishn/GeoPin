@@ -1,7 +1,7 @@
 const getAllMapsForUser = function (pool, user_id) {
 
     const query = `
-        SELECT *
+        SELECT maps.*
         FROM maps
         JOIN users ON maps.owner_id = users.id 
             AND maps.owner_id = $1
