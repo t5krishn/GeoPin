@@ -55,16 +55,19 @@ function placeSearchInit() {
       location: map.getCenter()
      },
       function(results, status) {
-        console.log("center", map.getCenter());
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < results.length; i++) {
-                console.log(results[i]);
+            for (var i = 0; i < 20; i++) {
+                console.log(results[i].geometry.location);
                 appendResults(results[i]);
                 createMarker(results[i]);
             }
             map.setCenter(results[0].geometry.location);
-            console.log(results.length);
         }
+        // When a search result is clicked, the map should center to that marker
+        $(".search-result").bind("click", () => {
+          const latlong = $(this).data();
+          console.log("MY LAT LONG IS :", latlong);
+        })
     });
   }
 
@@ -92,8 +95,9 @@ function placeSearchInit() {
 
   function appendResults(place) {
 
+    // latitude and longitude are stored as data attribute in the div container
     let result = `
-    <div class="result">
+    <div class="search-result" data="${place.geometry.location} onClick="centerResult()">
       <h6>Name: ${place.name}</h6>
       <h6>Address: ${place.formatted_address}</h6>
       <h6>Type: ${snakeToString(place.types)}</h6>
@@ -104,7 +108,7 @@ function placeSearchInit() {
     }
     // For places that don't have a photo
     if (place.photos) {
-      $("#search-results-container").append(`<img class="result-img" src="${place.photos[0].getUrl({"maxWidth": 100, "maxHeight": 100})}">`);
+      $("#search-results-container").append(`<img class="search-result-img" src="${place.photos[0].getUrl({"maxWidth": 100, "maxHeight": 100})}">`);
     }
     result += `
       </div>

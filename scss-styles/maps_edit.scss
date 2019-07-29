@@ -59,39 +59,27 @@
   left: 0;
   overflow: scroll;
   #search-results-container {
-    .result {
+    .search-result {
+      z-index: 100;
       margin: 2%;
       border: 1px solid black;
       overflow: unset;
       height: 85%;
       display: block;
+      .search-result-img {
+        background-size: 80px, 90px;
+      }
     }
   }
 }
 
-.result {
-  .result-img {
-    background-size: 80px, 90px;
-  }
-}
-
-.result:hover {
+.search-result:hover {
   cursor: pointer;
 }
 
 #pin-container {
   right: 0;
-<<<<<<< HEAD
   height: 60%;
-=======
-
-  .form-row {
-    padding: 2vh 2%;
-    margin: 2vh 0;
-    border: solid 2px $primary-color;
-  }
-
->>>>>>> a235839407f8c113c31ed084389bf78e01f025f8
 }
 
 #pin-create-form {
