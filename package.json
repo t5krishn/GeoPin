@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
-    "resetdb": "node bin/resetdb.js"
+    "resetdb": "node bin/resetdb.js",
+    "sass": "sass scss-styles/:public/styles/"
   },
   "author": "Lighthouse Labs",
   "license": "ISC",
