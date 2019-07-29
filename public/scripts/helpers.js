@@ -7,3 +7,4 @@ const getMapIDFromURL = (url) => {
   }
   return null;
 };
+

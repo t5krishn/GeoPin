@@ -3,6 +3,7 @@
 let map;
 let infowindow;
 let service;
+let allMarkers = [];
 
 function placeSearchInit() {
     let toronto = new google.maps.LatLng(43.653225, -79.383186);
@@ -37,19 +38,24 @@ function placeSearchInit() {
   $("#search-map-btn").on("click", () => {
     const input = $("#search-map-input").val();
     $("#search-map-input").val("");
-    console.log(input);
     searchMap(input);
   })
 
-  function searchMap(input, mapCity) {
+  // function takes a query and returns the results and sets markers on map
+  function searchMap(input) {
     let service = new google.maps.places.PlacesService(map);
-    // Clear current results:
+
+    // Clear current results & markers:
     $("#search-results-container").html("");
+    removeAllMarkers();
 
     service.textSearch({
       // pass in input from user + city (map_id)
-      query: input },
+      query: input,
+      location: map.getCenter()
+     },
       function(results, status) {
+        console.log("center", map.getCenter());
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < results.length; i++) {
                 console.log(results[i]);
@@ -107,13 +113,21 @@ function placeSearchInit() {
   }
 
   function createMarker(place) {
-    var marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
       map: map,
       position: place.geometry.location
     });
+
+    allMarkers.push(marker);
 
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.setContent(place.name);
       infowindow.open(map, this);
     });
+  }
+
+  function removeAllMarkers() {
+    for (let i = 0; i < allMarkers.length; i ++) {
+      allMarkers[i].setMap(null);
+    }
   }
