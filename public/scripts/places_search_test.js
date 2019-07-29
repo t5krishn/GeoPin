@@ -15,12 +15,12 @@ function placeSearchInit() {
         console.log(event.latLng.lat(), event.latLng.lng());
     });
 
-    let request = {
-      query: 'sushi',
-      fields: ['name', 'place_id', 'types', 'geometry']
-    };
-
     let service = new google.maps.places.PlacesService(map);
+
+    // let request = {
+    //   query: 'sushi',
+    //   fields: ['name', 'place_id', 'types', 'geometry']
+    // };
 
     // service.findPlaceFromQuery(request, function(results, status) {
     //   if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -34,7 +34,8 @@ function placeSearchInit() {
     // });
 
     service.textSearch({
-        query: '28 Florence Street'},
+      // pass in input from user + city (map_id)
+        query: 'Sushi in toronto'},
         function(results, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 for (var i = 0; i < results.length; i++) {
@@ -83,9 +84,11 @@ function placeSearchInit() {
     }
     // For places that don't have a photo
     if (place.photos) {
-      result += `<img src="${place.photos[0].getUrl({"maxWidth": 100, "maxHeight": 100})}">`
+      $("#search-results-container").append(`<img class="result-img" src="${place.photos[0].getUrl({"maxWidth": 100, "maxHeight": 100})}">`);
     }
-    result += `</div>`;
+    result += `
+      </div>
+    `;
     $("#search-results-container").append(result);
   }
 
