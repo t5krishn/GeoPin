@@ -6,8 +6,12 @@ const updateMap = function (pool, map_id, mapParams) {
 
     const query = `
         UPDATE maps
-        SET title= COALESCE($2, title), subject=COALESCE($3, subject), description=COALESCE($4, description), city=COALESCE($5, city)
+        SET title= COALESCE($2, title), 
+            subject=COALESCE($3, subject), 
+            description=COALESCE($4, description), 
+            city=COALESCE($5, city)
         WHERE maps.id = $1
+        RETURNING *;
     `;
     
     return pool.query(query, [map_id, ...mapParams  /* title, subject, description, city */])
