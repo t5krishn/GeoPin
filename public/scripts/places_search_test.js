@@ -7,7 +7,7 @@ let allMarkers = [];
 
 function placeSearchInit() {
 
-    
+
 
     let toronto = new google.maps.LatLng(43.653225, -79.383186);
 
@@ -143,12 +143,12 @@ function initMap(){
   setTimeout(
   function initMap2(){
     let toronto = new google.maps.LatLng(43.653225, -79.383186);
-    let map = new google.maps.Map(document.getElementById('map'), {center: toronto, zoom: 14});
+    map = new google.maps.Map(document.getElementById('map'), {center: toronto, zoom: 14});
     let service = new google.maps.places.PlacesService(map);
 
     const city = document.querySelector('#map').dataset.city;
 
-    
+
     let request = {
       query: city,
       fields: ['name', 'place_id', 'types', 'geometry']
@@ -156,7 +156,7 @@ function initMap(){
 
     service.findPlaceFromQuery(request, function(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        
+
         map.setCenter(results[0].geometry.location);
         console.log(results);
       }
@@ -165,4 +165,3 @@ function initMap(){
   }, 1000);
 }
 
-  
