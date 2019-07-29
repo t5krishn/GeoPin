@@ -53,6 +53,7 @@ app.use("/maps", pinsRoutes(pool, db));
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
   res.render("index");
+  // res.render("maps_edit");
 });
 
 app.listen(PORT, () => {
