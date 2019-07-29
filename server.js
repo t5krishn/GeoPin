@@ -43,7 +43,7 @@ const db = require("./db/queries/queryExporter")
 // // Note: Feel free to replace the example routes below with your own
 app.use("/users", usersRoutes(pool, db));
 app.use("/maps", mapsRoutes(pool, db));
-app.use("/pins", pinsRoutes(pool, db));
+app.use("/maps", pinsRoutes(pool, db));
 
 // // Note: mount other resources here, using the same pattern above
 

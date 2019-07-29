@@ -15,7 +15,7 @@ module.exports = (pool, db) => {
   // Homepage browses random maps from map database
   router.get("/", (req, res) => {
 
-    db.getAllMaps(pool, 10)
+    db.getAllMaps(pool)
     .then(maps => {
       if (maps) {
         res.json(maps);
@@ -29,21 +29,6 @@ module.exports = (pool, db) => {
         .status(500)
         .json({ error: err.message });
     });
-
-    // let query = `SELECT * FROM maps`;
-    // pool.query(query)
-    //   .then(res => {
-    //     if (res.rows) {
-    //       return res.rows[0];
-    //     } else {
-    //       return null;
-    //     }
-    //   })
-    //   .catch(err => {
-    //     res
-    //       .status(500)
-    //       .json({ error: err.message });
-    //   });
   });
 
   // Localhost:8080/create
