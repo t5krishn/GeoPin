@@ -4,6 +4,7 @@ const getAllMaps = function (pool, limit = 10) {
         SELECT *
         FROM maps
         WHERE maps.deleted = FALSE
+        ORDER BY maps.id DESC
         LIMIT $1;
     `;
     return pool.query(query, [limit])
