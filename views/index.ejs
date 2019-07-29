@@ -12,7 +12,6 @@
     <!-- External Style and Scripts -->
     <%include ./partials/_external_tags.ejs%>
 
-    <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
@@ -25,12 +24,17 @@
       <h2>There's a map for everything</h2>
       <button type="button" onclick="smoothScrollToLink()" id="browse-button" title="Go to browse section " class="btn btn-primary">Browse</button>
       <a href="/maps/create" class="btn btn-primary">Create New</a>
-    </div>
+    </div> <!-- hero -->
 
     <main id="main-content">
-      <div class="wrapper">
-
-      </div> <!-- wrapper -->
+      <section id="all-maps">
+        <div id="browse-map-wrapper" class="wrapper">
+        </div> <!-- wrapper -->
+      </section> <!-- all maps -->
     </main>
+    <!-- Components -->
+    <script type="text/javascript" src="/scripts/components/all_maps.js"></script>
+    <script type="text/javascript" src="/scripts/ajaxMap.js"></script>
+    <script type="text/javascript" src="/scripts/index.js"></script>
   </body>
 </html>
