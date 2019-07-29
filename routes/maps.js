@@ -83,6 +83,6 @@ module.exports = (pool, db) => {
 
 // Map delete for id
 router.delete("/:mapid/delete", (req, res) => {
-  ;
+  // db.deleteMap(pool, req.params.mapid)
   res.redirect(`/urls`);
 });
