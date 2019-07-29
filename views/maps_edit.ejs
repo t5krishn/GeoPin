@@ -21,13 +21,19 @@
     <!-- to add: skiplink -->
     <%include ./partials/_nav.ejs%>
     <main>
-      <div id="map-container">
+      <div id="map-container" class="map-container">
 
         <div id="search-container" class="edit-container">
-          <h2>Your Places</h2>
+
+          <div>
+            <textarea id="search-map-input" class="form-input" name="searchInput" placeholder="Search map"></textarea>
+            <button id="search-map-btn" class="btn btn-primary" type="submit">Search</button>
+          </div>
+
+          <h2>Search Results</h2>
 
           <!-- Placeholder demo of create/edit pin form -->
-          <form id="pin-create-form" action="/maps/:map_id/pins/:pin_id/create" method="POST">
+          <!-- <form id="pin-create-form" action="/maps/:map_id/pins/:pin_id/create" method="POST">
             <div class="form-row">
               <label for="pin-label">Label:</label>
               <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>
@@ -41,7 +47,12 @@
               <textarea class="form-input" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..."></textarea>
             </div>
             <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
-          </form>
+          </form> -->
+
+        <div id="search-results-container">
+
+        </div>
+
         </div> <!-- search-container -->
 
         <div id="map">
@@ -52,17 +63,22 @@
           <div id="all-pins">
           </div> <!-- all-pins -->
         </div> <!-- pin-container -->
-        <!--  -->
+
+
+
       </div>
     </main>
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
-    <script src="/scripts/init_map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwTwnh2Y7IqPIcltHVnlKMyBPI8pF5UcY&callback=initMap" async defer></script>
 
     <!-- Helpers -->
     <script type="text/javascript" src="/scripts/helpers.js"></script>
+
+    <!-- <script src="/scripts/init_map.js"></script> -->
+    <script src="/scripts/places_search_test.js"></script>
+    <!-- NEW SCRIPT THAT INCLUDES PLACES LIBRARY -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwTwnh2Y7IqPIcltHVnlKMyBPI8pF5UcY&libraries=places&callback=placeSearchInit" async defer></script>
 
     <!-- Components -->
     <script type="text/javascript" src="/scripts/components/all_pins.js"></script>
