@@ -81,7 +81,17 @@
 
 #pin-container {
   right: 0;
+<<<<<<< HEAD
   height: 60%;
+=======
+
+  .form-row {
+    padding: 2vh 2%;
+    margin: 2vh 0;
+    border: solid 2px $primary-color;
+  }
+
+>>>>>>> a235839407f8c113c31ed084389bf78e01f025f8
 }
 
 #pin-create-form {
@@ -97,7 +107,10 @@
     border: none;
     border-radius: 5px;
   }
+
 }
+
+
 
 #create-pin-btn {
   background-color: $primary-color;

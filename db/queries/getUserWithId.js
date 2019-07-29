@@ -3,8 +3,8 @@ const getUserWithId = function (pool, user_id) {
     const query = `
         SELECT *
         FROM users
-        WHERE users.id = $1
-    `;
+        WHERE users.deleted = FALSE AND users.id = $1
+    ;`;
 
     return pool.query(query, [user_id])
         .then(res => {

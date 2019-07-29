@@ -9,13 +9,34 @@ const express = require('express');
 const router  = express.Router();
 const methodOverride = require("method-override");
 
-module.exports = (pool) => {
+module.exports = (pool, db) => {
 
   router.use(methodOverride("_method"));
 
+  // Get route used in AJAX to get all pins
+  router.get("/:mapid/pins/", (req, res) => {
+
+    const mapID = req.params.mapid;
+
+    db.getAllPinsForMap(pool, mapID)
+    .then(pins => {
+      if (pins) {
+        res.json(pins);
+      } else {
+        // NOTE Need to create error message box in html to display that data wasn't found
+
+      }
+    })
+    .catch(err => {
+      response
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
+
   // Add new pin btn is clicked map editing page
   // Pin creation happens after user clicks on button #pin-submit
-  router.post("/maps/:mapid/pins", (req, res) => {
+  router.post("/:mapid/pins", (req, res) => {
     let query = `
       INSERT INTO pins (map_id, label, address, description)
       VALUES ($1, $2, $3, $4)
@@ -45,7 +66,7 @@ module.exports = (pool) => {
   // Edit pin btn has id of "edit-pin-btn"
 
   // When edit btn is clicked, get request is sent to aquire pin information based on pin_id
-  router.get("/maps/:mapid/pins/:pinid/edit", (res, req) => {
+  router.get("/:mapid/pins/:pinid/edit", (res, req) => {
     const pinid = req.params.pinid;
     const query = `
       SELECT * FROM pins
@@ -69,7 +90,7 @@ module.exports = (pool) => {
   });
 
   // PUT is called when edit form submit button is clicked
-  router.put("/maps/:mapid/pins/:pinid/edit", (res, req) => {
+  router.put("/:mapid/pins/:pinid/edit", (res, req) => {
     const query = `UPDATE pins`;
     const queryParams = [];
     const body = req.body;
@@ -77,7 +98,7 @@ module.exports = (pool) => {
   });
 
   // Delete pin btn is clicked, send a delete request
-  router.delete("/maps/:mapid/pins/:pinid/delete", (res, req) => {
+  router.delete("/:mapid/pins/:pinid/delete", (res, req) => {
     const query = ``;
     const pinid = req.params.pinid;
 

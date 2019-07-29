@@ -4,8 +4,10 @@ const getAllPinsForMap = function (pool, map_id) {
         SELECT *
         FROM pins
         JOIN maps ON maps.id = pins.map_id
-            AND maps.id = $1;
-        `;
+            AND maps.id = $1
+        WHERE pins.deleted = FALSE 
+            AND maps.deleted = FALSE
+        ;`;
     return pool.query(query, [map_id])
         .then(res => {
             if (res.rows) {

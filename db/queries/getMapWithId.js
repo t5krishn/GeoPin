@@ -1,12 +1,12 @@
-const getMapWithId = function (pool, mapId) {
+const getMapWithId = function (pool, map_id) {
     
     const query = `
         SELECT *
         FROM maps
-        WHERE maps.id = $1
-    `;
+        WHERE maps.deleted = FALSE AND maps.id = $1
+    ;`;
 
-    return pool.query(query, [mapId])
+    return pool.query(query, [map_id])
         .then(res => {
             if (res.rows) {
                 return res.rows[0];
