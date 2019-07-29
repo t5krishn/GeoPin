@@ -1,4 +1,6 @@
 // mapParams should be an array
+// --> title, subject, description, city, owner_id
+// --> SHOULD BE IN ORDER
 
 const addMap = function (pool, mapParams) {
     const query = `
@@ -10,7 +12,7 @@ const addMap = function (pool, mapParams) {
     return pool.query(query, mapParams)
         .then(res => {
             if (res.rows) {
-                return res.rows;
+                return res.rows[0];
             } else {
                 return null;
             }
