@@ -51,7 +51,7 @@ module.exports = (pool, db) => {
       console.log(map[0].id);
       if (map) {
         // FIX THIS so that it renders the edit page for the new map id
-        res.redirect(`/maps/${map[0].id}/edit/`)
+        res.redirect(`/maps/${map.id}/edit/`)
       } else {
         console.log("error");
         return null;
