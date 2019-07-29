@@ -48,7 +48,6 @@ module.exports = (pool, db) => {
     // NEED TO USE COOKIES TO INSERT owner_id INTO DB
     db.addMap(pool, queryParams)
     .then(map => {
-      console.log(map.id);
       if (map) {
         // FIX THIS so that it renders the edit page for the new map id
         res.redirect(`/maps/${map.id}/edit/`)
@@ -74,15 +73,28 @@ module.exports = (pool, db) => {
     res.render("maps_edit", templateVars);
   });
 
+  // TO MAKE - Map edit route
+
+  // Map get for view map
+
+  // Map delete for id
+  router.delete("/:mapid/delete", (req, res) => {
+    db.deleteMap(pool, req.params.mapid)
+    .then(map => {
+      if (map) {
+        res.redirect(`/`)
+      } else {
+        res.statusCode = 404;
+        res.redirect(`/`);
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
+
   return router;
 };
 
-// TO MAKE - Map edit route
-
-// Map get for view map
-
-// Map delete for id
-// router.delete("/:mapid/delete", (req, res) => {
-//   // db.deleteMap(pool, req.params.mapid)
-//   res.redirect(`/urls`);
-// });
