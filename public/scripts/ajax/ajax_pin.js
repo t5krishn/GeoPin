@@ -2,17 +2,13 @@
 
 // Ajax get request for get all maps route
 // calls render maps function upon completion of promise
-const ajaxGetAllPins = (elementID) => {
-  $.ajax('/pins', { method: 'GET' })
+const ajaxGetAllPins = (elementID, mapID) => {
+  $.ajax(`/maps/${mapID}/pins`, { method: 'GET' })
   .done(function(pins) {
-    console.log(pins);
     if (pins) {
-      addPinsToContainer(pins, elementID);
+      console.log(pins);
+      addPinsToContainer(pins, elementID, mapID);
     }
-  })
-  .fail(function(error) {
-    console.log("oops");
-    console.log(error);
   });
 };
 
