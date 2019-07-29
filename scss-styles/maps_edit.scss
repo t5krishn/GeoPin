@@ -6,6 +6,7 @@
 #map-container {
   margin-top: 10vh;
   height: 90vh;
+  max-height: 90vh;
   width: 100%;
   position: relative;
 
@@ -15,10 +16,10 @@
 
 .edit-container {
   position: absolute;
-  height: 450px / 750px * 100%;
+  height: 85%;
   max-width: 325px;
   width: 200px / 715px * 100%;
-  top: 15%;
+  top: 10%;
   background-color: $secondary-color;
   border: solid 2px $primary-color;
   z-index: 100;
@@ -58,17 +59,29 @@
 
 #search-container {
   left: 0;
+  overflow: scroll;
+  #search-results-container {
+    .search-result {
+      z-index: 100;
+      margin: 2%;
+      border: 1px solid black;
+      overflow: unset;
+      height: 85%;
+      display: block;
+      .search-result-img {
+        background-size: 80px, 90px;
+      }
+    }
+  }
+}
+
+.search-result:hover {
+  cursor: pointer;
 }
 
 #pin-container {
   right: 0;
-
-  .form-row {
-    padding: 2vh 2%;
-    margin: 2vh 0;
-    border: solid 2px $primary-color;
-  }
-
+  height: 60%;
 }
 
 #pin-create-form {

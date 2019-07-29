@@ -1,5 +1,5 @@
 const getMapWithId = function (pool, map_id) {
-    
+
     const query = `
         SELECT *
         FROM maps
