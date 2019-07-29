@@ -15,20 +15,14 @@ module.exports = (pool, db) => {
   // Homepage browses random maps from map database
   router.get("/", (req, res) => {
 
-    const params = req.body;
-    const queryParams = [params.title, params.subject, params.description, params.city, params.owner_id];
-
-    // NEED TO USE COOKIES TO INSERT owner_id INTO DB
     db.getAllMaps(pool, 10)
     .then(maps => {
-      console.log(maps);
-      // if (map) {
-      //   // FIX THIS so that it renders the edit page for the new map id
-      //   res.redirect(`/maps/${map[0].id}/edit/`)
-      // } else {
-      //   console.log("error");
-      //   return null;
-      // }
+      if (maps) {
+        res.json(maps);
+      } else {
+        // NOTE Need to create error message box in html to display that data wasn't found
+        res.status(404).json({error: "There's a problem on our end. Maps were not able to load. Please refresh and try again, sorry!"});
+      }
     })
     .catch(err => {
       response
