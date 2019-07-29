@@ -23,6 +23,10 @@ $(() => {
     }
   }
 
+  function getAllMaps() {
+
+  }
+
   $allMaps.append(mapsToRender);
 
 });

@@ -11,22 +11,45 @@ const router  = express.Router();
 module.exports = (pool, db) => {
 
   // Localhost:8080/
+  // Note - Do we need timestamps for created at on maps?
   // Homepage browses random maps from map database
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM maps`;
-    pool.query(query)
-      .then(res => {
-        if (res.rows) {
-          return res.rows[0];
-        } else {
-          return null;
-        }
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+
+    const params = req.body;
+    const queryParams = [params.title, params.subject, params.description, params.city, params.owner_id];
+
+    // NEED TO USE COOKIES TO INSERT owner_id INTO DB
+    db.getAllMaps(pool, 10)
+    .then(maps => {
+      console.log(maps);
+      // if (map) {
+      //   // FIX THIS so that it renders the edit page for the new map id
+      //   res.redirect(`/maps/${map[0].id}/edit/`)
+      // } else {
+      //   console.log("error");
+      //   return null;
+      // }
+    })
+    .catch(err => {
+      response
+        .status(500)
+        .json({ error: err.message });
+    });
+
+    // let query = `SELECT * FROM maps`;
+    // pool.query(query)
+    //   .then(res => {
+    //     if (res.rows) {
+    //       return res.rows[0];
+    //     } else {
+    //       return null;
+    //     }
+    //   })
+    //   .catch(err => {
+    //     res
+    //       .status(500)
+    //       .json({ error: err.message });
+    //   });
   });
 
   // Localhost:8080/create

@@ -1,11 +1,11 @@
-const getAllMaps = function (pool) {
+const getAllMaps = function (pool, limit) {
 
     const query = `
         SELECT *
         FROM maps
-        LIMIT 10
+        LIMIT $1
     `;
-    return pool.query(query, [])
+    return pool.query(query, [limit])
         .then(res => {
             if (res.rows) {
                 return res.rows;
