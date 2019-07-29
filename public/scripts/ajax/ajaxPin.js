@@ -1,4 +1,18 @@
-// File contains functions for any and all pins
+// File contains ajax functions for any and all pins
+
+// Ajax get request for get all maps route
+// calls render maps function upon completion of promise
+const ajaxGetAllPins = () => {
+  $.ajax('/pinss', { method: 'GET' })
+  .done(function(pins) {
+    addPinsToContainer(pins, "#pin-container");
+  })
+  .fail(function(error) {
+    console.log("oops");
+    console.log(error);
+  });
+};
+
 
 // Ajax for creating pin (adding to pin sidebar)
 $("#pin-submit").on("submit", () => {
@@ -31,8 +45,9 @@ $("#edit-pin-btn").on("click", () => {
 })
 
 
-/* ************** FUNCTIONS WE NEED TO CREATE ******************** */
 
-// loadPins() function refreshes side bar and requires map_id param it uses a loop that calls on createPin() function, appends
+
+/* ************** FUNCTIONS WE NEED TO CREATE ******************** */
 // createPin() function creates div element which has pin information and an edit, and delete pin
+// loadPins() function refreshes side bar and requires map_id param it uses a loop that calls on createPin() function, appends
 // createInfoWindow() function takes an argument, if null creates a create form for that marker
