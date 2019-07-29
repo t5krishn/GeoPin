@@ -3,7 +3,7 @@ const decrementPinCountWithMapId = function (pool, map_id) {
     const query = `
         UPDATE maps
         SET pin_count = (pin_count - 1)
-        WHERE maps.id = $1
+        WHERE maps.deleted = FALSE AND maps.id = $1
         RETURNING *;
     `;
 

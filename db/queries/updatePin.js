@@ -11,7 +11,7 @@ const updatePin = function (pool, pin_id, pinParams) {
             longitude=COALESCE($4, longitude), 
             latitude=COALESCE($5, latitude),  
             pin_thumbnail_url=COALESCE($6, pin_thumbnail_url)
-        WHERE pins.id = $1
+        WHERE pins.deleted = FALSE AND pins.id = $1
         RETURNING *;
     `;
 

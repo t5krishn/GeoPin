@@ -2,8 +2,8 @@ const getUserWithName = function (pool, user_name) {
     const query = `
         SELECT *
         FROM users
-        WHERE users.name LIKE = '%$1%'
-    `;
+        WHERE users.deleted = FALSE AND users.name LIKE = '%$1%'
+    ;`;
     return pool.query(query, [user_name])
         .then(res => {
             if (res.rows) {
