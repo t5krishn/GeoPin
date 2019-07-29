@@ -49,15 +49,15 @@ module.exports = (pool, db) => {
     db.addMap(pool, queryParams)
     .then(map => {
       if (map) {
-        // FIX THIS so that it renders the edit page for the new map id
         res.redirect(`/maps/${map.id}/edit/`)
       } else {
-        console.log("error");
-        return null;
+        res
+        .status(404)
+        .json({ error: err.message });
       }
     })
     .catch(err => {
-      response
+      res
         .status(500)
         .json({ error: err.message });
     });
@@ -65,12 +65,29 @@ module.exports = (pool, db) => {
 
   // After submitting the form, the server gets a GET request and renders the map editing page:
   router.get("/:mapid/edit", (req, res) => {
-    // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
-    let templateVars = {
-      map_id: req.params.mapid
-    };
 
-    res.render("maps_edit", templateVars);
+    const mapID = req.params.mapid;
+
+    // Check that map has not been deleted and exists
+    db.getMapWithId(pool, mapID)
+    .then(map => {
+      if (map) {
+        // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
+        let templateVars = {
+          map_id: mapID
+        };
+
+        res.render("maps_edit", templateVars);
+      } else {
+        res.statusCode = 404;
+        res.redirect(`/`);
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
   });
 
   // TO MAKE - Map edit route
