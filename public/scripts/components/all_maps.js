@@ -1,32 +1,42 @@
-$(() => {
-  // Add html for single map container element
+// Add html for single map container element
+const createMapHTML = (map, allMapsHTML) => {
+  return ` <a href="/maps/${map.id}/edit" class="single-map">
+      <div class="map-thumbnail map-container">
+        <div class="hover-read">
+          <div class="map-header">
+            <h4>21 Pins</h4>
+          </div> <!-- map-header -->
+          <div class="map-description">
+            <p>${map.description.substring(0, 50)}</p>
+          </div> <!-- map-description -->
+          <div class="map-footer">
+            <span class="socials">
+              <i class="fas fa-heart"></i>
+              <i class="fas fa-flag"></i>
+              <i class="fas fa-retweet"></i>
+            </span> <!-- socials -->
+          </div> <!-- map-footer -->
+        </div> <!-- hover-read -->
+      </div> <!-- map-thumbnail -->
+      <h4>kendy1234 - ${map.title}</h4>
+    </a> <!-- single map -->
+  `
+};
 
+// Clear all HTML from given elementID
+const clearMaps = (elementID) => {
+  $(elementID).empty();
+};
 
-  // Functions for appending/removing and adding elements from page
-  const $allMaps = $("#browse-map-wrapper")
-
-  let mapsToRender = ``;
-
-  function addMap(map) {
-    $allMaps.append(map);
+// Loop through array of map objects and call create HTML funciton for each
+// When done, append the entire HTML of all Maps to given element
+const addMapsToContainer = (maps, elementID) => {
+  let allMapsHTML = ``;
+  clearMaps();
+  for (const map of maps) {
+    allMapsHTML += createMapHTML(map, allMapsHTML);
   }
-  function clearMaps() {
-    $allMaps.empty();
-  }
-
-  function addMaps(maps, isReservation = false) {
-    clearMaps();
-    for (const mapID in maps) {
-      const map = maps[mapID];
-      const listing = createMap(map, isReservation);
-      addMap(listing);
-    }
-  }
-
-  function getAllMaps() {
-
-  }
-
-  $allMaps.append(mapsToRender);
-
-});
+  console.log('element; ', elementID);
+  console.log(allMapsHTML);
+  $(elementID).append(allMapsHTML);
+};

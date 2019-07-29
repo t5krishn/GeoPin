@@ -3,9 +3,10 @@
 const ajaxGetAllMaps = () => {
   $.ajax('/maps', { method: 'GET' })
   .done(function(maps) {
-    renderMaps(maps);
+    addMapsToContainer(maps, "#browse-map-wrapper");
   })
   .fail(function(error) {
+    console.log("oops");
     console.log(error);
   });
 };
