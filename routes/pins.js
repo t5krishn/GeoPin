@@ -22,9 +22,6 @@ module.exports = (pool, db) => {
     .then(pins => {
       if (pins) {
         res.json(pins);
-      } else {
-        // NOTE Need to create error message box in html to display that data wasn't found
-
       }
     })
     .catch(err => {
@@ -37,21 +34,19 @@ module.exports = (pool, db) => {
   // Add new pin btn is clicked map editing page
   // Pin creation happens after user clicks on button #pin-submit
   router.post("/:mapid/pins", (req, res) => {
-    let query = `
-      INSERT INTO pins (map_id, label, address, description)
-      VALUES ($1, $2, $3, $4)
-      RETURNING *
-    `;
-    const body = req.body;
-    const mapid = req.params.mapid;
-    const queryParams = [mapid, body.label, body.address, body.description];
-    pool.query(query, queryParams)
-    .then(res => {
-      const pin = res.rows;
+
+    const params = req.body;
+    const mapID = req.params.mapid;
+    // To test, will need to create ajax query that can pass longitude and other map data through req
+    const pinParams = [params.label, params.description, params.longitude, params.latitude, params.pin_thumbnail_url, mapID];
+    pdb.addPin(pool, pinParams)
+    .then(pin => {
       if (pin) {
-        return pin;
+        res.json(pin);
       } else {
-        return null;
+        res
+        .status(404)
+        .json({ error: err.message });
       }
     })
     .catch(err => {
