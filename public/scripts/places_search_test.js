@@ -15,8 +15,6 @@ function placeSearchInit() {
         console.log(event.latLng.lat(), event.latLng.lng());
     });
 
-    let service = new google.maps.places.PlacesService(map);
-
     // let request = {
     //   query: 'sushi',
     //   fields: ['name', 'place_id', 'types', 'geometry']
@@ -33,20 +31,35 @@ function placeSearchInit() {
     //   }
     // });
 
+  }
+
+  // Listens for user to submit a query
+  $("#search-map-btn").on("click", () => {
+    const input = $("#search-map-input").val();
+    $("#search-map-input").val("");
+    console.log(input);
+    searchMap(input);
+  })
+
+  function searchMap(input, mapCity) {
+    let service = new google.maps.places.PlacesService(map);
+    // Clear current results:
+    $("#search-results-container").html("");
+
     service.textSearch({
       // pass in input from user + city (map_id)
-        query: 'Sushi in toronto'},
-        function(results, status) {
-            if (status === google.maps.places.PlacesServiceStatus.OK) {
-                for (var i = 0; i < results.length; i++) {
-                    console.log(results[i]);
-                    appendResults(results[i]);
-                    createMarker(results[i]);
-                }
-                map.setCenter(results[0].geometry.location);
-                console.log(results.length);
+      query: input },
+      function(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+                console.log(results[i]);
+                appendResults(results[i]);
+                createMarker(results[i]);
             }
-        });
+            map.setCenter(results[0].geometry.location);
+            console.log(results.length);
+        }
+    });
   }
 
   function snakeToString(array) {
@@ -72,15 +85,16 @@ function placeSearchInit() {
   }
 
   function appendResults(place) {
+
     let result = `
     <div class="result">
-      <h4>Name: ${place.name}</h4>
-      <h4>Address: ${place.formatted_address}</h4>
-      <h4>Type: ${snakeToString(place.types)}</h4>
+      <h6>Name: ${place.name}</h6>
+      <h6>Address: ${place.formatted_address}</h6>
+      <h6>Type: ${snakeToString(place.types)}</h6>
     `;
     // For places that don't have a rating
     if (place.rating) {
-      result += `<h4>Rating: ${place.rating}</h4>`;
+      result += `<h6>Rating: ${place.rating}</h6>`;
     }
     // For places that don't have a photo
     if (place.photos) {
