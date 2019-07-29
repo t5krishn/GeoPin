@@ -4,8 +4,8 @@ const addMap = function (pool, mapParams) {
     const query = `
       INSERT INTO maps (title, subject, description, city, owner_id)
       VALUES ($1, $2, $3, $4, $5)
-      RETURNING *;
-    `;
+      RETURNING *
+    ;`;
 
     return pool.query(query, mapParams)
         .then(res => {
