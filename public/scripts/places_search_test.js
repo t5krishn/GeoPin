@@ -5,8 +5,9 @@ let infowindow;
 let service;
 let allMarkers = [];
 
-function placeSearchInit() {
+function placeSearchInit(arr) {
     let toronto = new google.maps.LatLng(43.653225, -79.383186);
+    // let toronto = new google.maps.LatLng(arr[0], arr[1]);
 
     infowindow = new google.maps.InfoWindow();
 
@@ -57,17 +58,22 @@ function placeSearchInit() {
       function(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < 20; i++) {
-                console.log(results[i].geometry.location);
+                console.log(results[i]);
                 appendResults(results[i]);
                 createMarker(results[i]);
             }
             map.setCenter(results[0].geometry.location);
         }
         // When a search result is clicked, the map should center to that marker
-        $(".search-result").bind("click", () => {
-          const latlong = $(this).data();
-          console.log("MY LAT LONG IS :", latlong);
+        $(".search-result").bind("click", (event) => {
+          const lat = $(event.target).parent()[0].dataset.lat;
+          const lng = $(event.target).parent()[0].dataset.lng;
+          const center = new google.maps.LatLng(lat, lng);
+          map.setCenter(center);
+          map.setZoom(18);
+          console.log(lat, lng);
         })
+
     });
   }
 
@@ -97,7 +103,7 @@ function placeSearchInit() {
 
     // latitude and longitude are stored as data attribute in the div container
     let result = `
-    <div class="search-result" data="${place.geometry.location} onClick="centerResult()">
+    <div class="search-result" data-lat="${place.geometry.location.lat()}" data-lng= "${place.geometry.location.lng()}">
       <h6>Name: ${place.name}</h6>
       <h6>Address: ${place.formatted_address}</h6>
       <h6>Type: ${snakeToString(place.types)}</h6>
