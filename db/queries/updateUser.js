@@ -6,9 +6,9 @@ const updateUser = function (pool, user_id, userParams) {
 
     const query = `
         UPDATE users
-        SET username= COALESCE($2, username), 
-            password=COALESCE($3, password), 
-        WHERE maps.id = $1
+        SET users.username= COALESCE($2, username), 
+            users.password=COALESCE($3, password), 
+        WHERE users.deleted = FALSE AND users.id = $1
         RETURNING *;
     `;
 

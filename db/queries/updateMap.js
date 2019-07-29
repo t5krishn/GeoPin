@@ -10,7 +10,7 @@ const updateMap = function (pool, map_id, mapParams) {
             subject=COALESCE($3, subject), 
             description=COALESCE($4, description), 
             city=COALESCE($5, city)
-        WHERE maps.id = $1
+        WHERE maps.deleted = FALSE AND maps.id = $1
         RETURNING *;
     `;
     

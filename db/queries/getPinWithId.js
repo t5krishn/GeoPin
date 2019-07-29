@@ -2,8 +2,8 @@ const getPinWithId = function (pool, pin_id) {
     const query = `
         SELECT *
         FROM pins
-        WHERE pins.id = $1
-    `;
+        WHERE pins.deleted = FALSE AND pins.id = $1
+    ;`;
 
     return pool.query(query, [pin_id])
         .then(res => {
