@@ -1,9 +1,11 @@
-const getAllMaps = function (pool, limit) {
+const getAllMaps = function (pool, limit = 10) {
 
     const query = `
         SELECT *
         FROM maps
-        LIMIT $1
+        WHERE maps.deleted = FALSE
+        ORDER BY maps.id DESC
+        LIMIT $1;
     `;
     return pool.query(query, [limit])
         .then(res => {
