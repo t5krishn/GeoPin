@@ -91,11 +91,33 @@ module.exports = (pool, db) => {
   });
 
   // TO MAKE - Map edit route
+  router.put("/:mapid/edit", (req, res) => {
+    const params = req.body;
+    const mapParams = [req.params.mapid, params.title, params.subject, params.description, params.city];
+
+    // NEED TO USE COOKIES TO INSERT owner_id INTO DB
+    db.updateMap(pool, mapID, mapParams)
+    .then(map => {
+      if (map) {
+        res.redirect(`/maps/${map.id}/edit/`)
+      } else {
+        res
+        .status(404)
+        .json({ error: err.message });
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
 
   // Map get for view map
 
   // Map delete for id
   router.delete("/:mapid/delete", (req, res) => {
+    // Do we need to check functionality if map already deleted?
     db.deleteMap(pool, req.params.mapid)
     .then(map => {
       if (map) {
