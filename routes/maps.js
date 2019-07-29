@@ -76,3 +76,13 @@ module.exports = (pool, db) => {
 
   return router;
 };
+
+// TO MAKE - Map edit route
+
+// Map get for view map
+
+// Map delete for id
+router.delete("/:mapid/delete", (req, res) => {
+  ;
+  res.redirect(`/urls`);
+});
