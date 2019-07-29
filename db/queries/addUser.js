@@ -1,7 +1,7 @@
 // userParams should be an array
 const addUser = function (pool, userParams) {
     const query = `
-        INSERT INTO users (name, password)
+        INSERT INTO users (username, password)
         VALUES ($1, $2)
         RETURNING *;
     `;
