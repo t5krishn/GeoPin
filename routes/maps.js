@@ -11,22 +11,24 @@ const router  = express.Router();
 module.exports = (pool, db) => {
 
   // Localhost:8080/
+  // Note - Do we need timestamps for created at on maps?
   // Homepage browses random maps from map database
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM maps`;
-    pool.query(query)
-      .then(res => {
-        if (res.rows) {
-          return res.rows[0];
-        } else {
-          return null;
-        }
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+
+    db.getAllMaps(pool)
+    .then(maps => {
+      if (maps) {
+        res.json(maps);
+      } else {
+        // NOTE Need to create error message box in html to display that data wasn't found
+        res.status(404).json({error: "There's a problem on our end. Maps were not able to load. Please refresh and try again, sorry!"});
+      }
+    })
+    .catch(err => {
+      response
+        .status(500)
+        .json({ error: err.message });
+    });
   });
 
   // Localhost:8080/create
