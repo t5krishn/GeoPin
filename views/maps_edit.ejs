@@ -49,17 +49,8 @@
 
         <div id="pin-container" class="edit-container">
           <h2>Your Pins</h2>
-          <div class="form-row">
-            <p>This is my map id: <%= map_id %></p>
-            <span>
-              <form class="edit-form" action="/users/:owner_id/maps/:map_id/pins/:pin_id/edit/?_method=PUT" method="POST">
-                <button class="edit-pin-btn pin-btn" type="button"><i class="fas fa-edit"></i></button>
-              </form>
-              <form class="delete-form" action="/users/:owner_id/maps/:map_id/pins/:pin_id/delete/?_method=DELETE" method="POST">
-                <button class="delete-pin-btn pin-btn" type="button"><i class="fas fa-minus-circle"></i></button>
-              </form>
-            </span>
-          </div> <!-- single pin row -->
+          <div id="all-pins">
+          </div> <!-- all-pins -->
         </div> <!-- pin-container -->
         <!--  -->
       </div>
@@ -69,5 +60,18 @@
     <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
     <script src="/scripts/init_map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwTwnh2Y7IqPIcltHVnlKMyBPI8pF5UcY&callback=initMap" async defer></script>
+
+    <!-- Helpers -->
+    <script type="text/javascript" src="/scripts/helpers.js"></script>
+
+    <!-- Components -->
+    <script type="text/javascript" src="/scripts/components/all_pins.js"></script>
+
+    <!-- Ajax -->
+    <script type="text/javascript" src="/scripts/ajax/ajax_pin.js"></script>
+
+    <!-- Driver -->
+    <script type="text/javascript" src="/scripts/maps_edit.js"></script>
+
   </body>
 </html>
