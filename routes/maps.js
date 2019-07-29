@@ -49,6 +49,7 @@ module.exports = (pool, db) => {
     db.addMap(pool, queryParams)
     .then(map => {
       if (map) {
+        // FIX THIS so that it renders the edit page for the new map id
         res.redirect(`/maps/${map.id}/edit/`)
       } else {
         res
@@ -74,7 +75,8 @@ module.exports = (pool, db) => {
       if (map) {
         // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
         let templateVars = {
-          map_id: mapID
+          map_id: mapID,
+          map_city: map.city
         };
 
         res.render("maps_edit", templateVars);
