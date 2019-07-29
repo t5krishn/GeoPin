@@ -8,7 +8,6 @@ CREATE TABLE pins (
   longitude FLOAT NOT NULL,
   latitude FLOAT NOT NULL,
   pin_thumbnail_url TEXT NOT NULL,
-  -- deleted flag instead of dropping user from db,
-  map_id INTEGER NOT NULL REFERENCES maps(id) ON DELETE CASCADE
-
+  deleted BOOLEAN NOT NULL DEFAULT (FALSE)
+  map_id INTEGER NOT NULL REFERENCES maps(id) ON DELETE CASCADE,
 );
