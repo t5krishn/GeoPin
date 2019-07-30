@@ -1,6 +1,6 @@
 /*
  * All routes for Maps are defined here
- * Since this file is loaded in server.js into api/maps,
+ * Since this file is loaded in server.js into /maps,
  *   these routes are mounted onto /maps
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
@@ -12,6 +12,7 @@ const methodOverride = require("method-override");
 
 module.exports = (pool, db, bcrypt) => {
 
+  // GET /maps/
   // Localhost:8080/
   // Note - Do we need timestamps for created at on maps?
   // Homepage browses random maps from map database
@@ -33,37 +34,75 @@ module.exports = (pool, db, bcrypt) => {
     });
   });
 
+  // GET /maps/create
   // Localhost:8080/create
   // Fill out a form to create a new map
   router.get("/create", (req, res) => {
-    res.render("maps_create");
+    let templateVars = {user: null};
+
+    if (req.session.user_id) {
+      db.getUserWithId(pool, req.session.user_id)
+      .then(user => {
+        if (user) {
+          // user is already present in db and cookie so redirect to map create page
+          templateVars.user = user;
+          res.render("maps_create", templateVars);
+        } else {
+          // user does not exist in db but does in cookie
+          // so render register and ask user to register/login
+          req.session.user_id = null;
+          res.render("login", templateVars);
+        }
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+    } else {
+      // user not in cookie so go log in
+      res.render("login", templateVars);
+    }
   });
 
+  // POST maps/create
   // After pressing submit, this post request is sent to the server:
   // Map id and owner_id is not submitted by user
   router.post("/create", (req, res) => {
-    // Delete owner id form after!!!!
+    // Delete owner id form after!!!! --> DONE :)
 
-    const params = req.body;
-    const queryParams = [params.title, params.subject, params.description, params.city, params.owner_id];
+    if (req.session.user_id) {
 
-    // NEED TO USE COOKIES TO INSERT owner_id INTO DB
-    db.addMap(pool, queryParams)
-    .then(map => {
-      if (map) {
-        // FIX THIS so that it renders the edit page for the new map id
-        res.redirect(`/maps/${map.id}/edit/`)
-      } else {
+      const params = req.body;
+      const queryParams = [
+        params.title,
+        params.subject,
+        params.description,
+        params.city,
+        req.session.user_id /* owner_id, same as cookie user_id */];
+
+      db.addMap(pool, queryParams)
+      .then(map => {
+        if (map) {
+          res.redirect(`/maps/${map.id}/edit/`)
+        } else {
+          // **** map did not get added to db, redirect to create map page ****
+          res
+          .status(404)
+          .json({ error: err.message });
+        }
+      })
+      .catch(err => {
+        // **** db connection did not work properly, redirect to create map page ****
         res
-        .status(404)
-        .json({ error: err.message });
-      }
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
+          .status(500)
+          .json({ error: err.message });
+      });
+    } else {
+      // user not in cookie so log in
+      res.render("login", templateVars);
+    }
+
   });
 
   // After submitting the form, the server gets a GET request and renders the map editing page:
