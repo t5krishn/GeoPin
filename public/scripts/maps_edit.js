@@ -6,13 +6,18 @@ $(() => {
 
   $("#all-pins").on("submit", ".edit-form", (event) => {
     event.preventDefault();
-    console.log("works");
+    const url = event.target.getAttribute("action");
+    ajaxGetSinglePin(url)
+    .done((pin) => {
+      console.log(pin);
+      // createPinEditForm();
+    });
   });
 
   // clearContainer($("#all-pins"));
 
   // Call get all pins function to show
-  ajaxGetAllPins("#all-pins", mapID)
+  ajaxGetAllPins(mapID)
   .done((pins) => {
     addPinsToContainer(pins, "#all-pins", mapID);
   });
