@@ -5,7 +5,7 @@ let infowindow;
 let service;
 let allMarkers = [];
 
-function placeSearchInit(arr) {
+function placeSearchInit() {
     let toronto = new google.maps.LatLng(43.653225, -79.383186);
     // let toronto = new google.maps.LatLng(arr[0], arr[1]);
 
@@ -71,73 +71,98 @@ function placeSearchInit(arr) {
           const center = new google.maps.LatLng(lat, lng);
           map.setCenter(center);
           map.setZoom(18);
-          console.log(lat, lng);
         })
 
     });
   }
 
-  function snakeToString(array) {
-    let sentence = "";
-    for (let i = 0; i < array.length; i ++) {
-      let string = "";
+function snakeToString(array) {
+  let sentence = "";
+  for (let i = 0; i < array.length; i ++) {
+    let string = "";
 
-      for (let char of array[i]) {
-        if (char === "_") {
-          string += " ";
-        } else {
-          string += char;
-        }
-      }
-
-      sentence += string;
-
-      if (i !== array.length - 1) {
-        sentence += ", ";
+    for (let char of array[i]) {
+      if (char === "_") {
+        string += " ";
+      } else {
+        string += char;
       }
     }
-    return sentence;
-  }
 
-  function appendResults(place) {
+    sentence += string;
 
-    // latitude and longitude are stored as data attribute in the div container
-    let result = `
-    <div class="search-result" data-lat="${place.geometry.location.lat()}" data-lng= "${place.geometry.location.lng()}">
-      <h6>Name: ${place.name}</h6>
-      <h6>Address: ${place.formatted_address}</h6>
-      <h6>Type: ${snakeToString(place.types)}</h6>
-    `;
-    // For places that don't have a rating
-    if (place.rating) {
-      result += `<h6>Rating: ${place.rating}</h6>`;
+    if (i !== array.length - 1) {
+      sentence += ", ";
     }
-    // For places that don't have a photo
-    if (place.photos) {
-      $("#search-results-container").append(`<img class="search-result-img" src="${place.photos[0].getUrl({"maxWidth": 100, "maxHeight": 100})}">`);
-    }
-    result += `
-      </div>
-    `;
-    $("#search-results-container").append(result);
   }
+  return sentence;
+}
 
-  function createMarker(place) {
-    let marker = new google.maps.Marker({
-      map: map,
-      position: place.geometry.location
+function appendResults(place) {
+
+  // latitude and longitude are stored as data attribute in the div container
+  let result = `
+  <div class="search-result" data-lat="${place.geometry.location.lat()}" data-lng="${place.geometry.location.lng()}">
+    <h6>Name: ${place.name}</h6>
+    <h6>Address: ${place.formatted_address}</h6>
+    <h6>Type: ${snakeToString(place.types)}</h6>
+  `;
+  // For places that don't have a rating
+  if (place.rating) {
+    result += `<h6>Rating: ${place.rating}</h6>`;
+  }
+  // For places that don't have a photo
+  if (place.photos) {
+    $("#search-results-container").append(`<img class="search-result-img" src="${place.photos[0].getUrl({"maxWidth": 100, "maxHeight": 100})}">`);
+  }
+  result += `
+    </div>
+  `;
+  $("#search-results-container").append(result);
+}
+
+function createMarker(place) {
+  let marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+
+  allMarkers.push(marker);
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+}
+
+function removeAllMarkers() {
+  for (let i = 0; i < allMarkers.length; i ++) {
+    allMarkers[i].setMap(null);
+  }
+}
+
+function initMap(){
+  setTimeout(
+  function initMap2(){
+    let toronto = new google.maps.LatLng(43.653225, -79.383186);
+    let map = new google.maps.Map(document.getElementById('map'), {center: toronto, zoom: 14});
+    let service = new google.maps.places.PlacesService(map);
+
+    const city = document.querySelector('#map').dataset.city;
+
+    let request = {
+      query: city,
+      fields: ['name', 'place_id', 'types', 'geometry']
+    };
+
+    service.findPlaceFromQuery(request, function(results, status) {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+
+        map.setCenter(results[0].geometry.location);
+        console.log(results);
+      }
     });
 
-    allMarkers.push(marker);
+  }, 1000);
+}
 
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(place.name);
-      infowindow.open(map, this);
-    });
-  }
-
-  function removeAllMarkers() {
-    for (let i = 0; i < allMarkers.length; i ++) {
-      allMarkers[i].setMap(null);
-    }
-  }
