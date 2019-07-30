@@ -1,6 +1,6 @@
 /*
  * All routes for Pins are defined here
- * Since this file is loaded in server.js into /pins,
+ * Since this file is loaded in server.js into api/pins,
  *   these routes are mounted onto /pins
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */

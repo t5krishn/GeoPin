@@ -10,8 +10,8 @@ $(() => {
     const url = event.target.getAttribute("action");
     ajaxGetSinglePin(url)
     .done((pin) => {
-      console.log(pin);
-      // createPinEditForm();
+
+
     });
   });
 

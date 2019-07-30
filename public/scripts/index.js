@@ -4,7 +4,6 @@ $(() => {
   ajaxGetAllMaps()
   .done((maps) => {
     addMapsToContainer(maps, "#browse-map-wrapper");
-
   })
   .fail((err) => {
     console.log(err);
