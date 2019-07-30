@@ -4,11 +4,11 @@ const createPinHTML = (pin) => {
     <div class="form-row">
       <p>This is my pin: ${pin.id}</p>
       <span>
-        <form class="edit-form" action="/maps/:${pin.map_id}/pins/${pin.id}/edit/?_method=PUT" method="POST">
-          <button class="edit-pin-btn pin-btn" type="button"><i class="fas fa-edit"></i></button>
+        <form class="edit-form" action="/maps/${pin.map_id}/pins/${pin.id}/" method="GET">
+          <button class="edit-pin-btn pin-btn" type="submit"><i class="fas fa-edit"></i></button>
         </form>
         <form class="delete-form" action="/maps/${pin.map_id}/pins/${pin.id}/delete/?_method=DELETE" method="POST">
-          <button class="delete-pin-btn pin-btn" type="button"><i class="fas fa-minus-circle"></i></button>
+          <button class="delete-pin-btn pin-btn" type="submit"><i class="fas fa-minus-circle"></i></button>
         </form>
       </span>
     </div> <!-- single pin row -->
@@ -23,4 +23,5 @@ const addPinsToContainer = (pins, elementID) => {
     allPinsHTML += createPinHTML(pin);
   }
   $(elementID).append(allPinsHTML);
+
 };

@@ -105,6 +105,15 @@ function createMarker(place) {
   allMarkers.push(marker);
 
   marker.addListener('click', function() {
+    if (infowindow) {
+      $(document).on("submit", "#pin-create-form", submitPinForm).off();
+
+      infowindow.setContent("");
+      infowindow.close();
+    }
+    infowindow = genInfoWindow(place);
+    infowindow.open(map, marker);
+  });
 
     if (lastOpenedInfoWindow) {
       // $("#pin-create-form").unbind("click", )
@@ -137,11 +146,9 @@ function createMarker(place) {
 
 }
 
-function genInfoWindow(place) {
-
-  const url = $(location).attr('href');
-  var contentString = `
-      <form id="pin-create-form" class="created-pin" action="/maps/${getMapIDFromURL(url)}/pins" method="POST">
+const generateFormContent = function(place, url) {
+  return `
+      <form id="pin-create-form" action="/maps/${getMapIDFromURL(url)}/pins" method="POST">
       <div class="form-row">
         <label for="pin-label">Label:</label>
         <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>
@@ -159,27 +166,36 @@ function genInfoWindow(place) {
       <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
       </form>
   `;
+}
 
-    // // Bind the create pin event listener
-    $(document).on("submit", "#pin-create-form", (event) => {
-      event.preventDefault();
-      const url = $(location).attr('href');
-      console.log('url: ', url);
-      // const mapId = getMapIDFromURL(url);x
-      $form = $("#pin-create-form");
-      $.ajax({
-        url: $form.attr("action"), // reference form method later
-        type: "POST",
-        data: $form.serialize()
-      })
-      .done((pin) => {
-        addPinsToContainer([pin], $("#all-pins"));
-      })
-    })
+const submitPinForm = (event) => {
+  event.preventDefault();
+  const url = $(location).attr('href');
+  // const mapId = getMapIDFromURL(url);x
+  $form = $("#pin-create-form");
+  $.ajax({
+    url: $form.attr("action"), // reference form method later
+    type: "POST",
+    data: $form.serialize()
+  })
+  .done((pin) => {
+    addPinsToContainer([pin], $("#all-pins"));
+  })
 
-  var infowindow = new google.maps.InfoWindow({
-                    content: contentString
-                  });
+}
+
+function genInfoWindow(place) {
+
+  const url = $(location).attr('href');
+
+  const contentString = generateFormContent(place, url);
+
+  var infowindow = new google.maps.InfoWindow({ content: contentString });
+
+  google.maps.event.addListener(infowindow, 'domready', function() {
+    // Bind the create pin event listener
+    $(document).on("submit", "#pin-create-form", submitPinForm);
+  });
 
   return infowindow;
 
@@ -213,4 +229,3 @@ function initMap() {
     }
   })
 }
-
