@@ -13,25 +13,15 @@ const ajaxGetAllPins = (mapID) => {
 };
 
 // AJAX Request for getting pin information to populate form
-// const ajaxGetSinglePin = ()
-
-// // Ajax for editing pin
-// // Do we even need to go to the GET route? Can we directly pull from the database in the jQuery event listener?
-// $("#edit-pin-btn").on("click", () => {
-//   event.preventDefault();
-//   const pinId = $(this).attr('name');
-//   $.ajax({
-//     url: "/maps/:mapid/pins/:pinid/edit", // reference form method later
-//     type: "GET",
-//     data: pinId
-//   })
-//   .then((pin) => {
-//     // After edit this pin is clicked, map recenters to that pin and an edit form pops up with prepopulated inputs
-
-//   })
-// })
-
-
+const ajaxGetSinglePin = (url) => {
+  return $.ajax(url, { method: 'GET' })
+  .done(function(pin) {
+    if (pin) {
+      return pin;
+    }
+    return null;
+  });
+};
 
 /* ************** FUNCTIONS WE NEED TO CREATE ******************** */
 // createPin() function creates div element which has pin information and an edit, and delete pin
