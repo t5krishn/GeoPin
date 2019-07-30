@@ -28,7 +28,7 @@ function searchMap(input) {
    },
     function(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < 20; i++) {
+          for (var i = 0; i < results.length; i++) {
               console.log(results[i]);
               appendResults(results[i]);
               createMarker(results[i]);
@@ -107,7 +107,6 @@ function createMarker(place) {
   marker.addListener('click', function() {
     if (infowindow) {
       $(document).on("submit", "#pin-create-form", submitPinForm).off();
-
       infowindow.setContent("");
       infowindow.close();
     }
@@ -115,36 +114,7 @@ function createMarker(place) {
     infowindow.open(map, marker);
   });
 
-    if (lastOpenedInfoWindow) {
-      // $("#pin-create-form").unbind("click", )
-      lastOpenedInfoWindow.setContent("");
-
-      // document.getElementById("#pin-create-form").removeEventListener("submit", "#pin-create-form", (event) => {
-      //   event.preventDefault();
-      //   const url = $(location).attr('href');
-      //   // const mapId = getMapIDFromURL(url);x
-      //   $form = $("#pin-create-form");
-      //   $.ajax({
-      //     url: $form.attr("action"), // reference form method later
-      //     type: "POST",
-      //     data: $form.serialize()
-      //   })
-      //   .done((pin) => {
-      //     addPinsToContainer([pin], $("#all-pins"));
-      //   })
-      // })
-
-      lastOpenedInfoWindow.close();
-    }
-
-    let infowindow = genInfoWindow(place);
-    infowindow.open(map, marker);
-
-    lastOpenedInfoWindow = infowindow;
-
-  });
-
-}
+};
 
 const generateFormContent = function(place, url) {
   return `
