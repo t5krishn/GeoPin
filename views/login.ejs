@@ -10,7 +10,7 @@
     <!-- External Style and Scripts -->
     <%include ./partials/_external_tags.ejs%>
 
-    <link rel="stylesheet" href="/styles/index.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/login.css" type="text/css" />
 
   </head>
 
@@ -19,9 +19,26 @@
     <%- include ./partials/_nav.ejs%>
 
     <main id="main-content">
-      <div class="wrapper">
+      <section id="main-login">
+        <div class="wrapper">
+          <!-- We need user information about the map -->
+          <form method ="POST" action ="/login" id="login-form">
+            <div class="form-group" >
+              <!-- username-->
+              <label for="username">Username:</label>
+              <input type="text" name="username">
+            </div> <!-- username -->
 
-      </div>
+            <!-- password -->
+            <div class="form-group" >
+              <label for="subject">Password:</label>
+              <input type="text" name="password">
+            </div> <!-- password -->
+
+            <input type="submit" value="Submit">
+          </form>
+        </div> <!-- wrapper -->
+      </section>
     </main>
 
     <!-- Helpers -->

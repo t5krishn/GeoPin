@@ -1,6 +1,7 @@
 @import "colors";
 @import "fonts";
 @import "mixins";
+@import "wrapper";
 
 main {
   @include flexThis(center, center, column);
@@ -8,10 +9,8 @@ main {
 }
 
 .wrapper {
-  margin-top: 10vh;
-  @include flexThis(center, center, column);
-  width: 80%;
-  height: 70vh;
+  margin-top: 20vh;
+
 
   #map-create-form {
     background-color: $secondary-color;
