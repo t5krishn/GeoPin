@@ -7,8 +7,9 @@
 
 const express = require('express');
 const router  = express.Router();
+const methodOverride = require("method-override");
 
-module.exports = (pool) => {
+module.exports = (pool, db, bcrypt) => {
   router.get("/", (req, res) => {
     pool.query(`SELECT * FROM users;`)
       .then(data => {
