@@ -36,6 +36,7 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const mapsRoutes = require("./routes/maps");
 const pinsRoutes = require("./routes/pins");
+const authenticationsRoutes = require("./routes/authentications");
 
 const db = require("./db/queries/queryExporter")
 
@@ -44,6 +45,7 @@ const db = require("./db/queries/queryExporter")
 app.use("/users", usersRoutes(pool, db));
 app.use("/maps", mapsRoutes(pool, db));
 app.use("/maps", pinsRoutes(pool, db));
+app.use("/", authenticationsRoutes(pool, db));
 
 // // Note: mount other resources here, using the same pattern above
 

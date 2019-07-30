@@ -1,6 +1,7 @@
 @import "fonts";
 @import "colors";
 @import "mixins";
+@import "wrapper";
 
 .hero {
   height: 60vh;
@@ -30,12 +31,6 @@
 #all-maps {
   @include flexThis(center, center, column);
   padding: 10vh 0;
-}
-
-.wrapper {
-  width: 70%;
-  @include flexThis(space-around, center, row);
-  flex-wrap: wrap;
 }
 
 .single-map {
