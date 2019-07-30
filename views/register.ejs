@@ -19,21 +19,21 @@
     <%- include ./partials/_nav.ejs%>
 
     <main id="main-content">
-      <section id="main-login">
+      <section id="main-register">
         <div class="wrapper">
           <!-- We need user information about the map -->
-          <form method ="POST" action ="/login" id="login-form">
+          <form method ="POST" action ="/register" id="register-form">
             <h2>Register</h2>
             <div class="form-group" >
               <!-- username-->
               <label for="username">Username:</label>
-              <input type="text" name="username">
+              <input id="username" type="text" name="username">
             </div> <!-- username -->
 
             <!-- password -->
             <div class="form-group" >
-              <label for="subject">Password:</label>
-              <input type="text" name="password">
+              <label for="password">Password:</label>
+              <input id="password" type="password" name="password">
             </div> <!-- password -->
 
             <input type="submit" value="Submit">
