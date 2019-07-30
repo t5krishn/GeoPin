@@ -84,7 +84,16 @@ module.exports = (pool, db, bcrypt) => {
       db.addMap(pool, queryParams)
       .then(map => {
         if (map) {
-          res.redirect(`/maps/${map.id}/edit/`)
+          // used render here so as to limit querying multiple times in /maps/map_id/edit
+          //    to get the map.id and map.city again since we have that info already
+          let templateVars = {
+            map_id: map.id,
+            map_city: map.city
+          };
+
+          res.render("maps_edit", templateVars);
+          // res.redirect(`/maps/${map.id}/edit/`)
+
         } else {
           // **** map did not get added to db, redirect to create map page ****
           res
@@ -105,6 +114,8 @@ module.exports = (pool, db, bcrypt) => {
 
   });
 
+
+  // GET /maps/map_id/edit
   // After submitting the form, the server gets a GET request and renders the map editing page:
   router.get("/:mapid/edit", (req, res) => {
 
