@@ -10,7 +10,7 @@ const router  = express.Router();
 const methodOverride = require("method-override");
 
 
-module.exports = (pool, db, bcrypt) => {
+module.exports = (pool, db) => {
 
   // GET /maps/
   // Localhost:8080/
