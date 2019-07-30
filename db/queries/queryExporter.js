@@ -16,8 +16,10 @@ const incrementPinCountWithMapId = require('./incrementPinCountWithMapId');
 const updateMap = require('./updateMap');
 const updatePin = require('./updatePin');
 const updateUser = require('./updateUser');
+const getAllContributions = require('./getAllContributions');
+const getAllLikedMaps = require('./getAllLikedMaps');
 
-module.exports = { 
+module.exports = {
     addMap,
     addPin,
     addUser,
@@ -35,5 +37,7 @@ module.exports = {
     incrementPinCountWithMapId,
     updateMap,
     updatePin,
-    updateUser
+    updateUser,
+    getAllContributions,
+    getAllLikedMaps
 };
