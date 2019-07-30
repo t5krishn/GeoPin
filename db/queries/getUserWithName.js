@@ -7,7 +7,7 @@ const getUserWithName = function (pool, user_name) {
     return pool.query(query, [`%${user_name}%`])
         .then(res => {
             if (res.rows) {
-                return res.rows;
+                return res.rows[0];
             } else {
                 return null;
             }
