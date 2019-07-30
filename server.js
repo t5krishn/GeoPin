@@ -67,7 +67,7 @@ app.use("", authenticationsRoutes(pool, db, bcrypt));
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
   let templateVars = {
-    user: undefined
+    user: null
   };
   if (req.session.user_id) {
     db.getUserWithId(pool, req.session.user_id)
