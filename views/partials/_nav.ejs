@@ -2,12 +2,19 @@
     <span>GeoPin</span>
     <span>
       <button type="button" onclick="smoothScrollToLink()" id="nav-browse-button" title="Go to browse section " class="nav-button btn btn-primary">Browse</button>
-      <a href="/maps/123/edit" class="nav-button btn btn-primary">Temp Edit Maps Link</a>
       <a href="/" class="nav-button btn btn-primary">Home</a>
     </span>
 
     <span>
-      <a href="/users/login" class="nav-button btn btn-primary">Login/Register</a>
       <a href="/maps/create" class="nav-button btn btn-primary">Create Map</a>
+      <% if (user) { %>
+        <form class="form-inline" action="/logout" method="POST">
+          <label for="submit">Logged In As: <%= user.username %></label>
+          <button type="submit" class="nav-button btn btn-primary"">Logout</button>
+        </form>
+      <% } else { %>
+        <a href="/register" class="nav-button btn btn-primary">Register</a>
+        <a href="/login" class="nav-button btn btn-primary">Login</a>
+      <% } %>
     </span>
 </nav>

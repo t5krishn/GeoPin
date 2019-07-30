@@ -1,5 +1,6 @@
 @import "fonts";
 @import "colors";
+@import "mixins";
 
 img{
   max-width: 100%;
@@ -50,6 +51,10 @@ body {
     padding: 0;
   }
 
+  p {
+    font-weight: bold;
+  }
+
   p,
   a,
   button {
@@ -61,6 +66,12 @@ body {
     background-color: $tertiary-color;
     border-color: $tertiary-color;
     color: $black;
+  }
+
+  .wrapper {
+    width: 70%;
+    @include flexThis(space-around, center, row);
+    flex-wrap: wrap;
   }
 
 }
