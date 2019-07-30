@@ -23,6 +23,14 @@ const ajaxGetSinglePin = (url) => {
   });
 };
 
+// AJAX Request for getting pin information to populate form
+const ajaxDeletePin = (url) => {
+  return $.ajax(url, { method: 'POST' })
+  .done(function(response) {
+    return response;
+  });
+};
+
 /* ************** FUNCTIONS WE NEED TO CREATE ******************** */
 // createPin() function creates div element which has pin information and an edit, and delete pin
 // loadPins() function refreshes side bar and requires map_id param it uses a loop that calls on createPin() function, appends
