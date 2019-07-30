@@ -9,6 +9,6 @@ const getMapIDFromURL = (url) => {
 };
 
 // Clear all HTML from given elementID
-const clearContainer = (elementID) => {
+const clearCrontainer = (elementID) => {
   $(elementID).empty();
 };
