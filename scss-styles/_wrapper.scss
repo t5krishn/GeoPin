@@ -1,0 +1,7 @@
+@import "mixins";
+
+.wrapper {
+  width: 70%;
+  @include flexThis(space-around, center, row);
+  flex-wrap: wrap;
+}
