@@ -1,6 +1,6 @@
 /*
  * All routes for Pins are defined here
- * Since this file is loaded in server.js into api/pins,
+ * Since this file is loaded in server.js into /pins,
  *   these routes are mounted onto /pins
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
@@ -9,7 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const methodOverride = require("method-override");
 
-module.exports = (pool, db, bcrypt) => {
+module.exports = (pool, db) => {
 
   router.use(methodOverride("_method"));
 
