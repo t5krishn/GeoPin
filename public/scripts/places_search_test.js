@@ -145,6 +145,7 @@ function initMap() {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       let lat = results[0].geometry.location.lat();
       let lng = results[0].geometry.location.lng();
+      // ADD LAT LNG TO MAP DATABASE
       let center = new google.maps.LatLng(lat, lng);
       map = new google.maps.Map(document.getElementById('map'), {center: center, zoom: 14});
       map.addListener('click', event => {
