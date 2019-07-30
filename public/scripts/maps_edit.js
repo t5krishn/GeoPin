@@ -10,8 +10,29 @@ $(() => {
     const url = event.target.getAttribute("action");
     ajaxGetSinglePin(url)
     .done((pin) => {
+      console.log(pin);
+      console.log(allMarkers);
+      pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
+      removeAllMarkers();
+      createMarker(pin)
 
+      if (infowindow) {
+        $(document).on("submit", "#pin-create-form", submitPinForm).off();
 
+        infowindow.setContent("");
+        infowindow.close();
+      }
+
+      const editParams = {
+        label: pin.label,
+        description: pin.description,
+        pin_thumbnail_url: pin.pin_thumbnail_url,
+        mapID: pin.map_id,
+        putURL: `/${pin.id}/edit/?_method=PUT`
+      };
+
+      infowindow = genInfoWindow(pin, editParams);
+      infowindow.open(map, allMarkers[0]);
     });
   });
 
