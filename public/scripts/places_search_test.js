@@ -93,6 +93,25 @@ function appendResults(place) {
 }
 
 function createMarker(place) {
+
+  var marker = new google.maps.Marker({
+                position: place.geometry.location,
+                map: map,
+              });
+
+  marker.addListener('click', function() {
+          let infowindow = genInfoWindow(place);
+          infowindow.open(map, marker);
+        });
+
+  // marker.addListener('mouseover', function() {
+  //         infowindow.open(map, marker);
+  //       });
+
+}
+
+function genInfoWindow(place) {
+
   const url = $(location).attr('href');
   var contentString = `
       <form id="pin-create-form" action="/maps/${getMapIDFromURL(url)}/pins" method="POST">
@@ -118,7 +137,7 @@ function createMarker(place) {
   $(document).on("submit", "#pin-create-form", (event) => {
     event.preventDefault();
     const url = $(location).attr('href');
-    // const mapId = getMapIDFromURL(url);
+    // const mapId = getMapIDFromURL(url);x
     $form = $("#pin-create-form");
     $.ajax({
       url: $form.attr("action"), // reference form method later
@@ -126,7 +145,7 @@ function createMarker(place) {
       data: $form.serialize()
     })
     .done((pin) => {
-      addPinsToContainer([pin], $("#pin-container"));
+      addPinsToContainer([pin], $("#all-pins"));
     })
   })
 
@@ -134,14 +153,8 @@ function createMarker(place) {
                     content: contentString
                   });
 
-  var marker = new google.maps.Marker({
-                position: place.geometry.location,
-                map: map,
-              });
+  return infowindow;
 
-  marker.addListener('click', function() {
-          infowindow.open(map, marker);
-        });
 }
 
 function removeAllMarkers() {
