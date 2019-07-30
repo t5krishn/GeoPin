@@ -28,7 +28,7 @@ function searchMap(input) {
     function(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < 20; i++) {
-              console.log(results[i]);
+              // console.log(results[i]);
               appendResults(results[i]);
               createMarker(results[i]);
           }
