@@ -141,28 +141,22 @@ function removeAllMarkers() {
   }
 }
 
-function initMap(){
-  setTimeout(
-  function initMap2(){
-    let toronto = new google.maps.LatLng(43.653225, -79.383186);
-    let map = new google.maps.Map(document.getElementById('map'), {center: toronto, zoom: 14});
-    let service = new google.maps.places.PlacesService(map);
+function initMap() {
+  const city = document.querySelector('#map').dataset.city;
+  let request = {
+    query: city,
+    fields: ['name', 'place_id', 'types', 'geometry']
+  };
 
-    const city = document.querySelector('#map').dataset.city;
+  let service = new google.maps.places.PlacesService(document.createElement('div'));
 
-    let request = {
-      query: city,
-      fields: ['name', 'place_id', 'types', 'geometry']
-    };
-
-    service.findPlaceFromQuery(request, function(results, status) {
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-
-        map.setCenter(results[0].geometry.location);
-        console.log(results);
-      }
-    });
-
-  }, 1000);
+  service.findPlaceFromQuery(request, function(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      let lat = results[0].geometry.location.lat();
+      let lng = results[0].geometry.location.lng();
+      let center = new google.maps.LatLng(lat, lng);
+      map = new google.maps.Map(document.getElementById('map'), {center: center, zoom: 14});
+    }
+  })
 }
 
