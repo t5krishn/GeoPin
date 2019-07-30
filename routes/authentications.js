@@ -34,7 +34,29 @@ module.exports = (pool, db, bcrypt) => {
     }
   });
 
+  // Take login userID and store in cookie if user doesn't already have a userID as cookie
+  router.post("/login", (req, res) => {
+    db.getUserWithName(pool, req.body.username)
+    .then(user => {
+      console.log(user);
+      if (!user) {
+        res.statusCode = 403;
+        res.redirect("/login");
+      } else if (!bcrypt.compareSync(req.body.password, user.password)) {
+        res.statusCode = 403;
+        res.redirect("/login");
+      } else {
+        req.session.user_id = user.id;
+        res.redirect("/");
+      }
 
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
 
   return router;
 };
