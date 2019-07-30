@@ -42,6 +42,7 @@ module.exports = (pool, db, bcrypt) => {
 
   // Look up username, add it to database if it doesn't exist, redirect if it already does
   router.post("/register", (req, res) => {
+    let templateVars = {user: null};
 
     // Validate that fields have been filled out
     if (!req.body.username || !req.body.password) {
@@ -57,9 +58,11 @@ module.exports = (pool, db, bcrypt) => {
         res.redirect("/login");
       } else {
         // user not in db, so go forward with registration
+        const hashedPassword = bcrypt.hashSync(req.body.password,10); //Salt rounds of 10
+
         const userParams = [
           req.body.username,
-          req.body.password
+          hashedPassword
         ];
 
         db.addUser(pool, userParams)
@@ -105,14 +108,14 @@ module.exports = (pool, db, bcrypt) => {
       });
     } else {
       // cookie must be set before rendering
-      // TEST BELOW, LEFT FOR REFERENCE, REMOVE AFTER
-      // req.session.user_id = 7;
       res.render("login", templateVars);
     }
   });
 
   // Take login userID and store in cookie if user doesn't already have a userID as cookie
   router.post("/login", (req, res) => {
+    let templateVars = {user: null};
+
     db.getUserWithName(pool, req.body.username)
     .then(user => {
       if (!user) {
