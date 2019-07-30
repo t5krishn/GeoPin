@@ -8,7 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (pool, db) => {
+module.exports = (pool, db, bcrypt) => {
 
   // Localhost:8080/
   // Note - Do we need timestamps for created at on maps?
@@ -33,6 +33,8 @@ module.exports = (pool, db) => {
       res.render("login");
     }
   });
+
+
 
   return router;
 };
