@@ -1,12 +1,11 @@
 // Ajax get request for get all maps route
 // calls render maps function upon completion of promise
-const ajaxGetAllMaps = (elementID) => {
-  $.ajax('/maps', { method: 'GET' })
+const ajaxGetAllMaps = () => {
+  return $.ajax('/maps', { method: 'GET' })
   .done(function(maps) {
-    addMapsToContainer(maps, elementID);
+    return maps;
   })
   .fail(function(error) {
-    console.log("oops");
-    console.log(error);
+    return error;
   });
 };
