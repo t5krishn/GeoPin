@@ -55,8 +55,8 @@ const db = require("./db/queries/queryExporter")
 // // Mount all resource routes
 // // Note: Feel free to replace the example routes below with your own
 app.use("/users", usersRoutes(pool, db, bcrypt));
-app.use("/maps", mapsRoutes(pool, db, bcrypt));
-app.use("/maps", pinsRoutes(pool, db, bcrypt));
+app.use("/maps", mapsRoutes(pool, db));
+app.use("/maps", pinsRoutes(pool, db));
 app.use("", authenticationsRoutes(pool, db, bcrypt));
 
 // // Note: mount other resources here, using the same pattern above
@@ -67,7 +67,7 @@ app.use("", authenticationsRoutes(pool, db, bcrypt));
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
   let templateVars = { user: null };
-  
+
   if (req.session.user_id) {
     db.getUserWithId(pool, req.session.user_id)
     .then(user => {
