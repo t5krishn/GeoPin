@@ -26,8 +26,6 @@ $(() => {
     });
   });
 
-  // clearContainer($("#all-pins"));
-
   // Call get all pins function to show
   ajaxGetAllPins(mapID)
   .done((pins) => {
