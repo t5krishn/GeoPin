@@ -8,12 +8,13 @@ const express    = require("express");
 const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
-const morgan     = require('morgan');
-const cookieSession = require('cookie-session');
+const morgan     = require("morgan");
+const cookieSession = require("cookie-session");
+const bcrypt = require("bcrypt");
 
 // PG database client/connection setup
-const { Pool } = require('pg');
-const dbParams = require('./lib/db.js');
+const { Pool } = require("pg");
+const dbParams = require("./lib/db.js");
 const pool = new Pool(dbParams);
 pool.connect();
 
@@ -53,10 +54,10 @@ const db = require("./db/queries/queryExporter")
 
 // // Mount all resource routes
 // // Note: Feel free to replace the example routes below with your own
-app.use("/users", usersRoutes(pool, db));
-app.use("/maps", mapsRoutes(pool, db));
-app.use("/maps", pinsRoutes(pool, db));
-app.use("", authenticationsRoutes(pool, db));
+app.use("/users", usersRoutes(pool, db, bcrypt));
+app.use("/maps", mapsRoutes(pool, db, bcrypt));
+app.use("/maps", pinsRoutes(pool, db, bcrypt));
+app.use("", authenticationsRoutes(pool, db, bcrypt));
 
 // // Note: mount other resources here, using the same pattern above
 
