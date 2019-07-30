@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Home Page</title>
+    <title>Login</title>
 
     <!-- External Style and Scripts -->
     <%include ./partials/_external_tags.ejs%>
 
-    <link rel="stylesheet" href="/styles/index.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/login.css" type="text/css" />
 
   </head>
 
@@ -18,19 +18,28 @@
 
     <%- include ./partials/_nav.ejs%>
 
-
-    <div class="hero">
-      <h1>GeoPin</h1>
-      <h2>There's a map for everything</h2>
-      <button type="button" onclick="smoothScrollToLink()" id="browse-button" title="Go to browse section " class="btn btn-primary">Browse</button>
-      <a href="/maps/create" class="btn btn-primary">Create New</a>
-    </div> <!-- hero -->
-
     <main id="main-content">
-      <section id="all-maps">
-        <div id="browse-map-wrapper" class="wrapper">
+      <section id="main-login">
+        <div class="wrapper">
+          <!-- We need user information about the map -->
+          <form method ="POST" action ="/login" id="login-form">
+            <h2>Login</h2>
+            <div class="form-group" >
+              <!-- username-->
+              <label for="username">Username:</label>
+              <input type="text" name="username">
+            </div> <!-- username -->
+
+            <!-- password -->
+            <div class="form-group" >
+              <label for="subject">Password:</label>
+              <input type="text" name="password">
+            </div> <!-- password -->
+
+            <input type="submit" value="Submit">
+          </form>
         </div> <!-- wrapper -->
-      </section> <!-- all maps -->
+      </section>
     </main>
 
     <!-- Helpers -->

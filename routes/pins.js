@@ -22,9 +22,22 @@ module.exports = (pool, db) => {
     .then(pins => {
       if (pins) {
         res.json(pins);
-      } else {
-        // NOTE Need to create error message box in html to display that data wasn't found
+      }
+    })
+    .catch(err => {
+      response
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
 
+  // Get route to retrieve object for single pin
+  router.get("/:mapid/pins/:pinid", (req, res) => {
+
+    db.getPinWithId(pool, req.params.pinid)
+    .then(pins => {
+      if (pins) {
+        res.json(pins);
       }
     })
     .catch(err => {
@@ -37,21 +50,19 @@ module.exports = (pool, db) => {
   // Add new pin btn is clicked map editing page
   // Pin creation happens after user clicks on button #pin-submit
   router.post("/:mapid/pins", (req, res) => {
-    let query = `
-      INSERT INTO pins (map_id, label, address, description)
-      VALUES ($1, $2, $3, $4)
-      RETURNING *
-    `;
-    const body = req.body;
-    const mapid = req.params.mapid;
-    const queryParams = [mapid, body.label, body.address, body.description];
-    pool.query(query, queryParams)
-    .then(res => {
-      const pin = res.rows;
+
+    const params = req.body;
+    const mapID = req.params.mapid;
+
+    const pinParams = [params.label, params.description, params.lng, params.lat, params.pin_thumbnail_url, mapID];
+    db.addPin(pool, pinParams)
+    .then(pin => {
       if (pin) {
-        return pin;
+        res.json(pin);
       } else {
-        return null;
+        res
+        .status(404)
+        .json({ error: err.message });
       }
     })
     .catch(err => {
@@ -66,20 +77,19 @@ module.exports = (pool, db) => {
   // Edit pin btn has id of "edit-pin-btn"
 
   // When edit btn is clicked, get request is sent to aquire pin information based on pin_id
-  router.get("/:mapid/pins/:pinid/edit", (res, req) => {
-    const pinid = req.params.pinid;
-    const query = `
-      SELECT * FROM pins
-      WHERE id = $1
-    `;
-    const queryParams = [pinid];
-    pool.query(query, queryParams)
-    .then(res => {
-      const pin = res.rows
+  router.get("/:mapid/pins/:pinid/edit", (req, res) => {
+    const pinID = req.params.pinid;
+    const pinParams = [pinid];
+
+    pool.query(query, pinParams)
+    db.getPinWithId(pool, pinParams)
+    .then(pin => {
       if (pin) {
-        return pin;
+        res.json(pin);
       } else {
-        return null;
+        res
+        .status(404)
+        .json({ error: err.message });
       }
     })
     .catch(err => {
@@ -90,18 +100,47 @@ module.exports = (pool, db) => {
   });
 
   // PUT is called when edit form submit button is clicked
-  router.put("/:mapid/pins/:pinid/edit", (res, req) => {
-    const query = `UPDATE pins`;
-    const queryParams = [];
-    const body = req.body;
+  router.put("/:mapid/pins/:pinid/edit", (req, res) => {
+    const pinID = req.params.pinid;
+    const params = req.body;
+    const pinParams = [pinID, params.label, params.description, params.longitude, params.latitude, params.pin_thumbnail_url];
 
+    // NEED TO USE COOKIES TO INSERT owner_id INTO DB
+    db.updatePin(pool, pinID, pinParams)
+    .then(pin => {
+      if (pin) {
+        res.json(pin);
+      } else {
+        res
+        .status(404)
+        .json({ error: err.message });
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
   });
 
   // Delete pin btn is clicked, send a delete request
-  router.delete("/:mapid/pins/:pinid/delete", (res, req) => {
-    const query = ``;
-    const pinid = req.params.pinid;
+  router.delete("/:mapid/pins/:pinid/delete", (req, res) => {
 
+    // Do we need to check functionality if pin already deleted?
+    db.deletePin(pool, req.params.pinid, req.params.mapid)
+    .then(pin => {
+      if (pin) {
+        res.json({ status: "complete"})
+      } else {
+        res.statusCode = 404;
+        res.redirect(`/`);
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
   })
 
   return router;
