@@ -66,6 +66,21 @@ app.use("", authenticationsRoutes(pool, db, bcrypt));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
+  if (req.session.user_id) {
+    db.getUserWithId(pool, req.session.user_id)
+    .then(user => {
+      let templateVars = {
+        user: user
+      };
+
+      res.render("/", templateVars);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  }
   res.render("index");
 });
 
