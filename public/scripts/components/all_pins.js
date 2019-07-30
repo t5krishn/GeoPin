@@ -19,7 +19,6 @@ const createPinHTML = (pin) => {
 // When done, append the entire HTML of all Pins to given element
 const addPinsToContainer = (pins, elementID) => {
   let allPinsHTML = ``;
-  clearContainer(elementID);
   for (const pin of pins) {
     allPinsHTML += createPinHTML(pin);
   }
