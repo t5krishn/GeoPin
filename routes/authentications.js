@@ -96,8 +96,8 @@ module.exports = (pool, db, bcrypt) => {
           templateVars.user = user;
           res.render("index", templateVars);
         } else {
-          // user in cookie but not db, invalid user **FIX
-          // redirect to login page and set cookie to null
+          // user in cookie but not db, invalid user
+          // **** redirect to login page and set cookie to null ****
           req.session.user_id = null;
         }
       })
@@ -107,7 +107,6 @@ module.exports = (pool, db, bcrypt) => {
           .json({ error: err.message });
       });
     } else {
-      // cookie must be set before rendering
       res.render("login", templateVars);
     }
   });
@@ -141,7 +140,8 @@ module.exports = (pool, db, bcrypt) => {
   });
 
 
-
+  // Route fpr loggin out, user in template will be null, 
+  //    and cookie is cleared
   router.post("/logout", (req, res) => {
     let templateVars = {user: null};
     req.session.user_id = null;
