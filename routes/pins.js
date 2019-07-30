@@ -101,9 +101,10 @@ module.exports = (pool, db) => {
   });
 
   // PUT is called when edit form submit button is clicked
-  router.put("/:mapid/pins/:pinid/edit", (req, res) => {
+  router.put("/:mapid/pins/:pinid/edit/", (req, res) => {
     const pinID = req.params.pinid;
     const params = req.body;
+    console.log("before");
     const pinParams = [pinID, params.label, params.description, params.longitude, params.latitude, params.pin_thumbnail_url];
 
     // NEED TO USE COOKIES TO INSERT owner_id INTO DB
