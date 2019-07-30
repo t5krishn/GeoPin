@@ -15,7 +15,23 @@ module.exports = (pool, db) => {
   // Homepage browses random maps from map database
   router.get("/login", (req, res) => {
 
-    res.render("login");
+    if (req.session.user_id) {
+      db.getUserWithId(pool, req.session.user_id)
+      .then(user => {
+        if (user) {
+          res.redirect("/");
+        } else {
+          req.session.user_id = null;
+        }
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+    } else {
+      res.render("login");
+    }
   });
 
   return router;
