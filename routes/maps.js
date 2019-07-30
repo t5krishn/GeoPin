@@ -48,13 +48,13 @@ module.exports = (pool, db) => {
     // NEED TO USE COOKIES TO INSERT owner_id INTO DB
     db.addMap(pool, queryParams)
     .then(map => {
+      console.log(map.id);
       if (map) {
         // FIX THIS so that it renders the edit page for the new map id
         res.redirect(`/maps/${map.id}/edit/`)
       } else {
-        res
-        .status(404)
-        .json({ error: err.message });
+        console.log("error");
+        return null;
       }
     })
     .catch(err => {
@@ -66,76 +66,29 @@ module.exports = (pool, db) => {
 
   // After submitting the form, the server gets a GET request and renders the map editing page:
   router.get("/:mapid/edit", (req, res) => {
-
-    const mapID = req.params.mapid;
-
-    // Check that map has not been deleted and exists
-    db.getMapWithId(pool, mapID)
-    .then(map => {
-      if (map) {
-        // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
-        let templateVars = {
-          map_id: mapID,
-          map_city: map.city
-        };
-
-        res.render("maps_edit", templateVars);
-      } else {
-        res.statusCode = 404;
-        res.redirect(`/`);
-      }
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
+    // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
+    let map;
+    db.getMapWithId(pool, req.params.mapid)
+    .then(m => {
+      map = m;
+      let templateVars = {
+        map_id: map.id,
+        map_city: map.city
+      };
+      res.render("maps_edit", templateVars);
     });
-  });
 
-  // TO MAKE - Map edit route
-  router.put("/:mapid/edit", (req, res) => {
-    const params = req.body;
-    const mapParams = [req.params.mapid, params.title, params.subject, params.description, params.city];
-
-    // NEED TO USE COOKIES TO INSERT owner_id INTO DB
-    db.updateMap(pool, mapID, mapParams)
-    .then(map => {
-      if (map) {
-        res.redirect(`/maps/${map.id}/edit/`)
-      } else {
-        res
-        .status(404)
-        .json({ error: err.message });
-      }
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
-  });
-
-  // Map get for view map
-
-  // Map delete for id
-  router.delete("/:mapid/delete", (req, res) => {
-    // Do we need to check functionality if map already deleted?
-    db.deleteMap(pool, req.params.mapid)
-    .then(map => {
-      if (map) {
-        res.redirect(`/`)
-      } else {
-        res.statusCode = 404;
-        res.redirect(`/`);
-      }
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
   });
 
   return router;
 };
 
+// TO MAKE - Map edit route
+
+// Map get for view map
+
+// Map delete for id
+// router.delete("/:mapid/delete", (req, res) => {
+//   // db.deleteMap(pool, req.params.mapid)
+//   res.redirect(`/urls`);
+// });

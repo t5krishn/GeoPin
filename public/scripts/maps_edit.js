@@ -4,6 +4,9 @@ $(() => {
 
   const mapID = getMapIDFromURL(currentURL);
 
+  // clearContainer($("#all-pins"));
+
   // Call get all pins function to show
   ajaxGetAllPins("#all-pins", mapID);
+
 });

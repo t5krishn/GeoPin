@@ -11,21 +11,6 @@ const ajaxGetAllPins = (elementID, mapID) => {
   });
 };
 
-
-// Ajax for creating pin (adding to pin sidebar)
-$("#pin-submit").on("submit", () => {
-  event.preventDefault();
-  $.ajax({
-    url: "/maps/:mapid/pins",
-    type: "POST",
-    data: $form.serialize()
-  })
-  // scripts has function that reloads pins sidebar, currently call that loadPins()
-  .then((pin) => {
-    loadPins(pin.map_id);
-  })
-})
-
 // Ajax for editing pin
 // Do we even need to go to the GET route? Can we directly pull from the database in the jQuery event listener?
 $("#edit-pin-btn").on("click", () => {
@@ -41,9 +26,6 @@ $("#edit-pin-btn").on("click", () => {
 
   })
 })
-
-
-
 
 /* ************** FUNCTIONS WE NEED TO CREATE ******************** */
 // createPin() function creates div element which has pin information and an edit, and delete pin
