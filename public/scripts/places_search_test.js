@@ -93,9 +93,9 @@ function appendResults(place) {
 }
 
 function createMarker(place) {
-
+  const url = $(location).attr('href');
   var contentString = `
-      <form id="pin-create-form" action="/maps/:map_id/pins/:pin_id/create" method="POST">
+      <form id="pin-create-form" action="/maps/${getMapIDFromURL(url)}/pins" method="POST">
       <div class="form-row">
         <label for="pin-label">Label:</label>
         <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>
@@ -108,9 +108,27 @@ function createMarker(place) {
         <label for="pin-thumbnail">Thumbnail URL:</label>
         <textarea class="form-input" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..."></textarea>
       </div>
+      <input name="lat" type="hidden" for="pin-thumbnail" value="${place.geometry.location.lat()}">
+      <input name="lng" type="hidden" for="pin-thumbnail" value="${place.geometry.location.lng()}">
       <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
       </form>
   `;
+
+  // Bind the create pin event listener
+  $(document).on("submit", "#pin-create-form", (event) => {
+    event.preventDefault();
+    const url = $(location).attr('href');
+    // const mapId = getMapIDFromURL(url);
+    $form = $("#pin-create-form");
+    $.ajax({
+      url: $form.attr("action"), // reference form method later
+      type: "POST",
+      data: $form.serialize()
+    })
+    .done((pin) => {
+      addPinsToContainer([pin], $("#pin-container"));
+    })
+  })
 
   var infowindow = new google.maps.InfoWindow({
                     content: contentString

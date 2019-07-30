@@ -6,4 +6,5 @@ $(() => {
 
   // Call get all pins function to show
   ajaxGetAllPins("#all-pins", mapID);
+
 });
