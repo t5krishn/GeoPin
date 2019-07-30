@@ -1,15 +1,18 @@
 /*
  * All routes for Maps are defined here
- * Since this file is loaded in server.js into api/maps,
+ * Since this file is loaded in server.js into /maps,
  *   these routes are mounted onto /maps
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
 const express = require('express');
 const router  = express.Router();
+const methodOverride = require("method-override");
+
 
 module.exports = (pool, db) => {
 
+  // GET /maps/
   // Localhost:8080/
   // Note - Do we need timestamps for created at on maps?
   // Homepage browses random maps from map database
@@ -31,20 +34,94 @@ module.exports = (pool, db) => {
     });
   });
 
+  // GET /maps/create
   // Localhost:8080/create
   // Fill out a form to create a new map
   router.get("/create", (req, res) => {
-    res.render("maps_create");
+    let templateVars = {user: null};
+
+    if (req.session.user_id) {
+      db.getUserWithId(pool, req.session.user_id)
+      .then(user => {
+        if (user) {
+          // user is already present in db and cookie so redirect to map create page
+          templateVars.user = user;
+          res.render("maps_create", templateVars);
+        } else {
+          // user does not exist in db but does in cookie
+          // so render register and ask user to register/login
+          req.session.user_id = null;
+          res.render("login", templateVars);
+        }
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+    } else {
+      // user not in cookie so go log in
+      res.render("login", templateVars);
+    }
   });
 
+  // POST maps/create
   // After pressing submit, this post request is sent to the server:
   // Map id and owner_id is not submitted by user
   router.post("/create", (req, res) => {
-    // Delete owner id form after!!!!
+    // Delete owner id form after!!!! --> DONE :)
+    let templateVars = {user: null};
+    
+    if (req.session.user_id) {
+      db.getUserWithId(pool, req.session.user_id)
+      .then(user => {
+        if (user) {
+          const params = req.body;
+          const queryParams = [
+            params.title,
+            params.subject,
+            params.description,
+            params.city,
+            req.session.user_id /* owner_id, same as cookie user_id */];
 
-    const params = req.body;
-    const queryParams = [params.title, params.subject, params.description, params.city, params.owner_id];
+          db.addMap(pool, queryParams)
+          .then(map => {
+            if (map) {
+              // used render here so as to limit querying multiple times in /maps/map_id/edit
+              //    to get the map.id and map.city again since we have that info already
+              let templateVars = {
+                map_id: map.id,
+                map_city: map.city
+              };
 
+              res.render("maps_edit", templateVars);
+              // res.redirect(`/maps/${map.id}/edit/`)
+
+            } else {
+              // **** map did not get added to db, redirect to create map page ****
+              res
+              .status(404)
+              .json({ error: err.message });
+            }
+          })
+          .catch(err => {
+            // **** db connection did not work properly, redirect to create map page ****
+            res
+              .status(500)
+              .json({ error: err.message });
+          });
+        } else {
+          // user in cookie, not in the db so log in
+          res.render("login", templateVars);
+
+        }
+      });
+    } else {
+      // user not in cookie so log in
+      res.render("login", templateVars);
+    }
+
+<<<<<<< HEAD
     // NEED TO USE COOKIES TO INSERT owner_id INTO DB
     db.addMap(pool, queryParams)
     .then(map => {
@@ -62,10 +139,15 @@ module.exports = (pool, db) => {
         .status(500)
         .json({ error: err.message });
     });
+=======
+>>>>>>> 808b2285879191cebf283d0d1de4f73544793d96
   });
 
+
+  // GET /maps/map_id/edit
   // After submitting the form, the server gets a GET request and renders the map editing page:
   router.get("/:mapid/edit", (req, res) => {
+<<<<<<< HEAD
     // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
     let map;
     db.getMapWithId(pool, req.params.mapid)
@@ -78,6 +160,132 @@ module.exports = (pool, db) => {
       res.render("maps_edit", templateVars);
     });
 
+=======
+    // *** STRETCH: Only allow logged in users to edit map ***
+
+    const map_id = req.params.mapid;
+
+    // Check that map has not been deleted and exists
+    db.getMapWithId(pool, map_id)
+    .then(map => {
+      if (map) {
+        // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
+        // ^^ DONE in the line below
+        let templateVars = { map };
+
+        res.render("maps_edit", templateVars);
+      } else {
+        // MAP DOES NOT EXIST OR MAP HAS BEEN DELETED
+        // *** stretch: show error that distinguishes between not existing and deleted ***
+        res.statusCode = 404;
+        res.redirect(`/`);
+      }
+    })
+    .catch(err => {
+      // db query did not work properly, connection to db might have not worked
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
+
+  // TO MAKE - Map edit route
+  router.put("/:mapid/edit", (req, res) => {
+    
+    let templateVars = {user: null};
+    const map_id = req.params.mapid;
+
+    if (req.session.user_id) {
+      db.getUserWithId(pool, req.session.user_id)
+      .then(user => {
+        if (user) {
+          const params = req.body;
+          const mapParams = [params.title, params.subject, params.description, params.city];
+
+          // NEED TO USE COOKIES TO INSERT owner_id INTO DB --> based on requirements
+          //    we need to allow anyone to edit
+          db.updateMap(pool, map_id, mapParams)
+          .then(map => {
+            if (map) {
+              res.redirect(`/maps/${map.id}/edit/`)
+            } else {
+              res
+              .status(404)
+              .json({ error: err.message });
+            }
+          })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ error: err.message });
+          });
+        } else {
+          // user in cookie but not in db, go log in
+          res.render("login", templateVars);
+        }
+      });
+    } else {
+      // user not in cookie, go log in
+      res.render("login", templateVars);
+    }
+  });
+
+  // Map get for view map
+
+
+  // Map delete for id
+  router.delete("/:mapid/delete", (req, res) => {
+    // Do we need to check functionality if map already deleted?
+    let templateVars = {user: null};
+    const map_id = req.params.mapid;
+    
+    if (req.session.user_id) {
+      db.getUserWithId(pool, req.session.user_id)
+      .then(user => {
+        if (user) {
+          db.getMapWithId(pool, req.params.mapid)
+          .then(map => {
+            if (map) {
+              // map exists in db, go forward with the delete
+              db.deleteMap(pool, map.id)
+              .then(mapOnDelete => {
+                if (mapOnDelete) {
+                  res.redirect(`/`)
+                } else {
+                  // DELETE FAILED, DB ERROR or map deleted not returned properly
+                  res.statusCode = 404;
+                  res.redirect(`/`);
+                }
+              })
+              .catch(err => {
+                // db query did not work properly, connection to db might have not worked
+                res
+                  .status(500)
+                  .json({ error: err.message });
+              });
+            } else {
+              // MAP DOES NOT EXIST OR MAP HAS BEEN DELETED
+              // *** stretch: show error that distinguishes between not existing and deleted ***
+              res.statusCode = 404;
+              res.redirect(`/`);
+            }
+          })
+          .catch(err => {
+            // db query did not work properly, connection to db might have not worked
+            res
+              .status(500)
+              .json({ error: err.message });
+          });
+        } else {
+          // user in cookie but not db so go log in
+          res.render("login", templateVars);
+        }
+      });
+    } else {
+      // user not in cookie, go log in
+      res.render("login", templateVars);
+    }
+>>>>>>> 808b2285879191cebf283d0d1de4f73544793d96
   });
 
   return router;
