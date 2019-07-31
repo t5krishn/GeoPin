@@ -13,6 +13,22 @@ const clearCrontainer = (elementID) => {
   $(elementID).empty();
 };
 
+const closePinFormWindow = function() {
+  $(document).on("submit", "#pin-create-form", submitPinForm).off();
+  infowindow.setContent("");
+  infowindow.close();
+}
+
+const closeInfoWindowIfPresent = function() {
+  // Close infowindow on page if open
+  if (infowindow) {
+    $(document).on("submit", "#pin-create-form", submitPinForm).off();
+
+    infowindow.setContent("");
+    infowindow.close();
+  }
+}
+
 // Convert snake case string
 function snakeToString(array) {
   let sentence = "";

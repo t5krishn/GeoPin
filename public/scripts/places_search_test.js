@@ -73,20 +73,32 @@ function appendResults(place) {
 
 }
 
-function createMarker(place) {
+function createMarker(place, createEditInfowindow) {
   console.log(place.geometry.location);
   var marker = new google.maps.Marker({
                 position: place.geometry.location,
-                map: map,
+                map: map
         });
 
   allMarkers.push(marker);
 
+  if (createEditInfowindow) {
+    const editParams = {
+      label: place.label,
+      description: place.description,
+      pin_thumbnail_url: place.pin_thumbnail_url,
+      mapID: place.map_id,
+      url: `/maps/${place.map_id}/pins/${place.id}/edit/?_method=PUT`,
+      newPinCallback: null
+    };
+
+    infowindow = genInfoWindow(place, editParams, marker);
+    infowindow.open(map, marker);
+  }
+
   marker.addListener('click', function() {
     if (infowindow) {
-      $(document).on("submit", "#pin-create-form", submitPinForm).off();
-      infowindow.setContent("");
-      infowindow.close();
+      closePinFormWindow();
     }
 
     let editParams = {
@@ -94,24 +106,26 @@ function createMarker(place) {
       description: "",
       pin_thumbnail_url: "",
       mapID: $("#map").data().id,
-      url: `/maps/${$("#map").data().id}/pins`
+      url: `/maps/${$("#map").data().id}/pins`,
+      newPinCallback: addPinsToContainer
     };
 
-    infowindow = genInfoWindow(place, editParams);
+    infowindow = genInfoWindow(place, editParams, marker);
     infowindow.open(map, marker);
   });
 
+
 };
 
-function genInfoWindow(place, editParams) {
-
+function genInfoWindow(place, editParams, marker) {
+  console.log(place);
   const contentString = generatePinFormContent(place, editParams);
 
-  var infowindow = new google.maps.InfoWindow({ content: contentString });
+  var infowindow = new google.maps.InfoWindow({ position: marker.position, content: contentString });
 
   google.maps.event.addListener(infowindow, 'domready', function() {
     // Bind the create pin event listener
-    $(document).on("submit", "#pin-create-form", submitPinForm);
+    $(document).on("submit", "#pin-create-form", submitPinForm(editParams.newPinCallback));
   });
 
   return infowindow;

@@ -32,19 +32,22 @@ const ajaxDeletePin = (url) => {
 };
 
 // Submit pin create form
-const submitPinForm = (event) => {
-  event.preventDefault();
-  $form = $("#pin-create-form");
-  console.log($form.serialize());
-  $.ajax({
-    url: $("#pin-create-form").attr("action"),
-    type: "POST",
-    data: $form.serialize()
-  })
-  .done((pin) => {
-    console.log(this);
-    addPinsToContainer([pin], $("#all-pins"));
-  })
+const submitPinForm = (newPinCallback) => {
+  return (event) => {
+    event.preventDefault();
+    $form = $("#pin-create-form");
+    $.ajax({
+      url: $("#pin-create-form").attr("action"),
+      type: "POST",
+      data: $form.serialize()
+    })
+    .done((pin) => {
+      if(newPinCallback) {
+        newPinCallback([pin], $("#all-pins"));
+      }
+      closePinFormWindow();
+    })
+  }
 }
 
 /* ************** FUNCTIONS WE NEED TO CREATE ******************** */

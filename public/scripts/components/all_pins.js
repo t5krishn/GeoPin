@@ -20,15 +20,15 @@ const generatePinFormContent = function(place, editParams) {
       <form id="pin-create-form" action="${editParams.url}" method="POST">
       <div class="form-row">
         <label for="pin-label">Label:</label>
-        <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>
+        <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin...">${editParams.label}</textarea>
       </div>
       <div class="form-row">
         <label for="pin-description">Description:</label>
-        <textarea class="form-input" id="pin-description" name="description" placeholder="Describe your pin..."></textarea>
+        <textarea class="form-input" id="pin-description" name="description" placeholder="Describe your pin...">${editParams.description}</textarea>
       </div>
       <div class="form-row">
         <label for="pin-thumbnail">Thumbnail URL:</label>
-        <textarea class="form-input" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..."></textarea>
+        <textarea class="form-input" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL...">${editParams.pin_thumbnail_url}</textarea>
       </div>
       <input name="lat" type="hidden" for="pin-thumbnail" value="${place.geometry.location.lat()}">
       <input name="lng" type="hidden" for="pin-thumbnail" value="${place.geometry.location.lng()}">
