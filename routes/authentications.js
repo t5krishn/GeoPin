@@ -99,6 +99,7 @@ module.exports = (pool, db, bcrypt) => {
           // user in cookie but not db, invalid user
           // **** redirect to login page and set cookie to null ****
           req.session.user_id = null;
+          res.render("login", templateVars);
         }
       })
       .catch(err => {
@@ -145,6 +146,7 @@ module.exports = (pool, db, bcrypt) => {
   router.post("/logout", (req, res) => {
     let templateVars = {user: null};
     req.session.user_id = null;
+    console.log(req.session.user_id);
     res.render("index", templateVars);
   });
 

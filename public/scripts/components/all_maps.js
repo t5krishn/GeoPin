@@ -28,7 +28,7 @@ const createMapHTML = (map) => {
 // When done, append the entire HTML of all Maps to given element
 const addMapsToContainer = (maps, elementID) => {
   let allMapsHTML = ``;
-  clearContainer(elementID);
+  // clearContainer(elementID);
   for (const map of maps) {
     allMapsHTML += createMapHTML(map);
   }

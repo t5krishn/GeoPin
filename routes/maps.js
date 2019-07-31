@@ -77,7 +77,7 @@ module.exports = (pool, db) => {
         if (user) {
           templateVars.user = user;
           const params = req.body;
-          // id, title, subject, description, city, created_at, owner_id, latitude, longitude
+          // title, subject, description, city, owner_id
           const queryParams = [
             params.title,
             params.subject,
@@ -295,4 +295,3 @@ module.exports = (pool, db) => {
 
   return router;
 };
-
