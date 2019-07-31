@@ -5,38 +5,6 @@ let infowindow;
 let service;
 let allMarkers = [];
 
-function placeSearchInit() {
-
-    
-
-    let toronto = new google.maps.LatLng(43.653225, -79.383186);
-
-    infowindow = new google.maps.InfoWindow();
-
-    map = new google.maps.Map(document.getElementById('map'), {center: toronto, zoom: 14});
-
-    map.addListener('click', event => {
-        console.log(event.latLng.lat(), event.latLng.lng());
-    });
-
-    // let request = {
-    //   query: 'sushi',
-    //   fields: ['name', 'place_id', 'types', 'geometry']
-    // };
-
-    // service.findPlaceFromQuery(request, function(results, status) {
-    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    //     for (var i = 0; i < results.length; i++) {
-    //         console.log(results[i].name);
-    //           createMarker(results[i]);
-    //     }
-    //     map.setCenter(results[0].geometry.location);
-    //     console.log(results);
-    //   }
-    // });
-
-  }
-
 // Listens for user to submit a query
 $("#search-map-btn").on("click", () => {
   const input = $("#search-map-input").val();
@@ -56,21 +24,26 @@ function searchMap(input) {
     // pass in input from user + city (map_id)
     query: input,
     location: map.getCenter()
-    },
+   },
     function(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < 20; i++) {
-              console.log(results[i].geometry.location);
+              console.log(results[i]);
               appendResults(results[i]);
               createMarker(results[i]);
           }
           map.setCenter(results[0].geometry.location);
       }
+
       // When a search result is clicked, the map should center to that marker
-      $(".search-result").bind("click", () => {
-        const latlong = $(this).data();
-        console.log("MY LAT LONG IS :", latlong);
+      $(".search-result").bind("click", (event) => {
+        const lat = $(event.target).parent()[0].dataset.lat;
+        const lng = $(event.target).parent()[0].dataset.lng;
+        const center = new google.maps.LatLng(lat, lng);
+        map.setCenter(center);
+        map.setZoom(18);
       })
+
   });
 }
 
@@ -100,7 +73,7 @@ function appendResults(place) {
 
   // latitude and longitude are stored as data attribute in the div container
   let result = `
-  <div class="search-result" data="${place.geometry.location} onClick="centerResult()">
+  <div class="search-result" data-lat="${place.geometry.location.lat()}" data-lng="${place.geometry.location.lng()}">
     <h6>Name: ${place.name}</h6>
     <h6>Address: ${place.formatted_address}</h6>
     <h6>Type: ${snakeToString(place.types)}</h6>
@@ -120,17 +93,37 @@ function appendResults(place) {
 }
 
 function createMarker(place) {
-  let marker = new google.maps.Marker({
-    map: map,
-    position: place.geometry.location
-  });
 
-  allMarkers.push(marker);
+  var contentString = `
+      <form id="pin-create-form" action="/maps/:map_id/pins/:pin_id/create" method="POST">
+      <div class="form-row">
+        <label for="pin-label">Label:</label>
+        <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>
+      </div>
+      <div class="form-row">
+        <label for="pin-description">Description:</label>
+        <textarea class="form-input" id="pin-description" name="description" placeholder="Describe your pin..."></textarea>
+      </div>
+      <div class="form-row">
+        <label for="pin-thumbnail">Thumbnail URL:</label>
+        <textarea class="form-input" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..."></textarea>
+      </div>
+      <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
+      </form>
+  `;
 
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent(place.name);
-    infowindow.open(map, this);
-  });
+  var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                  });
+
+  var marker = new google.maps.Marker({
+                position: place.geometry.location,
+                map: map,
+              });
+
+  marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
 }
 
 function removeAllMarkers() {
@@ -139,30 +132,26 @@ function removeAllMarkers() {
   }
 }
 
-function initMap(){
-  setTimeout(
-  function initMap2(){
-    let toronto = new google.maps.LatLng(43.653225, -79.383186);
-    let map = new google.maps.Map(document.getElementById('map'), {center: toronto, zoom: 14});
-    let service = new google.maps.places.PlacesService(map);
+function initMap() {
+  const city = document.querySelector('#map').dataset.city;
+  let request = {
+    query: city,
+    fields: ['name', 'place_id', 'types', 'geometry']
+  };
 
-    const city = document.querySelector('#map').dataset.city;
+  let service = new google.maps.places.PlacesService(document.createElement('div'));
 
-    
-    let request = {
-      query: city,
-      fields: ['name', 'place_id', 'types', 'geometry']
-    };
-
-    service.findPlaceFromQuery(request, function(results, status) {
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        
-        map.setCenter(results[0].geometry.location);
-        console.log(results);
-      }
-    });
-
-  }, 1000);
+  service.findPlaceFromQuery(request, function(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      let lat = results[0].geometry.location.lat();
+      let lng = results[0].geometry.location.lng();
+      // ADD LAT LNG TO MAP DATABASE
+      let center = new google.maps.LatLng(lat, lng);
+      map = new google.maps.Map(document.getElementById('map'), {center: center, zoom: 14});
+      map.addListener('click', event => {
+        console.log(event.latLng.lat(),  event.latLng.lng());
+      });
+    }
+  })
 }
 
-  
