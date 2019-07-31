@@ -20,7 +20,7 @@ module.exports = (pool, db, bcrypt) => {
       db.getUserWithId(pool, req.session.user_id)
       .then(user => {
         if (user) {
-          // user is already present in db and cookie so redirect to home page 
+          // user is already present in db and cookie so redirect to home page
           templateVars.user = user;
           res.render("index", templateVars);
         } else {
@@ -99,6 +99,7 @@ module.exports = (pool, db, bcrypt) => {
           // user in cookie but not db, invalid user
           // **** redirect to login page and set cookie to null ****
           req.session.user_id = null;
+          res.render("login", templateVars);
         }
       })
       .catch(err => {
@@ -140,11 +141,12 @@ module.exports = (pool, db, bcrypt) => {
   });
 
 
-  // Route fpr loggin out, user in template will be null, 
+  // Route fpr loggin out, user in template will be null,
   //    and cookie is cleared
   router.post("/logout", (req, res) => {
     let templateVars = {user: null};
     req.session.user_id = null;
+    console.log(req.session.user_id);
     res.render("index", templateVars);
   });
 

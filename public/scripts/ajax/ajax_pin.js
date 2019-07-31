@@ -2,48 +2,53 @@
 
 // Ajax get request for get all maps route
 // calls render maps function upon completion of promise
-const ajaxGetAllPins = (elementID, mapID) => {
-  $.ajax(`/maps/${mapID}/pins`, { method: 'GET' })
+const ajaxGetAllPins = (mapID) => {
+  return $.ajax(`/maps/${mapID}/pins`, { method: 'GET' })
   .done(function(pins) {
     if (pins) {
-      addPinsToContainer(pins, elementID, mapID);
+      return pins;
     }
+    return null;
   });
 };
 
+// AJAX Request for getting pin information to populate form
+const ajaxGetSinglePin = (url) => {
+  return $.ajax(url, { method: 'GET' })
+  .done(function(pin) {
+    if (pin) {
+      return pin;
+    }
+    return null;
+  });
+};
 
-// Ajax for creating pin (adding to pin sidebar)
-$("#pin-submit").on("submit", () => {
-  event.preventDefault();
-  $.ajax({
-    url: "/maps/:mapid/pins",
-    type: "POST",
-    data: $form.serialize()
-  })
-  // scripts has function that reloads pins sidebar, currently call that loadPins()
-  .then((pin) => {
-    loadPins(pin.map_id);
-  })
-})
+// AJAX Request for getting pin information to populate form
+const ajaxDeletePin = (url) => {
+  return $.ajax(url, { method: 'POST' })
+  .done(function(response) {
+    return response;
+  });
+};
 
-// Ajax for editing pin
-// Do we even need to go to the GET route? Can we directly pull from the database in the jQuery event listener?
-$("#edit-pin-btn").on("click", () => {
-  event.preventDefault();
-  const pinId = $(this).attr('name');
-  $.ajax({
-    url: "/maps/:mapid/pins/:pinid/edit", // reference form method later
-    type: "GET",
-    data: pinId
-  })
-  .then((pin) => {
-    // After edit this pin is clicked, map recenters to that pin and an edit form pops up with prepopulated inputs
-
-  })
-})
-
-
-
+// Submit pin create form
+const submitPinForm = (newPinCallback) => {
+  return (event) => {
+    event.preventDefault();
+    $form = $("#pin-create-form");
+    $.ajax({
+      url: $("#pin-create-form").attr("action"),
+      type: "POST",
+      data: $form.serialize()
+    })
+    .done((pin) => {
+      if(newPinCallback) {
+        newPinCallback([pin], $("#all-pins"));
+      }
+      closePinFormWindow();
+    })
+  }
+}
 
 /* ************** FUNCTIONS WE NEED TO CREATE ******************** */
 // createPin() function creates div element which has pin information and an edit, and delete pin

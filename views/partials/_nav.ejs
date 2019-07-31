@@ -1,20 +1,31 @@
-<nav id="main-nav" class='navbar fixed-top navbar-dark bg-dark'>
-    <span>GeoPin</span>
-    <span>
-      <button type="button" onclick="smoothScrollToLink()" id="nav-browse-button" title="Go to browse section " class="nav-button btn btn-primary">Browse</button>
+<nav id="main-nav" class='navbar fixed-top'>
+  <ol class="nav">
+    <li>
+      <a href="/"><h1 class="navbar-brand">GeoPin</h1></a>
+    </li>
+    <li class="nav-item">
       <a href="/" class="nav-button btn btn-primary">Home</a>
-    </span>
-
-    <span>
+    </li>
+    <li class="nav-item">
       <a href="/maps/create" class="nav-button btn btn-primary">Create Map</a>
+    </li>
+  </ol>
+
+    <ol class="nav">
       <% if (user) { %>
-        <form class="form-inline" action="/logout" method="POST">
-          <label for="submit">Logged In As: <%= user.username %></label>
-          <button type="submit" class="nav-button btn btn-primary"">Logout</button>
-        </form>
+        <li class="nav-item">
+          <form class="form-inline" action="/logout" method="POST">
+            <label for="logout">Logged in as: <%= user.username %></label>
+            <button type="submit" id="logout" class="nav-button btn btn-primary">Logout</button>
+          </form>
+        </li>
       <% } else { %>
-        <a href="/register" class="nav-button btn btn-primary">Register</a>
-        <a href="/login" class="nav-button btn btn-primary">Login</a>
+        <li class="nav-item">
+          <a href="/register" class="nav-button btn btn-primary">Register</a>
+        </li>
+        <li class="nav-item">
+          <a href="/login" class="nav-button btn btn-primary">Login</a>
+        </li>
       <% } %>
-    </span>
+    </ol>
 </nav>

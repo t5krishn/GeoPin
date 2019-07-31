@@ -1,6 +1,6 @@
 /*
  * All routes for Pins are defined here
- * Since this file is loaded in server.js into /pins,
+ * Since this file is loaded in server.js into api/pins,
  *   these routes are mounted onto /pins
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
@@ -53,8 +53,9 @@ module.exports = (pool, db) => {
 
     const params = req.body;
     const mapID = req.params.mapid;
+    const userID = req.session.user_id;
 
-    const pinParams = [params.label, params.description, params.longitude, params.latitude, params.pin_thumbnail_url, mapID];
+    const pinParams = [params.label, params.description, params.lng, params.lat, params.pin_thumbnail_url, mapID, userID];
     db.addPin(pool, pinParams)
     .then(pin => {
       if (pin) {
@@ -103,8 +104,9 @@ module.exports = (pool, db) => {
   router.put("/:mapid/pins/:pinid/edit", (req, res) => {
     const pinID = req.params.pinid;
     const params = req.body;
-    const pinParams = [pinID, params.label, params.description, params.longitude, params.latitude, params.pin_thumbnail_url];
-
+    console.log("req body: ", params);
+    const pinParams = [params.label, params.description, params.lng, params.lat, params.pin_thumbnail_url];
+    console.log(pinParams)
     // NEED TO USE COOKIES TO INSERT owner_id INTO DB
     db.updatePin(pool, pinID, pinParams)
     .then(pin => {
