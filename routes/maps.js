@@ -252,6 +252,48 @@ module.exports = (pool, db) => {
     }
   });
 
+  // Map like/ unlike
+  router.post("/:mapid/like", (req, res) => {
+    // Delete owner id form after!!!! --> DONE :)
+    const mapid = req.params.mapid;
+    console.log("post request was sent");
+
+    if (req.session.user_id) {
+      db.getUserWithId(pool, req.session.user_id)
+      .then(user => {
+        // check if it returns a valid user
+        if (user) {
+          console.log("user is signed in", user.id);
+          db.doesUserLikeMap(pool, [user.id, mapid])
+          .then(like => {
+            console.log("liked", like);
+            // if the user likes the map, unlike it
+            // else if user unlikes it, like the map
+            if (like) {
+              db.unlikeMap(pool, [user.id, mapid])
+            } else {
+              db.likeMap(pool, [user.id, mapid])
+            }
+          })
+        } else {
+        // ADD error message to let user know they must be registered to like
+          console.log("user does not exist in db");
+          res.json(null);
+        }
+      })
+      .catch(err => {
+        // **** db connection did not work properly, redirect to create map page ****
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+    } else {
+      // user not in cookie so log in
+      console.log("user not logged in");
+      res.json(null);
+    }
+  });
+
   return router;
 };
 

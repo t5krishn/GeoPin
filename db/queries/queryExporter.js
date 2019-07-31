@@ -17,6 +17,8 @@ const updateMap = require('./updateMap');
 const updatePin = require('./updatePin');
 const updateUser = require('./updateUser');
 const doesUserLikeMap = require('./doesUserLikeMap');
+const unlikeMap = require("./unlikeMap");
+const likeMap = require("./likeMap");
 
 module.exports = {
     addMap,
@@ -37,5 +39,7 @@ module.exports = {
     updateMap,
     updatePin,
     updateUser,
-    doesUserLikeMap
+    doesUserLikeMap,
+    unlikeMap,
+    likeMap
 };

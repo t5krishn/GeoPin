@@ -12,7 +12,9 @@ const createMapHTML = (map) => {
           </div> <!-- map-description -->
           <div class="map-footer">
             <span class="socials">
-              <i id="like" class="fas fa-heart" onclick="likeMap()" data="${map.id}"></i>
+              <form method="POST" action="maps/${map.id}/like">
+                <i id="like" class="far fa-heart" onclick="likeMap(${map.id})"></i>
+              </form>
             </span> <!-- socials -->
           </div> <!-- map-footer -->
         </div> <!-- hover-read -->
@@ -21,15 +23,6 @@ const createMapHTML = (map) => {
     </a> <!-- single map -->
   `
 };
-
-const likeMap = function() {
-  let $target = $(event.target);
-  if ($target.attr("class") === "fas fa-heart") {
-    $target.removeClass("fas fa-heart").addClass("far fa-heart");
-  } else {
-    $target.removeClass("far fa-heart").addClass("fas fa-heart");
-  }
-}
 
 // Loop through array of map objects and call create HTML funciton for each
 // When done, append the entire HTML of all Maps to given element
