@@ -2,6 +2,13 @@
 $(() => {
   const mapID = $("#map").data().id;
 
+  // Listens for user to submit a query
+  $("#search-map-btn").on("click", () => {
+    const input = $("#search-map-input").val();
+    $("#search-map-input").val("");
+    searchMap(input);
+  })
+
   // Edit button event listener
   $("#all-pins").on("submit", ".edit-form", (event) => {
     event.preventDefault();
