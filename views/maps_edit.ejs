@@ -33,24 +33,24 @@
               <input id="search-map-input" class="form-item form-control" name="searchInput" placeholder="Search map"></input>
             </div>
             <div class="row justify-content-center">
-              <button id="search-map-btn" class="form-item btn btn-primary" type="submit">Search</button>
+              <button id="search-map-btn" class="btn btn-primary" type="submit">Search</button>
             </div>
           </form>
-
-          <div class="row justify-content-center">
-            <h2>Results</h2>
-          </div>
-
-        <div id="search-results-container">
-
         </div>
 
+        <div id="search-results-container" class="container edit-container">
+          <div id="search-results-header" class="row justify-content-center">
+            <h2>Results</h2>
+          </div>
         </div> <!-- search-container -->
 
         <div id="map" data-id=<%=map.id%> data-city=<%=map.city%>>
         </div> <!-- map -->
 
-
+        <div id="about-map-container" class="container edit-container">
+          <h2><%= map.title %></h2>
+          <p><%= map.description %></p>
+        </div>
 
         <div id="pin-container" class="container edit-container">
           <h2>Your Pins</h2>

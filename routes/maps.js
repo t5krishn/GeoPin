@@ -156,6 +156,7 @@ module.exports = (pool, db) => {
           map,
           user: (req.session.user_id)? req.session.user_id : null /* If cookie user exists, pass that in, otherwise pass in null */
         };
+        console.log(templateVars);
 
         res.render("maps_edit", templateVars);
       } else {
