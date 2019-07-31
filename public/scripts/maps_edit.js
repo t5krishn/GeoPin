@@ -10,8 +10,6 @@ $(() => {
     const url = event.target.getAttribute("action");
     ajaxGetSinglePin(url)
     .done((pin) => {
-
-      // Clear all markers and create info windor for current marker
       console.log(pin);
       console.log(allMarkers);
       pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
@@ -25,7 +23,6 @@ $(() => {
         infowindow.close();
       }
 
-      // Parameters to generate html for form
       const editParams = {
         label: pin.label,
         description: pin.description,
