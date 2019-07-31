@@ -1,8 +1,6 @@
 // Function runs on edit page load - driver code
 $(() => {
-  const currentURL = $(location).attr('href');
-
-  const mapID = getMapIDFromURL(currentURL);
+  const mapID = $("#map").data().id;
 
   // Edit button event listener
   $("#all-pins").on("submit", ".edit-form", (event) => {
@@ -26,7 +24,7 @@ $(() => {
         description: pin.description,
         pin_thumbnail_url: pin.pin_thumbnail_url,
         mapID: pin.map_id,
-        putURL: `/${pin.id}/edit/?_method=PUT`
+        url: `/maps/${pin.map_id}/pins/${pin.id}/edit/?_method=PUT`
       };
 
       infowindow = genInfoWindow(pin, editParams);
