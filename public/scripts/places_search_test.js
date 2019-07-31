@@ -143,7 +143,7 @@ const submitPinForm = (event) => {
   const url = $(location).attr('href');
   const mapId = getMapIDFromURL(url);
   $form = $("#pin-create-form");
-  // console.log($form.serialize());
+  console.log($form.serialize());
   $.ajax({
     url: `/maps/${mapId}/pins`, // reference form method later
     type: "POST",
@@ -157,9 +157,6 @@ const submitPinForm = (event) => {
 }
 
 function genInfoWindow(place, editParams) {
-  // Still in development/testing. Creating parameters to differentiate edits from creates
-  // Plan to use this object to pass through default values for form html
-  // Form generated in info window should store edit or create data as per input
   if (!editParams) {
     editParams = {
       label: "",
