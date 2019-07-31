@@ -6,13 +6,6 @@ let service;
 let allMarkers = [];
 let lastOpenedInfoWindow;
 
-// Listens for user to submit a query
-$("#search-map-btn").on("click", () => {
-  const input = $("#search-map-input").val();
-  $("#search-map-input").val("");
-  searchMap(input);
-})
-
 // function takes a query and returns the results and sets markers on map
 function searchMap(input) {
   let service = new google.maps.places.PlacesService(map);
@@ -119,7 +112,6 @@ function createMarker(place, createEditInfowindow) {
 };
 
 function genInfoWindow(place, editParams, marker) {
-  console.log(place);
   const contentString = generatePinFormContent(place, editParams);
 
   var infowindow = new google.maps.InfoWindow({ position: marker.position, content: contentString });
@@ -131,12 +123,6 @@ function genInfoWindow(place, editParams, marker) {
 
   return infowindow;
 
-}
-
-function removeAllMarkers() {
-  for (let i = 0; i < allMarkers.length; i ++) {
-    allMarkers[i].setMap(null);
-  }
 }
 
 function initMap() {

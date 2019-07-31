@@ -29,6 +29,12 @@ const closeInfoWindowIfPresent = function() {
   }
 }
 
+function removeAllMarkers() {
+  for (let i = 0; i < allMarkers.length; i ++) {
+    allMarkers[i].setMap(null);
+  }
+}
+
 // Convert snake case string
 function snakeToString(array) {
   let sentence = "";
