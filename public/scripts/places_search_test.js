@@ -41,6 +41,7 @@ function searchMap(input) {
         const lat = $(event.target).parent()[0].dataset.lat;
         const lng = $(event.target).parent()[0].dataset.lng;
         const center = new google.maps.LatLng(lat, lng);
+        createMarker({geometry: {location: center}});
         map.setCenter(center);
         map.setZoom(18);
       })
