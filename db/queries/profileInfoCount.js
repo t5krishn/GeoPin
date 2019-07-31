@@ -1,4 +1,4 @@
-const getAllMapsForUser = function (pool, user_id) {
+const profileInfoCount = function (pool, user_id) {
 
   const query = `
       Select (SELECT count(*) FROM maps WHERE owner_id = $1)
@@ -17,4 +17,4 @@ const getAllMapsForUser = function (pool, user_id) {
       .catch(err => { console.log(err) });
 
 }
-module.exports = getAllMapsForUser;
+module.exports = profileInfoCount;
