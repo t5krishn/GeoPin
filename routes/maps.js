@@ -76,23 +76,22 @@ module.exports = (pool, db) => {
       db.getUserWithId(pool, req.session.user_id)
       .then(user => {
         if (user) {
+          templateVars.user = user;
           const params = req.body;
           const queryParams = [
             params.title,
             params.subject,
             params.description,
             params.city,
-            req.session.user_id /* owner_id, same as cookie user_id */];
+            user.id /* owner_id, same as cookie user_id */];
 
           db.addMap(pool, queryParams)
           .then(map => {
             if (map) {
               // used render here so as to limit querying multiple times in /maps/map_id/edit
               //    to get the map.id and map.city again since we have that info already
-              let templateVars = {
-                map_id: map.id,
-                map_city: map.city
-              };
+              templateVars.map_id = map.id;
+              templateVars.map_city = map.city;
 
               res.render("maps_edit", templateVars);
               // res.redirect(`/maps/${map.id}/edit/`)
@@ -137,7 +136,10 @@ module.exports = (pool, db) => {
       if (map) {
         // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
         // ^^ DONE in the line below
-        let templateVars = { map };
+        let templateVars = { 
+          map,
+          user: null
+        };
 
         res.render("maps_edit", templateVars);
       } else {
@@ -209,7 +211,7 @@ module.exports = (pool, db) => {
       db.getUserWithId(pool, req.session.user_id)
       .then(user => {
         if (user) {
-          db.getMapWithId(pool, req.params.mapid)
+          db.getMapWithId(pool, map_id)
           .then(map => {
             if (map) {
               // map exists in db, go forward with the delete
