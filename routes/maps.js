@@ -88,10 +88,9 @@ module.exports = (pool, db) => {
           db.addMap(pool, queryParams)
           .then(map => {
             if (map) {
-              // used render here so as to limit querying multiple times in /maps/map_id/edit
+              // used res.render here so as to limit querying multiple times in /maps/map_id/edit
               //    to get the map.id and map.city again since we have that info already
-              templateVars.map_id = map.id;
-              templateVars.map_city = map.city;
+              templateVars.map= map;
 
               res.render("maps_edit", templateVars);
               // res.redirect(`/maps/${map.id}/edit/`)
@@ -138,7 +137,7 @@ module.exports = (pool, db) => {
         // ^^ DONE in the line below
         let templateVars = {
           map,
-          user: null
+          user: (req.session.user_id)? req.session.user_id : null /* If cookie user exists, pass that in, otherwise pass in null */
         };
 
         res.render("maps_edit", templateVars);
