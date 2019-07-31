@@ -17,11 +17,24 @@
   max-width: 400px;
   width: 20%;
   top: 10vh;
-  background-color: $secondary-color;
+  background-color: $quaternary-color;
   border: none;
   z-index: 100;
-  color: $primary-color;
   padding: 30px;
+
+  h2,
+  .btn {
+    color: $secondary-color !important;
+  }
+
+  .btn {
+    background-color: $tertiary-color;
+  }
+
+  .btn:hover {
+    background-color: $secondary-color;
+    color: $tertiary-color !important;
+  }
 
   .form-item {
     margin-bottom: 15px;
@@ -37,11 +50,7 @@
     }
 
     .pin-btn {
-      @include flexThis(center, center, row);
-      background-color: $tertiary-color;
       border-radius: 100%;
-      border: 1px solid $tertiary-color;
-      color: $black;
       height: 30px;
       width: 30px;
 
