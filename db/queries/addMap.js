@@ -22,5 +22,4 @@ const addMap = function (pool, mapParams) {
         .catch(err => { console.log(err) });
 }
 
-
 module.exports = addMap;

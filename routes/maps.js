@@ -7,7 +7,6 @@
 
 const express = require('express');
 const router  = express.Router();
-const methodOverride = require("method-override");
 
 
 module.exports = (pool, db) => {
@@ -17,13 +16,31 @@ module.exports = (pool, db) => {
   // Homepage browses random maps from map database
   router.get("/", (req, res) => {
 
+    let user = null;
+    if (req.session.user_id) {
+      user = req.session.user_id;
+    }
+
     db.getAllMaps(pool)
     .then(maps => {
-      if (maps) {
+      if (user) {
+        for (let map of maps) {
+          db.doesUserLikeMap(pool, [user, map.id])
+          .then(like => {
+            if (like) {
+              map.likedByUSER = true;
+              console.log("mapliked", map);
+            } else {
+              map.likedByUSER = false;
+              console.log("mapnotliked", map);
+            }
+          })
+          .catch(err => res.json({error: err.message}))
+        }
         res.json(maps);
       } else {
-        // NOTE Need to create error message box in html to display that data wasn't found
-        res.status(404).json({error: "Oops! There's a problem on our end. Maps were not able to load. Please refresh and try again, sorry!"});
+        maps.like = false;
+        res.json(maps);
       }
     })
     .catch(err => {
@@ -269,10 +286,8 @@ module.exports = (pool, db) => {
             // if the user likes the map, unlike it
             // else if user unlikes it, like the map
             if (like) {
-              console.log("unliked");
               db.unlikeMap(pool, [user.id, mapid])
             } else {
-              console.log("liked");
               db.likeMap(pool, [user.id, mapid])
             }
           })

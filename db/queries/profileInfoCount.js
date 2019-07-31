@@ -6,6 +6,7 @@ const profileInfoCount = function (pool, user_id) {
       , (SELECT count(*) FROM liked_maps WHERE user_id = $1) AS liked_maps
       , (SELECT count(liked_maps.*) FROM liked_maps JOIN maps ON maps.id = liked_maps.map_id WHERE maps.owner_id = $1) AS liked_by
   ;`;
+
   return pool.query(query, [user_id])
       .then(res => {
           if (res.rows) {
