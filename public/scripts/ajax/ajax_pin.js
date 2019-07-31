@@ -32,21 +32,23 @@ const ajaxDeletePin = (url) => {
 };
 
 // Submit pin create form
-const submitPinForm = (event) => {
-  event.preventDefault();
-  console.log("id: ", $("#map").data());
-  const url = `/maps/${$("#map").data().id}/pins`
-  $form = $("#pin-create-form");
-  console.log($form.serialize());
-  $.ajax({
-    url: url, // reference form method later
-    type: "POST",
-    data: $form.serialize()
-  })
-  .done((pin) => {
-    console.log(this);
-    addPinsToContainer([pin], $("#all-pins"));
-  })
+const submitPinForm = (url) => {
+  return function(event) {
+    event.preventDefault();
+    console.log("id: ", $("#map").data());
+    // const url = `/maps/${$("#map").data().id}/pins`
+    $form = $("#pin-create-form");
+    console.log($form.serialize());
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: $form.serialize()
+    })
+    .done((pin) => {
+      console.log(this);
+      addPinsToContainer([pin], $("#all-pins"));
+    })
+  }
 
 }
 

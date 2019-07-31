@@ -104,7 +104,6 @@ function genInfoWindow(place, editParams) {
       putURL: ""
     };
   }
-  console.log();
 
   const contentString = generateCreatePinFormContent(place, editParams.mapID);
 
@@ -112,7 +111,7 @@ function genInfoWindow(place, editParams) {
 
   google.maps.event.addListener(infowindow, 'domready', function() {
     // Bind the create pin event listener
-    $(document).on("submit", "#pin-create-form", submitPinForm);
+    $(document).on("submit", "#pin-create-form", submitPinForm(`/maps/${$("#map").data().id}/pins`));
   });
 
   return infowindow;
