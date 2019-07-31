@@ -18,9 +18,9 @@
 
     <%- include ./partials/_nav.ejs%>
 
-    <div class="profile-container">
+    <div class="profile-container" >
       <div class="profile-picture">
-        <img id="profile-image" src="https://api.adorable.io/avatars/300/<%= user.username%>.png" alt="Profile picture"  />
+        <img id="profile-image" data-user_id="<%= user.id %>" src="https://api.adorable.io/avatars/300/<%= user.username%>.png" alt="Profile picture"  />
       </div>
       <div id="profile-username" class="mt-2">
         <h2> <%= user.username %> </h2>
@@ -85,6 +85,9 @@
         </div> --> <!-- wrapper -->
       <!-- </section> --> <!-- all maps -->
     </main>
+
+    <!-- Profile Script -->
+    <script type="text/javascript" src="/scripts/profile.js"></script>
 
     <!-- Helpers -->
     <script type="text/javascript" src="/scripts/helpers.js"></script>
