@@ -15,9 +15,9 @@ const createPinHTML = (pin) => {
   `
 };
 
-const generateCreatePinFormContent = function(place, mapID) {
+const generatePinFormContent = function(place, editParams) {
   return `
-      <form id="pin-create-form" action="/maps/${mapID}/pins" method="POST">
+      <form id="pin-create-form" action="${editParams.url}" method="POST">
       <div class="form-row">
         <label for="pin-label">Label:</label>
         <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>
