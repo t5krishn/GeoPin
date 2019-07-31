@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Profile Page for <%= user.username %></title>
+
+    <!-- External Style and Scripts -->
+    <%include ./partials/_external_tags.ejs%>
+
+    <link rel="stylesheet" href="/styles/profile.css" type="text/css" />
+
+  </head>
+
+  <body>
+
+    <%- include ./partials/_nav.ejs%>
+
+    <div class="profile-container">
+      <div class="profile-picture">
+        <img id="profile-image" src="https://api.adorable.io/avatars/300/<%= user.username%>.png" alt="Profile picture"  />
+      </div>
+      <div id="profile-username" class="mt-2">
+        <h2> <%= user.username %> </h2>
+      </div>
+      <div id="profile-details">
+        <div id="maps-created-detail" class="profile-detail-container pt-3 justify-content-center">
+          <h5 class="profile-details">
+            Maps Created:
+            <span class="badge badge-info ml-1"><%= profile.mapsCreated %></span>
+          </h5>
+        </div>
+        <div id="maps-contributed-detail" class="profile-detail-container pt-3 justify-content-center">
+          <h5 class="profile-details">
+            Maps Contributed to:
+            <span class="badge badge-info ml-1"><%= profile.mapsContributed %></span>
+          </h5>
+        </div>
+        <div id="liked-maps-detail" class="profile-detail-container pt-3 justify-content-center">
+          <h5 class="profile-details">
+            Liked Maps:
+            <span class="badge badge-info ml-1"><%= profile.liked_maps %></span>
+          </h5>
+        </div>
+        <div id="liked-by-detail" class="profile-detail-container pt-3 justify-content-center">
+          <h5 class="profile-details">
+            Liked By:
+            <span class="badge badge-info ml-1"><%= profile.liked_by %></span>
+          </h5>
+        </div>
+      </div>
+    </div>
+ 
+
+    <main id="main-content">
+
+        <nav>
+            <div class="nav nav-tabs ml-4 mr-4" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-cs-tab" data-toggle="tab" href="#maps-created" role="tab" aria-controls="nav-home" aria-selected="true">
+                    <strong>Maps Created</strong>
+                </a>
+                <a class="nav-item nav-link" id="nav-other-tab" data-toggle="tab" href="#maps-contributed" role="tab" aria-controls="nav-profile" aria-selected="false">
+                    <strong>Maps Contributed To</strong>
+                </a>
+            </div>
+        </nav>
+
+
+        <div class="tab-content m-4" id="nav-tabContent">
+          <!-- MAPS CREATED TAB -->
+          <div class="tab-pane fade show active" id="maps-created" role="tabpanel" aria-labelledby="maps-created-tab">
+            <div id='maps-created-container ml-2'></div>
+          </div>
+
+          <!-- MAPS CONTRIBUTED TO TAB -->
+          <div class="tab-pane fade" id="maps-contributed" role="tabpanel" aria-labelledby="maps-contributed-tab">
+            <div id="maps-contributed-container ml-2"></div>
+          </div>
+        </div>
+
+      <!-- <section id="all-maps">
+        <div id="browse-map-wrapper" class="wrapper">
+        </div> --> <!-- wrapper -->
+      <!-- </section> --> <!-- all maps -->
+    </main>
+
+    <!-- Helpers -->
+    <script type="text/javascript" src="/scripts/helpers.js"></script>
+
+    <!-- Components -->
+    <script type="text/javascript" src="/scripts/components/all_maps.js"></script>
+
+    <!-- Ajax -->
+    <script type="text/javascript" src="/scripts/ajax/ajax_map.js"></script>
+
+    <!-- Driver -->
+    <script type="text/javascript" src="/scripts/index.js"></script>
+  </body>
+</html>

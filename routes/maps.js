@@ -75,6 +75,7 @@ module.exports = (pool, db) => {
     if (req.session.user_id) {
       db.getUserWithId(pool, req.session.user_id)
       .then(user => {
+        console.log(typeof user.id);
         if (user) {
           templateVars.user = user;
           const params = req.body;
