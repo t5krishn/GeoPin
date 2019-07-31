@@ -88,30 +88,30 @@ function createMarker(place) {
       infowindow.setContent("");
       infowindow.close();
     }
-    infowindow = genInfoWindow(place, null);
+
+    let editParams = {
+      label: "",
+      description: "",
+      pin_thumbnail_url: "",
+      mapID: $("#map").data().id,
+      url: `/maps/${$("#map").data().id}/pins`
+    };
+
+    infowindow = genInfoWindow(place, editParams);
     infowindow.open(map, marker);
   });
 
 };
 
 function genInfoWindow(place, editParams) {
-  if (!editParams) {
-    editParams = {
-      label: "",
-      description: "",
-      pin_thumbnail_url: "",
-      mapID: $("#map").data().id,
-      putURL: ""
-    };
-  }
 
-  const contentString = generateCreatePinFormContent(place, editParams.mapID);
+  const contentString = generatePinFormContent(place, editParams);
 
   var infowindow = new google.maps.InfoWindow({ content: contentString });
 
   google.maps.event.addListener(infowindow, 'domready', function() {
     // Bind the create pin event listener
-    $(document).on("submit", "#pin-create-form", submitPinForm(`/maps/${$("#map").data().id}/pins`));
+    $(document).on("submit", "#pin-create-form", submitPinForm);
   });
 
   return infowindow;

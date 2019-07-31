@@ -10,8 +10,6 @@ $(() => {
     const url = event.target.getAttribute("action");
     ajaxGetSinglePin(url)
     .done((pin) => {
-      console.log(pin);
-      console.log(allMarkers);
       pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
       removeAllMarkers();
       createMarker(pin)
