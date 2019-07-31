@@ -10,3 +10,18 @@ const ajaxGetAllMaps = (elementID) => {
     console.log(error);
   });
 };
+
+const ajaxGetMapsByUser = (mapCreatedEle, mapContributedEle) => {
+  const user_id = $('#profile-image').dataset.user_id;
+
+  $.ajax(`/users/${user_id}/maps`, { method: 'GET' })
+  .done(function(maps) {
+    console.log(maps);
+    // addMapsToContainer(maps, elementID);
+  })
+  .fail(function(error) {
+    console.log("oops");
+    console.log(error);
+  });
+};
+
