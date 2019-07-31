@@ -12,6 +12,10 @@
 
 }
 
+#search-form {
+  margin: 0;
+}
+
 .edit-container {
   position: absolute;
   max-width: 400px;
@@ -21,6 +25,8 @@
   border: none;
   z-index: 100;
   padding: 30px;
+  border: solid 2px $secondary-color;
+  border-radius: 10px;
 
   h2,
   .btn {
@@ -64,19 +70,22 @@
 
 #search-container {
   left: 0;
-  height: 80vh;
-  overflow: scroll;
-  #search-results-container {
-    .search-result {
-      z-index: 100;
-      margin: 2%;
-      border: 1px solid black;
-      overflow: unset;
-      height: 85%;
-      display: block;
-      .search-result-img {
-        background-size: 80px, 90px;
-      }
+}
+
+#search-results-container {
+  height: 55vh;
+  left: 0;
+  top: 35vh;
+  .search-result {
+    overflow: scroll;
+    z-index: 100;
+    margin: 2%;
+    border: 1px solid black;
+    overflow: unset;
+    height: 85%;
+    display: block;
+    .search-result-img {
+      background-size: 80px, 90px;
     }
   }
 }
