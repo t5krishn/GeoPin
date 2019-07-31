@@ -67,9 +67,7 @@ module.exports = (pool, db, bcrypt) => {
 
   // Get all maps created and contributed to for a given user
   router.get("/:userid/maps", (req, res) => {
-
-    let templateVars = {user: null};
-
+    
     if (req.session.user_id) {
       db.getUserWithId(pool, req.session.user_id)
       .then(user => {
@@ -79,12 +77,26 @@ module.exports = (pool, db, bcrypt) => {
             let data = { createdMaps };
 
             db.getAllContributions(pool, user.id)
-            .then()
-            res.json(data);
+            .then(contributedMaps => {
+              data.contributedMaps = contributedMaps;
+              res.json(data);
+            })
+            .catch(err => {
+              // getAllContributions query failed
+              res
+              .status(500)
+              .json({ error: err.message });
+            });
           })
+          .catch(err => {
+            // getAllMapsForUser query failed
+            res
+            .status(500)
+            .json({ error: err.message });
+          });
         } else {
           // user not logged in
-        res.render("login", templateVars);
+        res.render("login", { user: null });
         }
       })
       .catch(err => {
@@ -95,7 +107,7 @@ module.exports = (pool, db, bcrypt) => {
       });
     } else {
       // user not logged in
-      res.render("login", templateVars);
+      res.render("login", { user:null });
     }
   });
 
