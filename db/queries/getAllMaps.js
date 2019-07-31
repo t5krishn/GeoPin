@@ -1,8 +1,9 @@
 const getAllMaps = function (pool, limit = 10) {
 
     const query = `
-        SELECT *
-        FROM maps
+        SELECT maps.*, users.*
+        FROM maps JOIN users
+        ON maps.owner_id = users.id
         WHERE maps.deleted = FALSE
         ORDER BY maps.id DESC
         LIMIT $1;

@@ -14,7 +14,6 @@ module.exports = (pool, db) => {
 
   // GET /maps/
   // Localhost:8080/
-  // Note - Do we need timestamps for created at on maps?
   // Homepage browses random maps from map database
   router.get("/", (req, res) => {
 
@@ -24,7 +23,7 @@ module.exports = (pool, db) => {
         res.json(maps);
       } else {
         // NOTE Need to create error message box in html to display that data wasn't found
-        res.status(404).json({error: "There's a problem on our end. Maps were not able to load. Please refresh and try again, sorry!"});
+        res.status(404).json({error: "Oops! There's a problem on our end. Maps were not able to load. Please refresh and try again, sorry!"});
       }
     })
     .catch(err => {
@@ -256,36 +255,34 @@ module.exports = (pool, db) => {
   router.post("/:mapid/like", (request, response) => {
     // Delete owner id form after!!!! --> DONE :)
     const mapid = request.params.mapid;
-    console.log("post request was sent");
 
     if (request.session.user_id) {
       db.getUserWithId(pool, request.session.user_id)
       .then(user => {
         // check if it returns a valid user
         if (user) {
-          console.log("user is signed in", user.id);
           db.doesUserLikeMap(pool, [user.id, mapid])
           .then(like => {
-            console.log("liked", like);
             // if the user likes the map, unlike it
             // else if user unlikes it, like the map
             if (like) {
+              console.log("unliked");
               db.unlikeMap(pool, [user.id, mapid])
             } else {
+              console.log("liked");
               db.likeMap(pool, [user.id, mapid])
             }
           })
         } else {
         // ADD error message to let user know they must be registered to like
-          console.log("user does not exist in db");
           response.json({err: "User does not exist, please"});
         }
       })
-      .catch(err => {
+      .catch(error => {
         // **** db connection did not work properly, redirect to create map page ****
         response
           .status(500)
-          .json({ error: err.message });
+          .json({err: error.message });
       });
     } else {
       // user not in cookie so log in
