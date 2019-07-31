@@ -20,6 +20,7 @@ module.exports = (pool, db, bcrypt) => {
       db.getUserWithId(pool, req.session.user_id)
       .then(user => {
         if (user) {
+          console.log(user);
           // user is already present in db and cookie so redirect to home page
           templateVars.user = user;
           res.render("index", templateVars);

@@ -18,15 +18,29 @@
     align-items: center;
   }
 
+  label {
+    color: $tertiary-color;
+    margin-right: 25px;
+  }
+
+  #logout {
+    border-radius: 10px;
+    border: solid 1px $quaternary-color;
+  }
+
+  label,
   .nav-button {
     font-size: 1.3rem;
-    background-color: transparent;
+  }
+
+  .nav-button {
     color: $quaternary-color;
+    background-color: transparent;
     border: none;
     border-bottom: solid 1px transparent;
     transition: 0.3s;
     border-radius: 0;
-
+    font-weight: bold;
   }
 
   .nav-button:hover {
