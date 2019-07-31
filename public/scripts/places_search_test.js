@@ -4,6 +4,7 @@ let map;
 let infowindow;
 let service;
 let allMarkers = [];
+let lastOpenedInfoWindow;
 
 // Listens for user to submit a query
 $("#search-map-btn").on("click", () => {
@@ -27,7 +28,7 @@ function searchMap(input) {
    },
     function(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < 20; i++) {
+          for (var i = 0; i < results.length; i++) {
               console.log(results[i]);
               appendResults(results[i]);
               createMarker(results[i]);
@@ -89,7 +90,9 @@ function appendResults(place) {
   result += `
     </div>
   `;
+
   $("#search-results-container").append(result);
+
 }
 
 function createMarker(place) {
@@ -97,12 +100,13 @@ function createMarker(place) {
   var marker = new google.maps.Marker({
                 position: place.geometry.location,
                 map: map,
-              });
+        });
+
+  allMarkers.push(marker);
 
   marker.addListener('click', function() {
     if (infowindow) {
       $(document).on("submit", "#pin-create-form", submitPinForm).off();
-
       infowindow.setContent("");
       infowindow.close();
     }
@@ -110,12 +114,7 @@ function createMarker(place) {
     infowindow.open(map, marker);
   });
 
-  allMarkers.push(marker);
-  // marker.addListener('mouseover', function() {
-  //         infowindow.open(map, marker);
-  //       });
-
-}
+};
 
 const generateFormContent = function(place, editParams) {
   return `

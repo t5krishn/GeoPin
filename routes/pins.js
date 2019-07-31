@@ -57,7 +57,6 @@ module.exports = (pool, db) => {
     const pinParams = [params.label, params.description, params.lng, params.lat, params.pin_thumbnail_url, mapID];
     db.addPin(pool, pinParams)
     .then(pin => {
-      console.log("inside pins.js", pin);
       if (pin) {
         res.json(pin);
       } else {
