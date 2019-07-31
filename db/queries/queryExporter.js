@@ -16,8 +16,9 @@ const incrementPinCountWithMapId = require('./incrementPinCountWithMapId');
 const updateMap = require('./updateMap');
 const updatePin = require('./updatePin');
 const updateUser = require('./updateUser');
+const doesUserLikeMap = require('./doesUserLikeMap');
 
-module.exports = { 
+module.exports = {
     addMap,
     addPin,
     addUser,
@@ -35,5 +36,6 @@ module.exports = {
     incrementPinCountWithMapId,
     updateMap,
     updatePin,
-    updateUser
+    updateUser,
+    doesUserLikeMap
 };
