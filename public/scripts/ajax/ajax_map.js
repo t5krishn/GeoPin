@@ -24,6 +24,9 @@ const likeMap = function(mapid) {
   // Send a request to delete/ insert row to liked_maps table depending on if a user already likes the map
   $.ajax(`/maps/${mapid}/like`, { method: 'POST' })
   .done(res => {
-    console.log("success ajax");
+    // res.redirect('/login')
+    if (res.err) {
+      window.location.href = "/login";
+    }
   })
 }

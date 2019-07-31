@@ -253,13 +253,13 @@ module.exports = (pool, db) => {
   });
 
   // Map like/ unlike
-  router.post("/:mapid/like", (req, res) => {
+  router.post("/:mapid/like", (request, response) => {
     // Delete owner id form after!!!! --> DONE :)
-    const mapid = req.params.mapid;
+    const mapid = request.params.mapid;
     console.log("post request was sent");
 
-    if (req.session.user_id) {
-      db.getUserWithId(pool, req.session.user_id)
+    if (request.session.user_id) {
+      db.getUserWithId(pool, request.session.user_id)
       .then(user => {
         // check if it returns a valid user
         if (user) {
@@ -278,19 +278,18 @@ module.exports = (pool, db) => {
         } else {
         // ADD error message to let user know they must be registered to like
           console.log("user does not exist in db");
-          res.json(null);
+          response.json({err: "User does not exist, please"});
         }
       })
       .catch(err => {
         // **** db connection did not work properly, redirect to create map page ****
-        res
+        response
           .status(500)
           .json({ error: err.message });
       });
     } else {
       // user not in cookie so log in
-      console.log("user not logged in");
-      res.json(null);
+      response.json({err: "No cookie session, log in"});
     }
   });
 
