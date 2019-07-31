@@ -13,12 +13,14 @@ const clearCrontainer = (elementID) => {
   $(elementID).empty();
 };
 
+// Function to close infowindow after submitting a pin edit or create form
 const closePinFormWindow = function() {
   $(document).on("submit", "#pin-create-form", submitPinForm).off();
   infowindow.setContent("");
   infowindow.close();
 }
 
+// Function to check if an infowindow is present and delete if so
 const closeInfoWindowIfPresent = function() {
   // Close infowindow on page if open
   if (infowindow) {
@@ -29,6 +31,7 @@ const closeInfoWindowIfPresent = function() {
   }
 }
 
+// Function to loop through all markers on map and delete them
 function removeAllMarkers() {
   for (let i = 0; i < allMarkers.length; i ++) {
     allMarkers[i].setMap(null);
