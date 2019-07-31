@@ -77,20 +77,20 @@ module.exports = (pool, db) => {
         if (user) {
           templateVars.user = user;
           const params = req.body;
+          // id, title, subject, description, city, created_at, owner_id, latitude, longitude
           const queryParams = [
             params.title,
             params.subject,
             params.description,
             params.city,
-            req.session.user_id /* owner_id, same as cookie user_id */];
+            user.id /* owner_id, same as cookie user_id */];
 
           db.addMap(pool, queryParams)
           .then(map => {
             if (map) {
-              // used render here so as to limit querying multiple times in /maps/map_id/edit
+              // used res.render here so as to limit querying multiple times in /maps/map_id/edit
               //    to get the map.id and map.city again since we have that info already
-              templateVars.map_id = map.id;
-              templateVars.map_city = map.city;
+              templateVars.map= map;
 
               res.render("maps_edit", templateVars);
               // res.redirect(`/maps/${map.id}/edit/`)
@@ -135,7 +135,10 @@ module.exports = (pool, db) => {
       if (map) {
         // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
         // ^^ DONE in the line below
-        let templateVars = { map, };
+        let templateVars = {
+          map,
+          user: (req.session.user_id)? req.session.user_id : null /* If cookie user exists, pass that in, otherwise pass in null */
+        };
 
         res.render("maps_edit", templateVars);
       } else {
@@ -207,7 +210,7 @@ module.exports = (pool, db) => {
       db.getUserWithId(pool, req.session.user_id)
       .then(user => {
         if (user) {
-          db.getMapWithId(pool, req.params.mapid)
+          db.getMapWithId(pool, map_id)
           .then(map => {
             if (map) {
               // map exists in db, go forward with the delete
@@ -278,11 +281,11 @@ module.exports = (pool, db) => {
           response.json({err: "User does not exist, please"});
         }
       })
-      .catch(error => {
+      .catch(err => {
         // **** db connection did not work properly, redirect to create map page ****
         response
           .status(500)
-          .json({err: error.message });
+          .json({error: err.message });
       });
     } else {
       // user not in cookie so log in
