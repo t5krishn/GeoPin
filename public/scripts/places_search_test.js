@@ -140,12 +140,12 @@ const generateFormContent = function(place, editParams) {
 
 const submitPinForm = (event) => {
   event.preventDefault();
-  // const url = $(location).attr('href');
-  // const mapId = getMapIDFromURL(url);x
+  const url = $(location).attr('href');
+  const mapId = getMapIDFromURL(url);
   $form = $("#pin-create-form");
   // console.log($form.serialize());
   $.ajax({
-    url: $form.attr("action"), // reference form method later
+    url: `/maps/${mapId}/pins`, // reference form method later
     type: "POST",
     data: $form.serialize()
   })
