@@ -15,7 +15,8 @@
       <% if (user) { %>
         <li class="nav-item">
           <form class="form-inline" action="/logout" method="POST">
-            <button type="submit" class="nav-button btn btn-primary">Logout</button>
+            <label for="logout">Logged in as: <%= user.username %></label>
+            <button type="submit" id="logout" class="nav-button btn btn-primary">Logout</button>
           </form>
         </li>
       <% } else { %>
