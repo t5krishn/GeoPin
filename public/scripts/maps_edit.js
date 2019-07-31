@@ -3,7 +3,8 @@ $(() => {
   const mapID = $("#map").data().id;
 
   // Listens for user to submit a query
-  $("#search-map-btn").on("click", () => {
+  $("#search-form").on("submit", () => {
+    event.preventDefault();
     const input = $("#search-map-input").val();
     $("#search-map-input").val("");
     searchMap(input);
