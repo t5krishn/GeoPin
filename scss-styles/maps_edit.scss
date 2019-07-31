@@ -12,23 +12,19 @@
 
 }
 
-
-
 .edit-container {
   position: absolute;
-  height: 85%;
-  max-width: 325px;
-  width: 200px / 715px * 100%;
-  top: 10%;
+  max-width: 400px;
+  width: 20%;
+  top: 10vh;
   background-color: $secondary-color;
-  border: solid 2px $primary-color;
+  border: none;
   z-index: 100;
-  color: $black;
-  padding: 10px;
+  color: $primary-color;
+  padding: 30px;
 
-  h2 {
-    color: $black;
-    text-align: center;
+  .form-item {
+    margin-bottom: 15px;
   }
 
   .form-row {
@@ -59,6 +55,7 @@
 
 #search-container {
   left: 0;
+  height: 80vh;
   overflow: scroll;
   #search-results-container {
     .search-result {

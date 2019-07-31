@@ -4,13 +4,7 @@ let map;
 let infowindow;
 let service;
 let allMarkers = [];
-
-// Listens for user to submit a query
-$("#search-map-btn").on("click", () => {
-  const input = $("#search-map-input").val();
-  $("#search-map-input").val("");
-  searchMap(input);
-})
+let lastOpenedInfoWindow;
 
 // function takes a query and returns the results and sets markers on map
 function searchMap(input) {
@@ -27,7 +21,7 @@ function searchMap(input) {
    },
     function(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < 20; i++) {
+          for (var i = 0; i < results.length; i++) {
               console.log(results[i]);
               appendResults(results[i]);
               createMarker(results[i]);
@@ -40,33 +34,12 @@ function searchMap(input) {
         const lat = $(event.target).parent()[0].dataset.lat;
         const lng = $(event.target).parent()[0].dataset.lng;
         const center = new google.maps.LatLng(lat, lng);
+        createMarker({geometry: {location: center}});
         map.setCenter(center);
         map.setZoom(18);
       })
 
   });
-}
-
-function snakeToString(array) {
-  let sentence = "";
-  for (let i = 0; i < array.length; i ++) {
-    let string = "";
-
-    for (let char of array[i]) {
-      if (char === "_") {
-        string += " ";
-      } else {
-        string += char;
-      }
-    }
-
-    sentence += string;
-
-    if (i !== array.length - 1) {
-      sentence += ", ";
-    }
-  }
-  return sentence;
 }
 
 function appendResults(place) {
@@ -89,47 +62,67 @@ function appendResults(place) {
   result += `
     </div>
   `;
+
   $("#search-results-container").append(result);
+
 }
 
-function createMarker(place) {
-
-  var contentString = `
-      <form id="pin-create-form" action="/maps/:map_id/pins/:pin_id" method="POST">
-      <div class="form-row">
-        <label for="pin-label">Label:</label>
-        <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>
-      </div>
-      <div class="form-row">
-        <label for="pin-description">Description:</label>
-        <textarea class="form-input" id="pin-description" name="description" placeholder="Describe your pin..."></textarea>
-      </div>
-      <div class="form-row">
-        <label for="pin-thumbnail">Thumbnail URL:</label>
-        <textarea class="form-input" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..."></textarea>
-      </div>
-      <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
-      </form>
-  `;
-
-  var infowindow = new google.maps.InfoWindow({
-                    content: contentString
-                  });
-
+function createMarker(place, createEditInfowindow) {
+  console.log(place.geometry.location);
   var marker = new google.maps.Marker({
                 position: place.geometry.location,
-                map: map,
-              });
+                map: map
+        });
+
+  allMarkers.push(marker);
+
+  if (createEditInfowindow) {
+    const editParams = {
+      label: place.label,
+      description: place.description,
+      pin_thumbnail_url: place.pin_thumbnail_url,
+      mapID: place.map_id,
+      url: `/maps/${place.map_id}/pins/${place.id}/edit/?_method=PUT`,
+      newPinCallback: null
+    };
+
+    infowindow = genInfoWindow(place, editParams, marker);
+    infowindow.open(map, marker);
+  }
 
   marker.addListener('click', function() {
-          infowindow.open(map, marker);
-        });
-}
+    if (infowindow) {
+      closePinFormWindow();
+    }
 
-function removeAllMarkers() {
-  for (let i = 0; i < allMarkers.length; i ++) {
-    allMarkers[i].setMap(null);
-  }
+    let editParams = {
+      label: "",
+      description: "",
+      pin_thumbnail_url: "",
+      mapID: $("#map").data().id,
+      url: `/maps/${$("#map").data().id}/pins`,
+      newPinCallback: addPinsToContainer
+    };
+
+    infowindow = genInfoWindow(place, editParams, marker);
+    infowindow.open(map, marker);
+  });
+
+
+};
+
+function genInfoWindow(place, editParams, marker) {
+  const contentString = generatePinFormContent(place, editParams);
+
+  var infowindow = new google.maps.InfoWindow({ position: marker.position, content: contentString });
+
+  google.maps.event.addListener(infowindow, 'domready', function() {
+    // Bind the create pin event listener
+    $(document).on("submit", "#pin-create-form", submitPinForm(editParams.newPinCallback));
+  });
+
+  return infowindow;
+
 }
 
 function initMap() {
@@ -154,4 +147,3 @@ function initMap() {
     }
   })
 }
-

@@ -20,6 +20,8 @@ const doesUserLikeMap = require('./doesUserLikeMap');
 const unlikeMap = require("./unlikeMap");
 const likeMap = require("./likeMap");
 const profileInfoCount = require("./profileInfoCount");
+const getAllContributions = require('./getAllContributions');
+const getAllLikedMaps = require('./getAllLikedMaps');
 
 module.exports = {
     addMap,
@@ -43,5 +45,7 @@ module.exports = {
     doesUserLikeMap,
     unlikeMap,
     likeMap,
-    profileInfoCount
+    profileInfoCount,
+    getAllContributions,
+    getAllLikedMaps
 };
