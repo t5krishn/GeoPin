@@ -95,7 +95,7 @@ function appendResults(place) {
 function createMarker(place) {
 
   var contentString = `
-      <form id="pin-create-form" action="/maps/:map_id/pins/:pin_id/create" method="POST">
+      <form id="pin-create-form" action="/maps/:map_id/pins/:pin_id" method="POST">
       <div class="form-row">
         <label for="pin-label">Label:</label>
         <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>

@@ -1,6 +1,7 @@
 // Add html for single map container element
 const createMapHTML = (map) => {
-  return ` <a href="/maps/${map.id}/edit" class="single-map">
+  // href="/maps/${map.id}/edit"
+  return ` <a class="single-map">
       <div class="map-thumbnail map-container">
         <div class="hover-read">
           <div class="map-header">
@@ -11,9 +12,7 @@ const createMapHTML = (map) => {
           </div> <!-- map-description -->
           <div class="map-footer">
             <span class="socials">
-              <i class="fas fa-heart"></i>
-              <i class="fas fa-flag"></i>
-              <i class="fas fa-retweet"></i>
+              <i id="like" class="fas fa-heart" onclick="likeMap()"></i>
             </span> <!-- socials -->
           </div> <!-- map-footer -->
         </div> <!-- hover-read -->
@@ -22,6 +21,10 @@ const createMapHTML = (map) => {
     </a> <!-- single map -->
   `
 };
+
+const likeMap = function() {
+  console.log("boop!");
+}
 
 // Loop through array of map objects and call create HTML funciton for each
 // When done, append the entire HTML of all Maps to given element
