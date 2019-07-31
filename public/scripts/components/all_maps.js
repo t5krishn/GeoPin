@@ -25,6 +25,7 @@ const createMapHTML = (map) => {
 };
 
 const doesUserLike = (likedByUSER) => {
+  console.log(likedByUSER);
   if (likedByUSER) {
     // full heart
     return `fas fa-heart`
