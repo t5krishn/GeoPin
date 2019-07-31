@@ -31,6 +31,25 @@ const ajaxDeletePin = (url) => {
   });
 };
 
+// Submit pin create form
+const submitPinForm = (event) => {
+  event.preventDefault();
+  console.log("id: ", $("#map").data());
+  const url = `/maps/${$("#map").data().id}/pins`
+  $form = $("#pin-create-form");
+  console.log($form.serialize());
+  $.ajax({
+    url: url, // reference form method later
+    type: "POST",
+    data: $form.serialize()
+  })
+  .done((pin) => {
+    console.log(this);
+    addPinsToContainer([pin], $("#all-pins"));
+  })
+
+}
+
 /* ************** FUNCTIONS WE NEED TO CREATE ******************** */
 // createPin() function creates div element which has pin information and an edit, and delete pin
 // loadPins() function refreshes side bar and requires map_id param it uses a loop that calls on createPin() function, appends

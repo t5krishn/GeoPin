@@ -15,6 +15,28 @@ const createPinHTML = (pin) => {
   `
 };
 
+const generateCreatePinFormContent = function(place, mapID) {
+  return `
+      <form id="pin-create-form" action="/maps/${mapID}/pins" method="POST">
+      <div class="form-row">
+        <label for="pin-label">Label:</label>
+        <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>
+      </div>
+      <div class="form-row">
+        <label for="pin-description">Description:</label>
+        <textarea class="form-input" id="pin-description" name="description" placeholder="Describe your pin..."></textarea>
+      </div>
+      <div class="form-row">
+        <label for="pin-thumbnail">Thumbnail URL:</label>
+        <textarea class="form-input" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..."></textarea>
+      </div>
+      <input name="lat" type="hidden" for="pin-thumbnail" value="${place.geometry.location.lat()}">
+      <input name="lng" type="hidden" for="pin-thumbnail" value="${place.geometry.location.lng()}">
+      <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
+      </form>
+  `;
+}
+
 // Loop through array of map objects and call create HTML funciton for each
 // When done, append the entire HTML of all Pins to given element
 const addPinsToContainer = (pins, elementID) => {
