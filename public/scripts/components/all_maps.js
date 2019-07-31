@@ -13,16 +13,26 @@ const createMapHTML = (map) => {
           <div class="map-footer">
             <span class="socials">
               <form method="POST" action="maps/${map.id}/like">
-                <i id="like" class="far fa-heart" onclick="likeMap(${map.id})"></i>
+                <h4 id="total-likes">${map.likes}</h4><i id="like" class="${doesUserLike(map.likedByUSER)}" onclick="likeMap(${map.id})"></i>
               </form>
             </span> <!-- socials -->
           </div> <!-- map-footer -->
         </div> <!-- hover-read -->
       </div> <!-- map-thumbnail -->
-      <h4>kendy1234 - ${map.title}</h4>
+      <h4>${map.username} - ${map.title}</h4>
     </a> <!-- single map -->
   `
 };
+
+const doesUserLike = (likedByUSER) => {
+  if (likedByUSER) {
+    // full heart
+    return `fas fa-heart`
+  } else {
+    // empty heart
+    return `far fa-heart`
+  }
+}
 
 // Loop through array of map objects and call create HTML funciton for each
 // When done, append the entire HTML of all Maps to given element
