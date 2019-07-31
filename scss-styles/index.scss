@@ -93,6 +93,10 @@
   }
 }
 
+#like:hover {
+  cursor: pointer;
+}
+
 .single-map:hover {
   border: solid 2px $primary-color;
   -webkit-box-shadow: 10px 10px 5px 0px rgba(202,245,239,1);

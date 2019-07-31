@@ -77,6 +77,7 @@ app.get("/", (req, res) => {
   if (req.session.user_id) {
     db.getUserWithId(pool, req.session.user_id)
     .then(user => {
+      console.log(user);
       templateVars.user = user;
       res.render("profile", templateVars);
     })

@@ -23,25 +23,36 @@
     <main>
       <div id="map-container" class="map-container">
 
-        <div id="search-container" class="edit-container">
+        <div id="search-container" class="container edit-container">
 
-          <div>
-            <textarea id="search-map-input" class="form-input" name="searchInput" placeholder="Search map"></textarea>
-            <button id="search-map-btn" class="btn btn-primary" type="submit">Search</button>
-          </div>
-
-          <h2>Search Results</h2>
-
-        <div id="search-results-container">
-
+          <form id="search-form" action="" class="form-group">
+            <div class="row justify-content-center">
+              <label class="form-item" for="search-map-input"><h2>Search</h2></label>
+            </div>
+            <div class="row justify-content-center">
+              <input id="search-map-input" class="form-item form-control" name="searchInput" placeholder="Search map"></input>
+            </div>
+            <div class="row justify-content-center">
+              <button id="search-map-btn" class="btn btn-primary" type="submit">Search</button>
+            </div>
+          </form>
         </div>
 
+        <div id="search-results-container" class="container edit-container">
+          <div id="search-results-header" class="row justify-content-center">
+            <h2>Results</h2>
+          </div>
         </div> <!-- search-container -->
 
-        <div id="map" data-city=<%=map.city%>>
+        <div id="map" data-id=<%=map.id%> data-city=<%=map.city%>>
         </div> <!-- map -->
 
-        <div id="pin-container" class="edit-container">
+        <div id="about-map-container" class="container edit-container">
+          <h2><%= map.title %></h2>
+          <p><%= map.description %></p>
+        </div>
+
+        <div id="pin-container" class="container edit-container">
           <h2>Your Pins</h2>
           <div id="all-pins">
           </div> <!-- all-pins -->
@@ -57,7 +68,7 @@
     <script type="text/javascript" src="/scripts/helpers.js"></script>
 
     <!-- <script src="/scripts/init_map.js"></script> -->
-    <script src="/scripts/places_search_test.js"></script>
+    <script src="/scripts/map_functions.js"></script>
 
     <!-- NEW SCRIPT THAT INCLUDES PLACES LIBRARY -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwTwnh2Y7IqPIcltHVnlKMyBPI8pF5UcY&libraries=places&callback=initMap" async defer></script>

@@ -3,7 +3,7 @@ const getAllMapsForUser = function (pool, user_id) {
     const query = `
         SELECT maps.*
         FROM maps
-        JOIN users ON maps.owner_id = users.id 
+        JOIN users ON maps.owner_id = users.id
             AND maps.owner_id = $1
         WHERE maps.deleted = FALSE AND
             users.deleted = FALSE

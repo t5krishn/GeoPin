@@ -1,5 +1,7 @@
 // mapParams should be an array
-// --> title, subject, description, city, owner_id
+// --> title, subject, description, city, pin_count, owner_id
+
+
 // --> SHOULD BE IN ORDER
 
 const addMap = function (pool, mapParams) {
@@ -19,6 +21,5 @@ const addMap = function (pool, mapParams) {
         })
         .catch(err => { console.log(err) });
 }
-
 
 module.exports = addMap;
