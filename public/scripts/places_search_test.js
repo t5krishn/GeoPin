@@ -48,28 +48,6 @@ function searchMap(input) {
   });
 }
 
-function snakeToString(array) {
-  let sentence = "";
-  for (let i = 0; i < array.length; i ++) {
-    let string = "";
-
-    for (let char of array[i]) {
-      if (char === "_") {
-        string += " ";
-      } else {
-        string += char;
-      }
-    }
-
-    sentence += string;
-
-    if (i !== array.length - 1) {
-      sentence += ", ";
-    }
-  }
-  return sentence;
-}
-
 function appendResults(place) {
 
   // latitude and longitude are stored as data attribute in the div container
@@ -116,58 +94,19 @@ function createMarker(place) {
 
 };
 
-const generateFormContent = function(place, editParams) {
-  return `
-      <form id="pin-create-form" action="/maps/${editParams.mapID}/pins${editParams.putURL}" method="POST">
-      <div class="form-row">
-        <label for="pin-label">Label:</label>
-        <textarea class="form-input" type="text" id="pin-label" name="label" placeholder="Label your pin..."></textarea>
-      </div>
-      <div class="form-row">
-        <label for="pin-description">Description:</label>
-        <textarea class="form-input" id="pin-description" name="description" placeholder="Describe your pin..."></textarea>
-      </div>
-      <div class="form-row">
-        <label for="pin-thumbnail">Thumbnail URL:</label>
-        <textarea class="form-input" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..."></textarea>
-      </div>
-      <input name="lat" type="hidden" for="pin-thumbnail" value="${place.geometry.location.lat()}">
-      <input name="lng" type="hidden" for="pin-thumbnail" value="${place.geometry.location.lng()}">
-      <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
-      </form>
-  `;
-}
-
-const submitPinForm = (event) => {
-  event.preventDefault();
-  const url = $(location).attr('href');
-  const mapId = getMapIDFromURL(url);
-  $form = $("#pin-create-form");
-  console.log($form.serialize());
-  $.ajax({
-    url: `/maps/${mapId}/pins`, // reference form method later
-    type: "POST",
-    data: $form.serialize()
-  })
-  .done((pin) => {
-    console.log(this);
-    addPinsToContainer([pin], $("#all-pins"));
-  })
-
-}
-
 function genInfoWindow(place, editParams) {
   if (!editParams) {
     editParams = {
       label: "",
       description: "",
       pin_thumbnail_url: "",
-      mapID: getMapIDFromURL($(location).attr('href')),
+      mapID: $("#map").data().id,
       putURL: ""
     };
   }
+  console.log();
 
-  const contentString = generateFormContent(place, editParams);
+  const contentString = generateCreatePinFormContent(place, editParams.mapID);
 
   var infowindow = new google.maps.InfoWindow({ content: contentString });
 
