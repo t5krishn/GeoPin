@@ -5,7 +5,7 @@ const createMapHTML = (map) => {
       <div class="map-thumbnail map-container">
         <div class="hover-read">
           <div class="map-header">
-            <h4>21 Pins</h4>
+            <h4><i class="fas fa-map-marker-alt"></i>${map.pin_count}</h4>
           </div> <!-- map-header -->
           <div class="map-description">
             <p>${map.description.substring(0, 50)}</p>

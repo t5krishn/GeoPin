@@ -17,7 +17,6 @@ const likeMap = function(mapid) {
   if ($target.attr("class") === "fas fa-heart") {
     // Changes heart to unfilled
     $target.removeClass("fas fa-heart").addClass("far fa-heart");
-  // Like a map
   } else {
     $target.removeClass("far fa-heart").addClass("fas fa-heart");
   }
@@ -29,4 +28,8 @@ const likeMap = function(mapid) {
       window.location.href = "/login";
     }
   })
+  .fail(function(error) {
+    console.log("oops");
+    console.log(error);
+  });
 }
