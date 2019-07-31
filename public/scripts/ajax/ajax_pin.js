@@ -6,7 +6,6 @@ const ajaxGetAllPins = (elementID, mapID) => {
   $.ajax(`/maps/${mapID}/pins`, { method: 'GET' })
   .done(function(pins) {
     if (pins) {
-      console.log(pins);
       addPinsToContainer(pins, elementID, mapID);
     }
   });
