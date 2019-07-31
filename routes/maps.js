@@ -71,11 +71,12 @@ module.exports = (pool, db) => {
   router.post("/create", (req, res) => {
     // Delete owner id form after!!!! --> DONE :)
     let templateVars = {user: null};
-    
+
     if (req.session.user_id) {
       db.getUserWithId(pool, req.session.user_id)
       .then(user => {
         if (user) {
+          templateVars.user = user;
           const params = req.body;
           const queryParams = [
             params.title,
@@ -89,10 +90,8 @@ module.exports = (pool, db) => {
             if (map) {
               // used render here so as to limit querying multiple times in /maps/map_id/edit
               //    to get the map.id and map.city again since we have that info already
-              let templateVars = {
-                map_id: map.id,
-                map_city: map.city
-              };
+              templateVars.map_id = map.id;
+              templateVars.map_city = map.city;
 
               res.render("maps_edit", templateVars);
               // res.redirect(`/maps/${map.id}/edit/`)
@@ -137,7 +136,7 @@ module.exports = (pool, db) => {
       if (map) {
         // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
         // ^^ DONE in the line below
-        let templateVars = { map };
+        let templateVars = { map, };
 
         res.render("maps_edit", templateVars);
       } else {
@@ -157,7 +156,7 @@ module.exports = (pool, db) => {
 
   // TO MAKE - Map edit route
   router.put("/:mapid/edit", (req, res) => {
-    
+
     let templateVars = {user: null};
     const map_id = req.params.mapid;
 
@@ -204,7 +203,7 @@ module.exports = (pool, db) => {
     // Do we need to check functionality if map already deleted?
     let templateVars = {user: null};
     const map_id = req.params.mapid;
-    
+
     if (req.session.user_id) {
       db.getUserWithId(pool, req.session.user_id)
       .then(user => {
