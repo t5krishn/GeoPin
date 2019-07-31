@@ -11,7 +11,7 @@ function searchMap(input) {
   let service = new google.maps.places.PlacesService(map);
 
   // Clear current results & markers:
-  $("#search-results-container").html("");
+  $(".search-result").remove();
   removeAllMarkers();
 
   service.textSearch({
@@ -46,18 +46,18 @@ function appendResults(place) {
 
   // latitude and longitude are stored as data attribute in the div container
   let result = `
-  <div class="search-result" data-lat="${place.geometry.location.lat()}" data-lng="${place.geometry.location.lng()}">
-    <h6>Name: ${place.name}</h6>
-    <h6>Address: ${place.formatted_address}</h6>
-    <h6>Type: ${snakeToString(place.types)}</h6>
-  `;
-  // For places that don't have a rating
-  if (place.rating) {
-    result += `<h6>Rating: ${place.rating}</h6>`;
-  }
+  <div class="row search-result container" data-lat="${place.geometry.location.lat()}" data-lng="${place.geometry.location.lng()}">
+    <span class="result-details">
+      <p>${place.name}</p>
+      <p>${place.formatted_address}</p></span>
+      `;
+      // For places that don't have a rating
+      // Temporarily removed extra info about place
+      // <p>Type: ${snakeToString(place.types)}</p></span>
+      // ${place.rating ? `<p>Rating: ${place.rating}</p>` : ``}</span>
   // For places that don't have a photo
   if (place.photos) {
-    $("#search-results-container").append(`<img class="search-result-img" src="${place.photos[0].getUrl({"maxWidth": 100, "maxHeight": 100})}">`);
+    result += `<span class="result-image"><img class="search-result-img img-fluid" src="${place.photos[0].getUrl()}"></span>`;
   }
   result += `
     </div>

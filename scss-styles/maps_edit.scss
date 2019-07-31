@@ -9,18 +9,39 @@
   max-height: 90vh;
   width: 100%;
   position: relative;
-
 }
 
 #search-form {
   margin: 0;
 }
 
+#search-container,
+#about-map-container {
+  top: 10vh;
+}
+
+#search-results-container,
+#search-container {
+  max-width: 450px;
+  width: 27.5%;
+  left: 0;
+}
+
+#search-results-container,
+#pin-container {
+  top: 35vh;
+  height: 55vh;
+}
+
+#about-map-container,
+#pin-container {
+  max-width: 350px;
+  width: 25%;
+  right: 0;
+}
+
 .edit-container {
   position: absolute;
-  max-width: 400px;
-  width: 20%;
-  top: 10vh;
   background-color: $quaternary-color;
   border: none;
   z-index: 100;
@@ -28,18 +49,29 @@
   border: solid 2px $secondary-color;
   border-radius: 10px;
 
+  p {
+    font-size: 1.2rem;
+    line-height: 1.1;
+    font-weight: lighter;
+  }
+
   h2,
-  .btn {
+  .btn,
+  p {
     color: $secondary-color !important;
   }
 
   .btn {
+    border-radius: 10px;
     background-color: $tertiary-color;
+    border: solid 2px transparent;
   }
 
-  .btn:hover {
+  .btn:hover,
+  .btn:focus {
     background-color: $secondary-color;
-    color: $tertiary-color !important;
+    color: $primary-color !important;
+    border: solid 2px $primary-color;
   }
 
   .form-item {
@@ -68,36 +100,61 @@
 
 }
 
-#search-container {
-  left: 0;
-}
+
 
 #search-results-container {
-  height: 55vh;
-  left: 0;
-  top: 35vh;
+  padding: 0;
+  overflow: scroll;
+
+  #search-results-header,
   .search-result {
-    overflow: scroll;
+    border-bottom: .5px solid $secondary-color;
+    padding: 20px 0;
+  }
+
+  .search-result {
+    @include flexThis(space-between, center, row);
     z-index: 100;
-    margin: 2%;
-    border: 1px solid black;
+    margin: 0;
     overflow: unset;
-    height: 85%;
-    display: block;
-    .search-result-img {
-      background-size: 80px, 90px;
+    padding: 15px 25px;
+    transition: 0.3s;
+
+    p:first-of-type {
+      font-weight: bold;
+      margin-bottom: 5px;
     }
+
+    span,
+    .search-result-img {
+      display: block;
+      height: 100%;
+    }
+
+    .result-details {
+      width: 60%;
+    }
+
+    .result-image {
+      width: 30%;
+    }
+
+    .search-result-img {
+      display: block;
+      width: 100%;
+      height: 80px !important;
+    }
+
   }
 }
 
+
 .search-result:hover {
   cursor: pointer;
+  background: $tertiary-color;
 }
 
-#pin-container {
-  right: 0;
-  height: 60%;
-}
+
 
 #pin-create-form {
   @include flexThis(center, center, column);
