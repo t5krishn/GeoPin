@@ -78,7 +78,6 @@ app.get("/", (req, res) => {
     db.getUserWithId(pool, req.session.user_id)
     .then(user => {
       templateVars.user = user;
-      console.log(user);
       res.render("profile", templateVars);
     })
     .catch(err => {
