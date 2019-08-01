@@ -38,14 +38,14 @@ const likeMap = function(mapid) {
   });
 };
 
-const ajaxGetMapsByUser = (mapCreatedEle, mapContributedEle) => {
+const ajaxGetMapsByUser = (mapCreatedEle, mapLikedEle, mapContributedEle) => {
   const user_id = document.querySelector('#profile-username').dataset.user_id;
-  console.log(user_id);
   $.ajax(`/users/${user_id}/maps`, { method: 'GET' })
   .done(function(maps) {
     // FOLLOWING SCRIPTS IN public/scripts/components/detailed_maps.js
-    addUserMapsToContainer(maps.createdMaps, mapCreatedEle);
-    addUserMapsToContainer(maps.contributedMaps, mapContributedEle);
+    addUsersMapsToContainer(maps.createdMaps, mapCreatedEle);
+    addUsersMapsToContainer(maps.likedMaps, mapLikedEle);
+    addUsersMapsToContainer(maps.contributedMaps, mapContributedEle);
 
   })
   .fail(function(error) {
