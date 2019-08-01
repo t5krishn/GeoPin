@@ -26,7 +26,7 @@ const createMapHTML = (map) => {
       </a> <!-- single map -->
     `
   };
-  
+
   const doesUserLike = (likedByUSER) => {
     if (likedByUSER) {
       // full heart
@@ -36,7 +36,7 @@ const createMapHTML = (map) => {
       return `far fa-heart`
     }
   }
-  
+
   // Loop through array of map objects and call create HTML funciton for each
   // When done, append the entire HTML of all Maps to given element
   const addUsersMapsToContainer = (maps, elementID) => {
@@ -51,4 +51,3 @@ const createMapHTML = (map) => {
     }
     $(elementID).append(allMapsHTML);
   };
-  

@@ -13,26 +13,25 @@ body {
 }
 
 #nav-tab {
-  margin-top: 14vh;
+  padding-top: 14vh;
 }
 
 
 main {
-  height: 100%;
-  width: 65%;
+  width: 70%;
+  margin-left: 30%;
+  position: fixed;
 }
 
 .profile-container {
-  margin-top: 14vh;
-  margin-left: 5vh;
+  padding-top: 14vh;
   padding-bottom: 2%;
-  height: auto;
+  height: 100vh;
   width: 30%; /* SET TO 30VH GREATER THAN  ~830px*/
   border: 2px solid black;
-  border-radius: 15px;
   display: -webkit-flex;
   display: flex;
-  position: relative;
+  position: fixed;
   -webkit-flex-flow: column nowrap;
   flex-flow: column nowrap;
   align-items: center;
@@ -80,8 +79,9 @@ main {
 
 // Browse Maps Section
 #maps-created-container, #maps-contributed-container, #maps-liked-container {
-  @include flexThis(center, center, column);
   // padding: 10vh 0;
+  height: 100vh;
+  overflow: auto;
 }
 
 .single-map {

@@ -46,7 +46,6 @@ const ajaxGetMapsByUser = (mapCreatedEle, mapLikedEle, mapContributedEle) => {
     addUsersMapsToContainer(maps.createdMaps, mapCreatedEle);
     addUsersMapsToContainer(maps.likedMaps, mapLikedEle);
     addUsersMapsToContainer(maps.contributedMaps, mapContributedEle);
-
   })
   .fail(function(error) {
     console.log("oops");
