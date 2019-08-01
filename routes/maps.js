@@ -140,7 +140,10 @@ module.exports = (pool, db) => {
   // GET /maps/map_id/edit
   // After submitting the form, the server gets a GET request and renders the map editing page:
   router.get("/:mapid/edit", (req, res) => {
-    // *** STRETCH: Only allow logged in users to edit map ***
+    
+    let templateVars = {user: null};
+
+ 
 
     const map_id = req.params.mapid;
 
@@ -151,12 +154,32 @@ module.exports = (pool, db) => {
         // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
         // ^^ DONE in the line below
         
-        let templateVars = {
-          map,
-          user: (req.session.user_id)? req.session.user_id : null /* If cookie user exists, pass that in, otherwise pass in null */
-        };
+        templateVars.map = map;
 
-        res.render("maps_edit", templateVars);
+        if (req.session.user_id) {
+          db.getUserWithId(pool, req.session.user_id)
+          .then(user => {
+            if (user) {
+              templateVars.user = user;
+              res.render("maps_edit", templateVars);
+            } else {
+              // USER NOT IN DB BUT IN COOKIE
+              // CLEAR COOKIE
+              req.session.user_id = null;
+              // RENDER WITHOUT A USER LOGGED IN: user=>null
+              res.render("maps_edit", templateVars);
+            }
+          })
+          .catch(err => {
+            // query get user by Id, connection to db might have not worked
+            res
+              .status(500)
+              .json({ error: err.message })
+          });
+        } else {
+          // RENDER WITHOUT A USER LOGGED IN: user=>null
+          res.render("maps_edit", templateVars);
+        }
       } else {
         // MAP DOES NOT EXIST OR MAP HAS BEEN DELETED
         // *** stretch: show error that distinguishes between not existing and deleted ***
@@ -165,7 +188,7 @@ module.exports = (pool, db) => {
       }
     })
     .catch(err => {
-      // db query did not work properly, connection to db might have not worked
+      // get map by id query did not work properly, connection to db might have not worked
       res
         .status(500)
         .json({ error: err.message });
@@ -185,8 +208,7 @@ module.exports = (pool, db) => {
           const params = req.body;
           const mapParams = [params.title, params.subject, params.description, params.city];
 
-          // NEED TO USE COOKIES TO INSERT owner_id INTO DB --> based on requirements
-          //    we need to allow anyone to edit
+          // NEED TO USE COOKIES TO INSERT owner_id INTO DB
           db.updateMap(pool, map_id, mapParams)
           .then(map => {
             if (map) {
