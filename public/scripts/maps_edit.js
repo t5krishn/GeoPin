@@ -1,8 +1,6 @@
 // Function runs on edit page load - driver code
 $(() => {
-  if ($(".edit-container")) {
-    const mapID = $("#map").data().id;
-
+  if ($("body").data().user_id) {
     // Listens for user to submit a query
     $("#search-form").on("submit", () => {
       event.preventDefault();
