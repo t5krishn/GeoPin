@@ -14,12 +14,14 @@ const ajaxGetAllMaps = () => {
 const likeMap = function(mapid) {
   let $target = $(event.target);
   let int = parseInt($target.parent().text());
-  // LIKE SOMETHING
+  // LIKING MAP, filled heart and adds to like counter
   if ($target.attr("class") === "fas fa-heart") {
     $target.removeClass("fas fa-heart").addClass("far fa-heart");
+    $target.siblings().text(int - 1);
   } else {
-  // UNLIKE SOMETHING
+  // UNLIKING MAP, unfilled heart and subtract to like counter
     $target.removeClass("far fa-heart").addClass("fas fa-heart");
+    $target.siblings().text(int + 1);
   }
 
   // Send a request to delete/ insert row to liked_maps table depending on if a user already likes the map
