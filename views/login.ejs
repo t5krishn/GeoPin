@@ -22,22 +22,24 @@
       <section id="main-login">
         <div class="wrapper">
           <!-- We need user information about the map -->
-          <form method ="POST" action ="/login" id="login-form">
-            <h2>Login</h2>
+          <form method ="POST" action ="/register" id="register-form">
+            <div class="form-row">
+              <h1>Login</h1>
+            </div>
             <div class="form-group" >
               <!-- username-->
               <label for="username">Username:</label>
-              <input type="text" name="username">
+              <input id="username" class="form-control form-control-lg" type="text" name="username" placeholder="Enter username">
             </div> <!-- username -->
 
             <!-- password -->
             <div class="form-group" >
-              <label for="subject">Password:</label>
-              <input id="password" type="password" name="password">
-
+              <label for="password">Password:</label>
+              <input id="password" class="form-control form-control-lg" type="password" name="password" placeholder="Enter password">
             </div> <!-- password -->
-
-            <input type="submit" value="Submit">
+            <div class="form-group">
+              <button class="btn " type="submit">Submit</button>
+            </div> <!-- submit -->
           </form>
         </div> <!-- wrapper -->
       </section>

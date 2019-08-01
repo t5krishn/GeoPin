@@ -1,0 +1,32 @@
+
+
+form {
+  width: 40%;
+  label {
+    color: $secondary-color;
+    font-size: 1.4rem;
+  }
+
+  .form-group {
+    margin: 40px 0;
+  }
+
+  .form-row,
+  .form-group:last-of-type {
+    @include flexThis(center, center, column);
+  }
+  .btn {
+    background-color: $primary-color;
+    width: 100px;
+    height: 50px;
+    color: $secondary-color;
+    border: solid 2px $secondary-color;
+  }
+
+  .btn:hover,
+  .btn:focus {
+    background-color: $secondary-color;
+    color: $primary-color;
+    border: solid 2px $primary-color;
+  }
+}
