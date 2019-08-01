@@ -1,6 +1,6 @@
 
 
-form {
+main form {
   width: 40%;
   label {
     color: $secondary-color;
@@ -28,5 +28,10 @@ form {
     background-color: $secondary-color;
     color: $primary-color;
     border: solid 2px $primary-color;
+  }
+
+  textarea {
+    resize: none;
+    overflow: auto;
   }
 }
