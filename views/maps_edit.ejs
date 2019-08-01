@@ -18,9 +18,10 @@
   </head>
 
   <body data-user_id=<%=user ? user : undefined%>>
+    <a href="#main-content" class="skip-link">Skip to main content.</a>
     <!-- to add: skiplink -->
     <%include ./partials/_nav.ejs%>
-    <main>
+    <main id="main-content">
       <div id="map-container" class="map-container">
         <div id="map" data-id=<%=map.id%> data-city=<%=map.city%>>
         </div> <!-- map -->
