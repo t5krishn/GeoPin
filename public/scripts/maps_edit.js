@@ -1,51 +1,46 @@
 // Function runs on edit page load - driver code
 $(() => {
-  const mapID = $("#map").data().id;
+  if ($("body").data().user_id) {
+    // Listens for user to submit a query
+    $("#search-form").on("submit", () => {
+      event.preventDefault();
+      const input = $("#search-map-input").val();
+      $("#search-map-input").val("");
+      searchMap(input);
+    })
 
-  // Listens for user to submit a query
-  $("#search-form").on("submit", () => {
-    event.preventDefault();
-    const input = $("#search-map-input").val();
-    $("#search-map-input").val("");
-    searchMap(input);
-  })
+    // Edit button event listener
+    $("#all-pins").on("submit", ".edit-form", (event) => {
+      event.preventDefault();
+      const url = event.target.getAttribute("action");
+      ajaxGetSinglePin(url)
+      .done((pin) => {
 
-  // Edit button event listener
-  $("#all-pins").on("submit", ".edit-form", (event) => {
-    event.preventDefault();
-    const url = event.target.getAttribute("action");
-    ajaxGetSinglePin(url)
-    .done((pin) => {
+        closeInfoWindowIfPresent();
 
-      closeInfoWindowIfPresent();
+        removeAllMarkers(allMarkers);
 
-      pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
-      removeAllMarkers();
-      createMarker(pin, pin);
+        // Open infowindow for newly created marker
+        pin.openInfoWindowNow = true;
+        pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
+        createMarker(pin, pin);
 
 
-      map.setCenter(pin.geometry.location);
+        map.setCenter(pin.geometry.location);
 
-
+      });
     });
-  });
 
-  // Delete button event listener
-  $("#all-pins").on("submit", ".delete-form", (event) => {
-    event.preventDefault();
-    const url = event.target.getAttribute("action");
-    ajaxDeletePin(url)
-    .done(() => {
-      const formRow = event.target.closest(".form-row");
-      event.target.closest("#all-pins").removeChild(formRow)
-      closeInfoWindowIfPresent();
+    // Delete button event listener
+    $("#all-pins").on("submit", ".delete-form", (event) => {
+      event.preventDefault();
+      const url = event.target.getAttribute("action");
+      ajaxDeletePin(url)
+      .done(() => {
+        const formRow = event.target.closest(".form-row");
+        event.target.closest("#all-pins").removeChild(formRow)
+        closeInfoWindowIfPresent();
+      });
     });
-  });
-
-  // Call get all pins function to show
-  ajaxGetAllPins(mapID)
-  .done((pins) => {
-    addPinsToContainer(pins, "#all-pins", mapID);
-  });
-
+  }
 });

@@ -4,6 +4,7 @@ let map;
 let infowindow;
 let service;
 let allMarkers = [];
+let myMarkers = [];
 let lastOpenedInfoWindow;
 
 // function takes a query and returns the results and sets markers on map
@@ -12,7 +13,7 @@ function searchMap(input) {
 
   // Clear current results & markers:
   $(".search-result").remove();
-  removeAllMarkers();
+  removeAllMarkers(allMarkers);
 
   service.textSearch({
     // pass in input from user + city (map_id)
@@ -29,15 +30,7 @@ function searchMap(input) {
           map.setCenter(results[0].geometry.location);
       }
 
-      // When a search result is clicked, the map should center to that marker
-      $(".search-result").bind("click", (event) => {
-        const lat = $(event.target).closest($(".search-result")).data().lat;
-        const lng = $(event.target).closest($(".search-result")).data().lng;
-        const center = new google.maps.LatLng(lat, lng);
-        createMarker({geometry: {location: center}});
-        map.setCenter(center);
-        map.setZoom(18);
-      })
+
 
   });
 }
@@ -62,14 +55,26 @@ function appendResults(place) {
   result += `
     </div>
   `;
-
+  // geometry: {location: center}
   $("#search-results-container").append(result);
+
+  // When a search result is clicked, the map should center to that marker
+  $("#search-results-container .search-result:last-of-type").bind("click", (event) => {
+    const lat = $(event.target).closest($(".search-result")).data().lat;
+    const lng = $(event.target).closest($(".search-result")).data().lng;
+    const center = new google.maps.LatLng(lat, lng);
+    createMarker(place);
+    map.setCenter(center);
+    map.setZoom(18);
+  })
 
 }
 
 function createMarker(place, createEditInfowindow) {
-  console.log(place.geometry.location);
-  var marker = new google.maps.Marker({
+
+  let editParams = {};
+
+  let marker = new google.maps.Marker({
                 position: place.geometry.location,
                 map: map
         });
@@ -77,7 +82,7 @@ function createMarker(place, createEditInfowindow) {
   allMarkers.push(marker);
 
   if (createEditInfowindow) {
-    const editParams = {
+    editParams = {
       action: "Edit",
       label: place.label,
       description: place.description,
@@ -87,30 +92,30 @@ function createMarker(place, createEditInfowindow) {
       newPinCallback: null
     };
 
-    infowindow = genInfoWindow(place, editParams, marker);
-    infowindow.open(map, marker);
-  }
-
-  marker.addListener('click', function() {
-    if (infowindow) {
-      closePinFormWindow();
+    if (place.openInfoWindowNow) {
+      infowindow = genInfoWindow(place, editParams, marker);
+      infowindow.open(map, marker);
     }
-
-    let editParams = {
+  } else {
+    editParams = {
       action: "Create",
-      label: "",
+      label: place.name,
       description: "",
-      pin_thumbnail_url: "",
+      pin_thumbnail_url: place.photos ? place.photos[0].getUrl() : "",
       mapID: $("#map").data().id,
       url: `/maps/${$("#map").data().id}/pins`,
       newPinCallback: addPinsToContainer
     };
-
-    infowindow = genInfoWindow(place, editParams, marker);
-    infowindow.open(map, marker);
-  });
-
-
+  }
+  if ($("body").data().user_id) {
+    marker.addListener('click', function() {
+      if (infowindow) {
+        closePinFormWindow();
+      }
+      infowindow = genInfoWindow(place, editParams, marker);
+      infowindow.open(map, marker);
+    });
+  }
 };
 
 function genInfoWindow(place, editParams, marker) {
@@ -127,7 +132,10 @@ function genInfoWindow(place, editParams, marker) {
 
 }
 
-function initMap() {
+// Gets run on load of maps API script tag
+async function initMap() {
+  const mapID = $("#map").data().id;
+
   const city = document.querySelector('#map').dataset.city;
   let request = {
     query: city,
@@ -136,7 +144,7 @@ function initMap() {
 
   let service = new google.maps.places.PlacesService(document.createElement('div'));
 
-  service.findPlaceFromQuery(request, function(results, status) {
+  await service.findPlaceFromQuery(request, function(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       let lat = results[0].geometry.location.lat();
       let lng = results[0].geometry.location.lng();
@@ -147,5 +155,16 @@ function initMap() {
         console.log(event.latLng.lat(),  event.latLng.lng());
       });
     }
+
+    // NOTE if we revisit for security, we need to place a query for user exists in DB
+    // Call get all pins function to show
+    ajaxGetAllPins(mapID)
+    .done((pins) => {
+      const userID = $("body").data().user_id;
+
+      addPinsToContainer(pins, "#all-pins", userID);
+    });
+
   })
+
 }

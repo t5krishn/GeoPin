@@ -32,9 +32,9 @@ const closeInfoWindowIfPresent = function() {
 }
 
 // Function to loop through all markers on map and delete them
-function removeAllMarkers() {
-  for (let i = 0; i < allMarkers.length; i ++) {
-    allMarkers[i].setMap(null);
+function removeAllMarkers(array) {
+  for (let i = 0; i < array.length; i ++) {
+    array[i].setMap(null);
   }
 }
 
