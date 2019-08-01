@@ -48,11 +48,13 @@
 
 // Button styling for page (does not impact nav bar)
 .edit-container,
-#pin-create-form {
+#pin-create-form,
+#all-pins {
   .btn {
     border-radius: 10px;
     background-color: $tertiary-color;
     border: solid 2px transparent;
+    z-index: 2000;
   }
 
   .btn:hover,
@@ -97,21 +99,31 @@
     span {
       @include flexThis(space-between, center, row);
     }
-
-    .pin-btn {
-      border-radius: 100%;
-      height: 30px;
-      width: 30px;
-
-      i {
-        font-size: .9rem;
-      }
-    }
   }
 
 }
 
+#pin-container {
+  form {
+    display: inline;
+  }
+  .pin-btn-container {
+    @include flexThis(space-between, center, row);
+  }
+  .pin-btn {
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    i {
+      font-size: .9rem;
+    }
+  }
 
+  .pin-btn:hover {
+    background-color: $quaternary-color;
+  }
+}
 
 // Bottom left container on screen that contains results from searches
 #search-results-container,
@@ -138,6 +150,7 @@
     .search-result-img {
       display: block;
       height: 100%;
+      border-radius: 25px;
     }
 
     .result-details {
