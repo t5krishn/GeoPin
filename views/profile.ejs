@@ -56,34 +56,35 @@
 
     <main id="main-content">
 
-        <nav>
-            <div class="nav nav-tabs ml-4 mr-4" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-cs-tab" data-toggle="tab" href="#maps-created" role="tab" aria-controls="nav-home" aria-selected="true">
-                    <strong>Maps Created</strong>
-                </a>
-                <a class="nav-item nav-link" id="nav-other-tab" data-toggle="tab" href="#maps-contributed" role="tab" aria-controls="nav-profile" aria-selected="false">
-                    <strong>Maps Contributed To</strong>
-                </a>
-            </div>
-        </nav>
-
-
-        <div class="tab-content m-4" id="nav-tabContent">
-          <!-- MAPS CREATED TAB -->
-          <div class="tab-pane fade show active" id="maps-created" role="tabpanel" aria-labelledby="maps-created-tab">
-            <div id='maps-created-container'></div>
-          </div>
-
-          <!-- MAPS CONTRIBUTED TO TAB -->
-          <div class="tab-pane fade" id="maps-contributed" role="tabpanel" aria-labelledby="maps-contributed-tab">
-            <div id="maps-contributed-container"></div>
-          </div>
+      <nav>
+        <div class="nav nav-tabs ml-4 mr-4" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-map-created-tab" data-toggle="tab" href="#maps-created" role="tab" aria-controls="nav-home" aria-selected="true">
+              <strong>Your Maps</strong>
+          </a>
+          <a class="nav-item nav-link" id="nav-map-liked-tab" data-toggle="tab" href="#maps-liked" role="tab" aria-controls="nav-profile" aria-selected="false">
+            <strong>Maps Liked</strong>
+          </a>
+          <a class="nav-item nav-link" id="nav-map-contributed-tab" data-toggle="tab" href="#maps-contributed" role="tab" aria-controls="nav-profile" aria-selected="false">
+              <strong>Maps Contributed To</strong>
+          </a>
         </div>
+      </nav>
 
-      <!-- <section id="all-maps">
-        <div id="browse-map-wrapper" class="wrapper">
-        </div> --> <!-- wrapper -->
-      <!-- </section> --> <!-- all maps -->
+      <div class="tab-content m-4" id="nav-tabContent">
+        <!-- MAPS CREATED TAB -->
+        <div class="tab-pane fade show active" id="maps-created" role="tabpanel" aria-labelledby="maps-created-tab">
+          <div id='maps-created-container'></div>
+        </div>
+        <!-- MAPS LIKED TAB -->
+        <div class="tab-pane fade" id="maps-liked" role="tabpanel" aria-labelledby="maps-liked-tab">
+          <div id="maps-liked-container"></div>
+        </div>
+        <!-- MAPS CONTRIBUTED TO TAB -->
+        <div class="tab-pane fade" id="maps-contributed" role="tabpanel" aria-labelledby="maps-contributed-tab">
+          <div id="maps-contributed-container"></div>
+        </div>
+      </div>
+
     </main>
 
     <!-- Profile Script -->
@@ -93,12 +94,10 @@
     <script type="text/javascript" src="/scripts/helpers.js"></script>
 
     <!-- Components -->
-    <script type="text/javascript" src="/scripts/components/all_maps.js"></script>
+    <script type="text/javascript" src="/scripts/components/detailed_maps.js"></script>
 
     <!-- Ajax -->
     <script type="text/javascript" src="/scripts/ajax/ajax_map.js"></script>
 
-    <!-- Driver -->
-    <script type="text/javascript" src="/scripts/index.js"></script>
   </body>
 </html>
