@@ -79,7 +79,7 @@ main {
 }
 
 // Browse Maps Section
-#maps-created-container, #maps-contributed-container {
+#maps-created-container, #maps-contributed-container, #maps-liked-container {
   @include flexThis(center, center, column);
   // padding: 10vh 0;
 }
