@@ -153,6 +153,7 @@ module.exports = (pool, db) => {
       if (map) {
         // TO ADD: Function to get single map from database so that we can hand all map specific variables to the template (title, description, etc.)
         // ^^ DONE in the line below
+        
         let templateVars = {
           map,
           user: (req.session.user_id)? req.session.user_id : null /* If cookie user exists, pass that in, otherwise pass in null */

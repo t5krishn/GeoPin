@@ -81,7 +81,7 @@ main {
 // Browse Maps Section
 #maps-created-container, #maps-contributed-container {
   @include flexThis(center, center, column);
-  padding: 10vh 0;
+  // padding: 10vh 0;
 }
 
 .single-map {
