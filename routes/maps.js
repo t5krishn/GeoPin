@@ -29,10 +29,8 @@ module.exports = (pool, db) => {
           .then(like => {
             if (like) {
               map.likedByUSER = true;
-              console.log("mapliked", map);
             } else {
               map.likedByUSER = false;
-              console.log("mapnotliked", map);
             }
           })
           .catch(err => res.json({error: err.message}))
@@ -91,7 +89,6 @@ module.exports = (pool, db) => {
     if (req.session.user_id) {
       db.getUserWithId(pool, req.session.user_id)
       .then(user => {
-        console.log(typeof user.id);
         if (user) {
           templateVars.user = user;
           const params = req.body;
@@ -158,7 +155,6 @@ module.exports = (pool, db) => {
           map,
           user: (req.session.user_id)? req.session.user_id : null /* If cookie user exists, pass that in, otherwise pass in null */
         };
-        console.log(templateVars);
 
         res.render("maps_edit", templateVars);
       } else {
