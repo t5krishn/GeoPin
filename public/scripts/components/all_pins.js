@@ -1,5 +1,5 @@
 // Add html for single pin container element
-const createPinHTML = (pin) => {
+const createPinHTML = (pin, userIsLoggedIn) => {
   let editDeleteButtonHTML = ``;
   if (userIsLoggedIn) {
     editDeleteButtonHTML = `

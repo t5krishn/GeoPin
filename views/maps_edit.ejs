@@ -17,7 +17,7 @@
 
   </head>
 
-  <body data-user_id=<%=user ? user.id : ""%>>
+  <body data-user_id=<%=user ? user : undefined%>>
     <!-- to add: skiplink -->
     <%include ./partials/_nav.ejs%>
     <main>
