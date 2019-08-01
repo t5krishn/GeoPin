@@ -21,15 +21,15 @@ const generatePinFormContent = function(place, editParams) {
         <h3>${editParams.action} your pin!</h3>
         <div class="form-group form-row form-inline">
           <label for="pin-label">Label:</label>
-          <input class="form-control form-control-sm" type="text" id="pin-label" name="label" placeholder="Label your pin...">${editParams.label}</input>
+          <input class="form-control form-control-sm" type="text" id="pin-label" name="label" placeholder="Label your pin..." value="${editParams.label}"></input>
         </div>
         <div class="form-group form-row form-inline">
           <label for="pin-description">Description:</label>
-          <textarea class="form-control form-control-sm" id="pin-description" name="description" placeholder="Describe your pin...">${editParams.description}</textarea>
+          <textarea class="form-control form-control-sm" id="pin-description" name="description" placeholder="Describe your pin..." value="${editParams.description}"></textarea>
         </div>
         <div class="form-group form-row form-inline">
           <label for="pin-thumbnail">Thumbnail URL:</label>
-          <input class="form-control form-control-sm" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL...">${editParams.pin_thumbnail_url}</input>
+          <input class="form-control form-control-sm" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..." value="${editParams.pin_thumbnail_url}"></input>
         </div>
         <input name="lat" type="hidden" for="pin-thumbnail" value="${place.geometry.location.lat()}">
         <input name="lng" type="hidden" for="pin-thumbnail" value="${place.geometry.location.lng()}">
