@@ -15,7 +15,7 @@ const createMapHTML = (map) => {
               <form method="POST" action="maps/${map.id}/like">
                 <div>
                   <h4 class="total-likes">${map.likes}</h4>
-                  <i id="like" class="${doesUserLike(map.likedByUSER)}" onclick="likeMap(${map.id})"></i>
+                  <i id="like" class="fa-lg ${doesUserLike(map.likedByUSER)}" onclick="likeMap(${map.id})"></i>
                 </div>
               </form>
             </span> <!-- socials -->

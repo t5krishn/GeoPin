@@ -3,6 +3,7 @@
 @import "colors";
 @import "mixins";
 
+// Set map to full screen size
 #map-container {
   margin-top: 10vh;
   height: 90vh;
@@ -11,15 +12,18 @@
   position: relative;
 }
 
+// Remove default margins from search form
 #search-form {
   margin: 0;
 }
 
+// Align top two containers from nav bar
 #search-container,
 #about-map-container {
   top: 10vh;
 }
 
+// Width and sizing for left containers
 #search-results-container,
 #search-container {
   max-width: 450px;
@@ -27,12 +31,14 @@
   left: 0;
 }
 
+// Aligns the bottom 2 containers to consistent distance from nav
 #search-results-container,
 #pin-container {
   top: 35vh;
   height: 55vh;
 }
 
+// Sizing for the two containers on right of screen
 #about-map-container,
 #pin-container {
   max-width: 350px;
@@ -40,6 +46,24 @@
   right: 0;
 }
 
+// Button styling for page (does not impact nav bar)
+.edit-container,
+#pin-create-form {
+  .btn {
+    border-radius: 10px;
+    background-color: $tertiary-color;
+    border: solid 2px transparent;
+  }
+
+  .btn:hover,
+  .btn:focus {
+    background-color: $primary-color;
+    color: $secondary-color !important;
+    border: solid 2px $secondary-color;
+  }
+}
+
+// Styling for all 4 containers on screen giving them fixed positioning and general styling
 .edit-container {
   position: absolute;
   background-color: $quaternary-color;
@@ -59,19 +83,6 @@
   .btn,
   p {
     color: $secondary-color !important;
-  }
-
-  .btn {
-    border-radius: 10px;
-    background-color: $tertiary-color;
-    border: solid 2px transparent;
-  }
-
-  .btn:hover,
-  .btn:focus {
-    background-color: $secondary-color;
-    color: $primary-color !important;
-    border: solid 2px $primary-color;
   }
 
   .form-item {
@@ -101,7 +112,7 @@
 }
 
 
-
+// Bottom left container on screen that contains results from searches
 #search-results-container {
   padding: 0;
   overflow: scroll;
@@ -112,6 +123,7 @@
     padding: 20px 0;
   }
 
+  // Formatting for search results that appear after query in search bar
   .search-result {
     @include flexThis(space-between, center, row);
     z-index: 100;
@@ -151,29 +163,49 @@
 
 .search-result:hover {
   cursor: pointer;
-  background: $tertiary-color;
+  background: $primary-color;
 }
 
 
-
+// Pin Submit and Edit Form generated on click of marker
 #pin-create-form {
   @include flexThis(center, center, column);
   width: 100%;
-  height: 200px;
-  padding: 10px;
-  background-color: $tertiary-color;
-
-
-  .form-input {
-    width: 50%;
-    border: none;
-    border-radius: 5px;
+  div {
+    @include flexThis(center, center, row);
   }
 
-}
+  h3 {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: $secondary-color;
+  }
 
+  .form-group {
+    margin: 0;
+  }
 
+  .form-row {
+    @include flexThis(space-between, center, row);
+    width: 90%;
+    margin-bottom: 15px;
+  }
 
-#create-pin-btn {
-  background-color: $primary-color;
+  label {
+    width: 30%;
+    font-weight: bold;
+    font-size: 1rem;
+    color: $secondary-color;
+    justify-content: flex-start;
+  }
+
+  .form-control {
+    width: 60%;
+  }
+
+  textarea {
+    resize: none;
+    overflow: auto;
+  }
+
 }
