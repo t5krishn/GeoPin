@@ -12,6 +12,7 @@ const ajaxGetAllMaps = () => {
 };
 
 const likeMap = function(mapid) {
+  event.preventDefault();
   let $target = $(event.target);
   let int = parseInt($target.parent().text());
   // LIKING MAP, filled heart and adds to like counter
