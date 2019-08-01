@@ -42,8 +42,12 @@ const doesUserLike = (likedByUSER) => {
 const addMapsToContainer = (maps, elementID) => {
   let allMapsHTML = ``;
   // clearContainer(elementID);
-  for (const map of maps) {
-    allMapsHTML += createMapHTML(map);
+  if (maps.length !== 0){
+    for (const map of maps) {
+      allMapsHTML += createMapHTML(map);
+    }
+  } else {
+    allMapsHTML += `<div>No Maps to show. Go check some out or make your own!<>`;
   }
   $(elementID).append(allMapsHTML);
 };
