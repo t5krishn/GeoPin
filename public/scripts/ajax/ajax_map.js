@@ -39,12 +39,14 @@ const likeMap = function(mapid) {
 };
 
 const ajaxGetMapsByUser = (mapCreatedEle, mapContributedEle) => {
-  const user_id = $('#profile-image').dataset.user_id;
-
+  const user_id = document.querySelector('#profile-username').dataset.user_id;
+  console.log(user_id);
   $.ajax(`/users/${user_id}/maps`, { method: 'GET' })
   .done(function(maps) {
     console.log(maps);
-    // addMapsToContainer(maps, elementID);
+    addMapsToContainer(maps.createdMaps, mapCreatedEle);
+    addMapsToContainer(maps.contributedMaps, mapContributedEle);
+
   })
   .fail(function(error) {
     console.log("oops");

@@ -20,9 +20,9 @@
 
     <div class="profile-container" >
       <div class="profile-picture">
-        <img id="profile-image" data-user_id="<%= user.id %>" src="https://api.adorable.io/avatars/300/<%= user.username%>.png" alt="Profile picture"  />
+        <img id="profile-image"src="https://api.adorable.io/avatars/300/<%= user.username%>.png" alt="Profile picture"  />
       </div>
-      <div id="profile-username" class="mt-2">
+      <div id="profile-username"  data-user_id=<%= user.id %>  class="mt-2">
         <h2> <%= user.username %> </h2>
       </div>
       <div id="profile-details">
@@ -71,12 +71,12 @@
         <div class="tab-content m-4" id="nav-tabContent">
           <!-- MAPS CREATED TAB -->
           <div class="tab-pane fade show active" id="maps-created" role="tabpanel" aria-labelledby="maps-created-tab">
-            <div id='maps-created-container ml-2'></div>
+            <div id='maps-created-container'></div>
           </div>
 
           <!-- MAPS CONTRIBUTED TO TAB -->
           <div class="tab-pane fade" id="maps-contributed" role="tabpanel" aria-labelledby="maps-contributed-tab">
-            <div id="maps-contributed-container ml-2"></div>
+            <div id="maps-contributed-container"></div>
           </div>
         </div>
 
