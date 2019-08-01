@@ -53,8 +53,9 @@ module.exports = (pool, db) => {
 
     const params = req.body;
     const mapID = req.params.mapid;
+    const userID = req.session.user_id;
 
-    const pinParams = [params.label, params.description, params.lng, params.lat, params.pin_thumbnail_url, mapID];
+    const pinParams = [params.label, params.description, params.lng, params.lat, params.pin_thumbnail_url, mapID, userID];
     db.addPin(pool, pinParams)
     .then(pin => {
       if (pin) {
