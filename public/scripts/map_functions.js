@@ -72,7 +72,9 @@ function appendResults(place) {
 
 function createMarker(place, createEditInfowindow) {
 
-  var marker = new google.maps.Marker({
+  let editParams = {};
+
+  let marker = new google.maps.Marker({
                 position: place.geometry.location,
                 map: map
         });
@@ -80,7 +82,7 @@ function createMarker(place, createEditInfowindow) {
   allMarkers.push(marker);
 
   if (createEditInfowindow) {
-    const editParams = {
+    editParams = {
       action: "Edit",
       label: place.label,
       description: place.description,
@@ -90,16 +92,12 @@ function createMarker(place, createEditInfowindow) {
       newPinCallback: null
     };
 
-    infowindow = genInfoWindow(place, editParams, marker);
-    infowindow.open(map, marker);
-
+    if (place.openInfoWindowNow) {
+      infowindow = genInfoWindow(place, editParams, marker);
+      infowindow.open(map, marker);
+    }
   } else {
-
-    marker.addListener('click', function() {
-      if (infowindow) {
-        closePinFormWindow();
-      }
-    let editParams = {
+    editParams = {
       action: "Create",
       label: place.name,
       description: "",
@@ -108,12 +106,15 @@ function createMarker(place, createEditInfowindow) {
       url: `/maps/${$("#map").data().id}/pins`,
       newPinCallback: addPinsToContainer
     };
+  }
 
+  marker.addListener('click', function() {
+    if (infowindow) {
+      closePinFormWindow();
+    }
     infowindow = genInfoWindow(place, editParams, marker);
     infowindow.open(map, marker);
   });
-  }
-
 };
 
 function genInfoWindow(place, editParams, marker) {
@@ -130,6 +131,7 @@ function genInfoWindow(place, editParams, marker) {
 
 }
 
+// Gets run on load of maps API script tag
 async function initMap() {
   const mapID = $("#map").data().id;
 

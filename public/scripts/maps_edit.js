@@ -20,12 +20,15 @@ $(() => {
 
         closeInfoWindowIfPresent();
 
-      pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
-      removeAllMarkers(allMarkers);
-      createMarker(pin, pin);
+        removeAllMarkers(allMarkers);
 
-      map.setCenter(pin.geometry.location);
+        // Open infowindow for newly created marker
+        pin.openInfoWindowNow = true;
+        pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
+        createMarker(pin, pin);
 
+
+        map.setCenter(pin.geometry.location);
 
       });
     });

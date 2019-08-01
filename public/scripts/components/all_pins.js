@@ -51,7 +51,7 @@ const addPinsToContainer = (pins, elementID, userIsLoggedIn) => {
     pin.geometry = {location: new google.maps.LatLng(pin.latitude, pin.longitude)};
     pin.isUserPin = true;
 
-    createMarker(pin, false);
+    createMarker(pin, true);
 
     allPinsHTML += createPinHTML(pin, userIsLoggedIn);
   }
