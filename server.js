@@ -67,18 +67,13 @@ app.use("", authenticationsRoutes(pool, db, bcrypt));
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
   let templateVars = { user: null };
-  templateVars.profile = {
-    mapsCreated: 232,
-    mapsContributed: 423,
-    liked_maps: 51,
-    liked_by: 122
-  }
 
   if (req.session.user_id) {
     db.getUserWithId(pool, req.session.user_id)
     .then(user => {
+      console.log(user);
       templateVars.user = user;
-      res.render("profile", templateVars);
+      res.render("index", templateVars);
     })
     .catch(err => {
       res
@@ -86,7 +81,7 @@ app.get("/", (req, res) => {
         .json({ error: err.message });
     });
   } else {
-    res.render("profile", templateVars);
+    res.render("index", templateVars);
   }
 });
 
