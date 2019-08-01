@@ -1,6 +1,5 @@
 // Function runs on edit page load - driver code
 $(() => {
-  const mapID = $("#map").data().id;
 
   // Listens for user to submit a query
   $("#search-form").on("submit", () => {
@@ -20,9 +19,8 @@ $(() => {
       closeInfoWindowIfPresent();
 
       pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
-      removeAllMarkers();
+      removeAllMarkers(allMarkers);
       createMarker(pin, pin);
-
 
       map.setCenter(pin.geometry.location);
 
@@ -40,12 +38,6 @@ $(() => {
       event.target.closest("#all-pins").removeChild(formRow)
       closeInfoWindowIfPresent();
     });
-  });
-
-  // Call get all pins function to show
-  ajaxGetAllPins(mapID)
-  .done((pins) => {
-    addPinsToContainer(pins, "#all-pins", mapID);
   });
 
 });

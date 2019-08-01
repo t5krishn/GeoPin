@@ -4,6 +4,7 @@ let map;
 let infowindow;
 let service;
 let allMarkers = [];
+let myMarkers = [];
 let lastOpenedInfoWindow;
 
 // function takes a query and returns the results and sets markers on map
@@ -12,7 +13,7 @@ function searchMap(input) {
 
   // Clear current results & markers:
   $(".search-result").remove();
-  removeAllMarkers();
+  removeAllMarkers(allMarkers);
 
   service.textSearch({
     // pass in input from user + city (map_id)
@@ -68,11 +69,13 @@ function appendResults(place) {
 }
 
 function createMarker(place, createEditInfowindow) {
-  console.log(place.geometry.location);
+
   var marker = new google.maps.Marker({
                 position: place.geometry.location,
                 map: map
         });
+
+  console.log(marker);
 
   allMarkers.push(marker);
 
@@ -88,26 +91,27 @@ function createMarker(place, createEditInfowindow) {
 
     infowindow = genInfoWindow(place, editParams, marker);
     infowindow.open(map, marker);
+
+  } else {
+
+    marker.addListener('click', function() {
+      if (infowindow) {
+        closePinFormWindow();
+      }
+
+      let editParams = {
+        label: "",
+        description: "",
+        pin_thumbnail_url: "",
+        mapID: $("#map").data().id,
+        url: `/maps/${$("#map").data().id}/pins`,
+        newPinCallback: addPinsToContainer
+      };
+
+      infowindow = genInfoWindow(place, editParams, marker);
+      infowindow.open(map, marker);
+    });
   }
-
-  marker.addListener('click', function() {
-    if (infowindow) {
-      closePinFormWindow();
-    }
-
-    let editParams = {
-      label: "",
-      description: "",
-      pin_thumbnail_url: "",
-      mapID: $("#map").data().id,
-      url: `/maps/${$("#map").data().id}/pins`,
-      newPinCallback: addPinsToContainer
-    };
-
-    infowindow = genInfoWindow(place, editParams, marker);
-    infowindow.open(map, marker);
-  });
-
 
 };
 
@@ -125,7 +129,10 @@ function genInfoWindow(place, editParams, marker) {
 
 }
 
-function initMap() {
+async function initMap() {
+  const mapID = $("#map").data().id;
+  console.log("map is initialized");
+
   const city = document.querySelector('#map').dataset.city;
   let request = {
     query: city,
@@ -134,7 +141,7 @@ function initMap() {
 
   let service = new google.maps.places.PlacesService(document.createElement('div'));
 
-  service.findPlaceFromQuery(request, function(results, status) {
+  await service.findPlaceFromQuery(request, function(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       let lat = results[0].geometry.location.lat();
       let lng = results[0].geometry.location.lng();
@@ -145,5 +152,13 @@ function initMap() {
         console.log(event.latLng.lat(),  event.latLng.lng());
       });
     }
+
+    // Call get all pins function to show
+    ajaxGetAllPins(mapID)
+    .done((pins) => {
+      addPinsToContainer(pins, "#all-pins", mapID);
+    });
+
   })
+
 }

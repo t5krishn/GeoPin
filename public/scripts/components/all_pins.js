@@ -42,8 +42,13 @@ const generatePinFormContent = function(place, editParams) {
 const addPinsToContainer = (pins, elementID) => {
   let allPinsHTML = ``;
   for (const pin of pins) {
+    pin.geometry = {location: new google.maps.LatLng(pin.latitude, pin.longitude)};
+    pin.isUserPin = true;
+
+    createMarker(pin, false);
+
     allPinsHTML += createPinHTML(pin);
+
   }
   $(elementID).append(allPinsHTML);
-
 };
