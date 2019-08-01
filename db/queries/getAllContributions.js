@@ -10,6 +10,7 @@ const getAllContributions = function (pool, user_id) {
           AND users.deleted = FALSE
           AND users.id = $1
       ;`;
+
   return pool.query(query, [user_id])
       .then(res => {
           if (res.rows) {
