@@ -43,26 +43,13 @@ $(() => {
       });
     });
 
+    // NOTE if we revisit for security, we need to place a query for user exists in DB
     // Call get all pins function to show
     ajaxGetAllPins(mapID)
     .done((pins) => {
       const userID = $("body").data().user_id;
 
-      if (userID) {
-        // If there is a user ID data attached to body, look up the user in db
-        ajaxGetSingleUser(userID)
-        .done((user) => {
-          // If user was found, add pins to container with bool true, else false
-          if (user) {
-            addPinsToContainer(pins, "#all-pins", TRUE);
-          } else {
-            addPinsToContainer(pins, "#all-pins", FALSE);
-          }
-        });
-      } else {
-        addPinsToContainer(pins, "#all-pins", FALSE);
-      }
-
+      addPinsToContainer(pins, "#all-pins", userID);
     });
   }
 });
