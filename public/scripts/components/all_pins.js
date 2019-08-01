@@ -3,7 +3,7 @@ const createPinHTML = (pin, userIsLoggedIn) => {
   let rightSideSpanContent = ``;
   if (userIsLoggedIn) {
     rightSideSpanContent = `
-      <span class="pin-btn-container>
+      <span class="pin-btn-container">
         <form class="edit-form" action="/maps/${pin.map_id}/pins/${pin.id}/" method="GET">
           <button class="btn edit-pin-btn pin-btn" type="submit"><i class="fas fa-edit"></i></button>
         </form>
