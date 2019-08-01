@@ -29,15 +29,7 @@ function searchMap(input) {
           map.setCenter(results[0].geometry.location);
       }
 
-      // When a search result is clicked, the map should center to that marker
-      $(".search-result").bind("click", (event) => {
-        const lat = $(event.target).closest($(".search-result")).data().lat;
-        const lng = $(event.target).closest($(".search-result")).data().lng;
-        const center = new google.maps.LatLng(lat, lng);
-        createMarker({geometry: {location: center}});
-        map.setCenter(center);
-        map.setZoom(18);
-      })
+
 
   });
 }
@@ -62,8 +54,18 @@ function appendResults(place) {
   result += `
     </div>
   `;
-
+  // geometry: {location: center}
   $("#search-results-container").append(result);
+
+  // When a search result is clicked, the map should center to that marker
+  $("#search-results-container .search-result:last-of-type").bind("click", (event) => {
+    const lat = $(event.target).closest($(".search-result")).data().lat;
+    const lng = $(event.target).closest($(".search-result")).data().lng;
+    const center = new google.maps.LatLng(lat, lng);
+    createMarker(place);
+    map.setCenter(center);
+    map.setZoom(18);
+  })
 
 }
 
@@ -98,9 +100,9 @@ function createMarker(place, createEditInfowindow) {
 
     let editParams = {
       action: "Create",
-      label: "",
+      label: place.name,
       description: "",
-      pin_thumbnail_url: "",
+      pin_thumbnail_url: place.photos ? place.photos[0].getUrl() : "",
       mapID: $("#map").data().id,
       url: `/maps/${$("#map").data().id}/pins`,
       newPinCallback: addPinsToContainer
