@@ -1,7 +1,6 @@
 // Add html for single map container element
 const createMapHTML = (map) => {
-  // href="/maps/${map.id}/edit"
-  return ` <a class="single-map">
+  return ` <a class="single-map" href="/maps/${map.id}/edit">
       <div class="map-thumbnail map-container">
         <div class="hover-read">
           <div class="map-header">
