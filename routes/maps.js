@@ -7,24 +7,40 @@
 
 const express = require('express');
 const router  = express.Router();
-const methodOverride = require("method-override");
 
 
 module.exports = (pool, db) => {
 
   // GET /maps/
   // Localhost:8080/
-  // Note - Do we need timestamps for created at on maps?
   // Homepage browses random maps from map database
   router.get("/", (req, res) => {
 
+    let user = null;
+    if (req.session.user_id) {
+      user = req.session.user_id;
+    }
+
     db.getAllMaps(pool)
     .then(maps => {
-      if (maps) {
+      if (user) {
+        for (let map of maps) {
+          db.doesUserLikeMap(pool, [user, map.id])
+          .then(like => {
+            if (like) {
+              map.likedByUSER = true;
+              console.log("mapliked", map);
+            } else {
+              map.likedByUSER = false;
+              console.log("mapnotliked", map);
+            }
+          })
+          .catch(err => res.json({error: err.message}))
+        }
         res.json(maps);
       } else {
-        // NOTE Need to create error message box in html to display that data wasn't found
-        res.status(404).json({error: "There's a problem on our end. Maps were not able to load. Please refresh and try again, sorry!"});
+        maps.like = false;
+        res.json(maps);
       }
     })
     .catch(err => {
@@ -78,6 +94,7 @@ module.exports = (pool, db) => {
         if (user) {
           templateVars.user = user;
           const params = req.body;
+          // title, subject, description, city, owner_id
           const queryParams = [
             params.title,
             params.subject,
@@ -252,6 +269,43 @@ module.exports = (pool, db) => {
     } else {
       // user not in cookie, go log in
       res.render("login", templateVars);
+    }
+  });
+
+  // Map like/ unlike
+  router.post("/:mapid/like", (request, response) => {
+    // Delete owner id form after!!!! --> DONE :)
+    const mapid = request.params.mapid;
+
+    if (request.session.user_id) {
+      db.getUserWithId(pool, request.session.user_id)
+      .then(user => {
+        // check if it returns a valid user
+        if (user) {
+          db.doesUserLikeMap(pool, [user.id, mapid])
+          .then(like => {
+            // if the user likes the map, unlike it
+            // else if user unlikes it, like the map
+            if (like) {
+              db.unlikeMap(pool, [user.id, mapid])
+            } else {
+              db.likeMap(pool, [user.id, mapid])
+            }
+          })
+        } else {
+        // ADD error message to let user know they must be registered to like
+          response.json({err: "User does not exist, please"});
+        }
+      })
+      .catch(err => {
+        // **** db connection did not work properly, redirect to create map page ****
+        response
+          .status(500)
+          .json({error: err.message });
+      });
+    } else {
+      // user not in cookie so log in
+      response.json({err: "No cookie session, log in"});
     }
   });
 

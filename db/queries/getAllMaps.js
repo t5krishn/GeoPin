@@ -1,11 +1,14 @@
 const getAllMaps = function (pool, limit = 10) {
 
     const query = `
-        SELECT *
-        FROM maps
+        SELECT maps.*, users.username AS username, count(liked_maps.*) AS likes
+        FROM maps JOIN users
+        ON maps.owner_id = users.id
+        JOIN liked_maps ON liked_maps.map_id = maps.id
         WHERE maps.deleted = FALSE
+        GROUP BY maps.id, username
         ORDER BY maps.id DESC
-        LIMIT $1;
+        LIMIT $1
     `;
     return pool.query(query, [limit])
         .then(res => {
