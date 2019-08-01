@@ -31,8 +31,8 @@ function searchMap(input) {
 
       // When a search result is clicked, the map should center to that marker
       $(".search-result").bind("click", (event) => {
-        const lat = $(event.target).parent()[0].dataset.lat;
-        const lng = $(event.target).parent()[0].dataset.lng;
+        const lat = $(event.target).closest($(".search-result")).data().lat;
+        const lng = $(event.target).closest($(".search-result")).data().lng;
         const center = new google.maps.LatLng(lat, lng);
         createMarker({geometry: {location: center}});
         map.setCenter(center);
