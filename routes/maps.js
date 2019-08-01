@@ -142,9 +142,7 @@ module.exports = (pool, db) => {
   router.get("/:mapid/edit", (req, res) => {
     
     let templateVars = {user: null};
-
- 
-
+    
     const map_id = req.params.mapid;
 
     // Check that map has not been deleted and exists
