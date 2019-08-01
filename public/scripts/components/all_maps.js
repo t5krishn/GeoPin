@@ -13,7 +13,10 @@ const createMapHTML = (map) => {
           <div class="map-footer">
             <span class="socials">
               <form method="POST" action="maps/${map.id}/like">
-                <h4 id="total-likes">${map.likes}</h4><i id="like" class="${doesUserLike(map.likedByUSER)}" onclick="likeMap(${map.id})"></i>
+                <div>
+                  <h4 class="total-likes">${map.likes}</h4>
+                  <i id="like" class="${doesUserLike(map.likedByUSER)}" onclick="likeMap(${map.id})"></i>
+                </div>
               </form>
             </span> <!-- socials -->
           </div> <!-- map-footer -->
@@ -25,7 +28,6 @@ const createMapHTML = (map) => {
 };
 
 const doesUserLike = (likedByUSER) => {
-  console.log(likedByUSER);
   if (likedByUSER) {
     // full heart
     return `fas fa-heart`
