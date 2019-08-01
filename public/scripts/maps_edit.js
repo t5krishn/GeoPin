@@ -18,16 +18,17 @@ $(() => {
 // Your pin event listener to recenter on and create pin for click
     // Edit button event listener
     $("#all-pins").on("click", ".pin-row", (event) => {
-      event.preventDefault();
-      const mapID = $("#map").data().id;
-      const pinID = $(event.target).closest(".pin-row").data().pin_id;
-      const url = `/maps/${mapID}/pins/${pinID}/`;
-      ajaxGetSinglePin(url)
-      .done((pin) => {
+      if(!$(event.target).closest("form").html()) {
+        const mapID = $("#map").data().id;
+        const pinID = $(event.target).closest(".pin-row").data().pin_id;
+        const url = `/maps/${mapID}/pins/${pinID}/`;
+        ajaxGetSinglePin(url)
+        .done((pin) => {
 
-        focusOnCreatedPin(pin, false);
+          focusOnCreatedPin(pin, false);
 
-      });
+        });
+      }
     });
 
   if ($("body").data().user_id) {
@@ -57,8 +58,8 @@ $(() => {
       const url = event.target.getAttribute("action");
       ajaxDeletePin(url)
       .done(() => {
-        const formRow = event.target.closest(".form-row");
-        event.target.closest("#all-pins").removeChild(formRow)
+        const pinRow = event.target.closest(".pin-row");
+        event.target.closest("#all-pins").removeChild(pinRow)
         closeInfoWindowIfPresent();
       });
     });
