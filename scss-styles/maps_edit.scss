@@ -20,7 +20,7 @@
 // Align top two containers from nav bar
 #search-container,
 #about-map-container {
-  top: 10vh;
+  top: 7vh;
 }
 
 // Width and sizing for left containers
@@ -208,4 +208,27 @@
     overflow: auto;
   }
 
+}
+
+// Styling for about map container
+#about-map-container {
+  padding: 10px;
+  text-align: center;
+  @include flexThis(center, center, column);
+
+  .row {
+    @include flexThis(center, center, row);
+    width: 90%;
+    text-align: center;
+  }
+
+  h2,
+  p {
+    margin: 10px 0;
+    display: inline;
+  }
+}
+
+#map-subject-label {
+  font-weight: bold;
 }

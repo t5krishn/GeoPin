@@ -49,8 +49,13 @@
 
         <div id="about-map-container" class="container edit-container">
           <h2 id="map-title"><%= map.title %></h2>
-          <p id="map-subject"><%= map.subject %></p>
-          <p id="map-description"><%= map.description %></p>
+          <div class="row">
+            <p id="map-subject-label">Subject: </p>
+            <p id="map-subject"><%= map.subject %></p>
+          </div>
+          <div class="row">
+            <p id="map-description"><%= map.description %></p>
+          </div>
         </div>
 
         <div id="pin-container" class="container edit-container">
