@@ -1,7 +1,7 @@
 // Add html for single map container element
 const createMapHTML = (map) => {
-  // href="/maps/${map.id}/edit"
-  return ` <a class="single-map">
+  return `
+    <a class="single-map" href="/maps/${map.id}/edit">
       <div class="map-thumbnail map-container">
         <div class="hover-read">
           <div class="map-header">
@@ -13,7 +13,10 @@ const createMapHTML = (map) => {
           <div class="map-footer">
             <span class="socials">
               <form method="POST" action="maps/${map.id}/like">
-                <h4 id="total-likes">${map.likes}</h4><i id="like" class="${doesUserLike(map.likedByUSER)}" onclick="likeMap(${map.id})"></i>
+                <div>
+                  <h4 class="total-likes">${map.likes}</h4>
+                  <i id="like" class="fa-lg ${doesUserLike(map.likedByUSER)}" onclick="likeMap(${map.id})"></i>
+                </div>
               </form>
             </span> <!-- socials -->
           </div> <!-- map-footer -->

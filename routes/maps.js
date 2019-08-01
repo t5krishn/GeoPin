@@ -22,30 +22,30 @@ module.exports = (pool, db) => {
     }
 
     db.getAllMaps(pool)
-    .then(maps => {
-      if (user) {
-        for (let map of maps) {
-          db.doesUserLikeMap(pool, [user, map.id])
-          .then(like => {
-            if (like) {
-              map.likedByUSER = true;
-            } else {
-              map.likedByUSER = false;
-            }
-          })
-          .catch(err => res.json({error: err.message}))
+    .then(async maps => {
+        if (user) {
+          for (let map of maps) {
+            await db.doesUserLikeMap(pool, [user, map.id])
+            .then(like => {
+              if (like) {
+                map.likedByUSER = true;
+              } else {
+                map.likedByUSER = false;
+              }
+            })
+            .catch(err => res.json({error: err.message}))
+          }
+          res.json(maps);
+        } else {
+          maps.like = false;
+          res.json(maps);
         }
-        res.json(maps);
-      } else {
-        maps.like = false;
-        res.json(maps);
-      }
-    })
-    .catch(err => {
-      response
-        .status(500)
-        .json({ error: err.message });
-    });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
   });
 
   // GET /maps/create
