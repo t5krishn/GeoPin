@@ -15,7 +15,7 @@ const addPin = function (pool, pinParams) {
     return pool.query(query, pinParams)
         .then(res => {
             if (res.rows) {
-                incrementPinCountWithMapId(pool, pinParams[pinParams.length -1])
+                incrementPinCountWithMapId(pool, pinParams[5])
                 .catch(err2 => { console.log(err2) });
             } else {
                 return null;
