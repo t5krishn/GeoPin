@@ -43,8 +43,9 @@ const ajaxGetMapsByUser = (mapCreatedEle, mapContributedEle) => {
   console.log(user_id);
   $.ajax(`/users/${user_id}/maps`, { method: 'GET' })
   .done(function(maps) {
-    addMapsToContainer(maps.createdMaps, mapCreatedEle);
-    addMapsToContainer(maps.contributedMaps, mapContributedEle);
+    // FOLLOWING SCRIPTS IN public/scripts/components/detailed_maps.js
+    addUserMapsToContainer(maps.createdMaps, mapCreatedEle);
+    addUserMapsToContainer(maps.contributedMaps, mapContributedEle);
 
   })
   .fail(function(error) {
