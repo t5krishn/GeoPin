@@ -2,7 +2,7 @@ const profileInfoCount = function (pool, user_id) {
 
   const query = `
       Select (SELECT count(*) FROM maps WHERE owner_id = $1) AS maps_created
-      , (SELECT count( DISTINCT maps.id) FROM pins JOIN maps ON pins.map_id = maps.id WHERE pins.user_id = $1) AS maps_contributed
+      , (SELECT count( DISTINCT maps.id) FROM pins JOIN maps ON pins.map_id = maps.id WHERE pins.user_id = $1 AND pins.deleted = FALSE) AS maps_contributed
       , (SELECT count(*) FROM liked_maps WHERE user_id = $1) AS liked_maps
       , (SELECT count(liked_maps.*) FROM liked_maps JOIN maps ON maps.id = liked_maps.map_id WHERE maps.owner_id = $1) AS liked_by
   ;`;
