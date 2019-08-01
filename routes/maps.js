@@ -25,6 +25,7 @@ module.exports = (pool, db) => {
       db.getAllMaps(pool)
       .then(async maps => {
         for (let map of maps) {
+
           await db.doesUserLikeMap(pool, [user, map.id])
           .then(like => {
             if (like) {

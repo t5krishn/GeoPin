@@ -7,7 +7,7 @@ const getAllMaps = function (pool, limit = 10) {
         JOIN liked_maps ON liked_maps.map_id = maps.id
         WHERE maps.deleted = FALSE
         GROUP BY maps.id, username
-        ORDER BY maps.id DESC
+        ORDER BY created_at DESC
         LIMIT $1
     `;
     return pool.query(query, [limit])
