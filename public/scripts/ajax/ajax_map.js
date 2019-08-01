@@ -3,7 +3,6 @@
 const ajaxGetAllMaps = () => {
   return $.ajax('/maps', { method: 'GET' })
   .done(function(maps) {
-    console.log("ajax request fin", maps);
     return maps;
   })
   .fail(function(error) {
@@ -16,12 +15,12 @@ const likeMap = function(mapid) {
   let $target = $(event.target);
   let int = parseInt($target.parent().text());
   // LIKING MAP, filled heart and adds to like counter
-  if ($target.attr("class") === "fas fa-heart") {
-    $target.removeClass("fas fa-heart").addClass("far fa-heart");
+  if ($target.attr("class") === "fa-lg fas fa-heart") {
+    $target.removeClass("fas fa-heart").addClass("fa-lg far fa-heart");
     $target.siblings().text(int - 1);
   } else {
   // UNLIKING MAP, unfilled heart and subtract to like counter
-    $target.removeClass("far fa-heart").addClass("fas fa-heart");
+    $target.removeClass("far fa-heart").addClass("fa-lg fas fa-heart");
     $target.siblings().text(int + 1);
   }
 
