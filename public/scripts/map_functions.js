@@ -78,6 +78,7 @@ function createMarker(place, createEditInfowindow) {
 
   if (createEditInfowindow) {
     const editParams = {
+      action: "Edit",
       label: place.label,
       description: place.description,
       pin_thumbnail_url: place.pin_thumbnail_url,
@@ -96,6 +97,7 @@ function createMarker(place, createEditInfowindow) {
     }
 
     let editParams = {
+      action: "Create",
       label: "",
       description: "",
       pin_thumbnail_url: "",
