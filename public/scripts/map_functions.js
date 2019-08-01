@@ -75,8 +75,6 @@ function createMarker(place, createEditInfowindow) {
                 map: map
         });
 
-  console.log(marker);
-
   allMarkers.push(marker);
 
   if (createEditInfowindow) {
@@ -132,7 +130,6 @@ function genInfoWindow(place, editParams, marker) {
 
 async function initMap() {
   const mapID = $("#map").data().id;
-  console.log("map is initialized");
 
   const city = document.querySelector('#map').dataset.city;
   let request = {
