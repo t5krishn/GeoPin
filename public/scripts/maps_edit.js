@@ -1,51 +1,68 @@
 // Function runs on edit page load - driver code
 $(() => {
-  const mapID = $("#map").data().id;
+  if ($(".edit-container")) {
+    const mapID = $("#map").data().id;
 
-  // Listens for user to submit a query
-  $("#search-form").on("submit", () => {
-    event.preventDefault();
-    const input = $("#search-map-input").val();
-    $("#search-map-input").val("");
-    searchMap(input);
-  })
+    // Listens for user to submit a query
+    $("#search-form").on("submit", () => {
+      event.preventDefault();
+      const input = $("#search-map-input").val();
+      $("#search-map-input").val("");
+      searchMap(input);
+    })
 
-  // Edit button event listener
-  $("#all-pins").on("submit", ".edit-form", (event) => {
-    event.preventDefault();
-    const url = event.target.getAttribute("action");
-    ajaxGetSinglePin(url)
-    .done((pin) => {
+    // Edit button event listener
+    $("#all-pins").on("submit", ".edit-form", (event) => {
+      event.preventDefault();
+      const url = event.target.getAttribute("action");
+      ajaxGetSinglePin(url)
+      .done((pin) => {
 
-      closeInfoWindowIfPresent();
+        closeInfoWindowIfPresent();
 
-      pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
-      removeAllMarkers();
-      createMarker(pin, pin);
+        pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
+        removeAllMarkers();
+        createMarker(pin, pin);
 
 
-      map.setCenter(pin.geometry.location);
+        map.setCenter(pin.geometry.location);
 
+
+      });
+    });
+
+    // Delete button event listener
+    $("#all-pins").on("submit", ".delete-form", (event) => {
+      event.preventDefault();
+      const url = event.target.getAttribute("action");
+      ajaxDeletePin(url)
+      .done(() => {
+        const formRow = event.target.closest(".form-row");
+        event.target.closest("#all-pins").removeChild(formRow)
+        closeInfoWindowIfPresent();
+      });
+    });
+
+    // Call get all pins function to show
+    ajaxGetAllPins(mapID)
+    .done((pins) => {
+      const userID = $("body").data().user_id;
+
+      if (userID) {
+        // If there is a user ID data attached to body, look up the user in db
+        ajaxGetSingleUser(userID)
+        .done((user) => {
+          // If user was found, add pins to container with bool true, else false
+          if (user) {
+            addPinsToContainer(pins, "#all-pins", TRUE);
+          } else {
+            addPinsToContainer(pins, "#all-pins", FALSE);
+          }
+        });
+      } else {
+        addPinsToContainer(pins, "#all-pins", FALSE);
+      }
 
     });
-  });
-
-  // Delete button event listener
-  $("#all-pins").on("submit", ".delete-form", (event) => {
-    event.preventDefault();
-    const url = event.target.getAttribute("action");
-    ajaxDeletePin(url)
-    .done(() => {
-      const formRow = event.target.closest(".form-row");
-      event.target.closest("#all-pins").removeChild(formRow)
-      closeInfoWindowIfPresent();
-    });
-  });
-
-  // Call get all pins function to show
-  ajaxGetAllPins(mapID)
-  .done((pins) => {
-    addPinsToContainer(pins, "#all-pins", mapID);
-  });
-
+  }
 });
