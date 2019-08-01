@@ -10,20 +10,22 @@ const router  = express.Router();
 const methodOverride = require("method-override");
 
 module.exports = (pool, db, bcrypt) => {
-  router.get("/", (req, res) => {
-    pool.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
 
-  // All maps for a given user
+
+  // router.get("/", (req, res) => {
+  //   pool.query(`SELECT * FROM users;`)
+  //     .then(data => {
+  //       const users = data.rows;
+  //       res.json({ users });
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
+
+  // Get profile page for a given user
   router.get("/:userid", (req, res) => {
     // If user is logged in, direct them to profile page
     let templateVars = {user: null};
@@ -33,17 +35,92 @@ module.exports = (pool, db, bcrypt) => {
       .then(user => {
         if (user) {
           templateVars.user = user;
-          // ***JESSIE CHANGE TO PROFILE VIEW BELOW***
-          res.render("index")
+
+          db.profileInfoCount(pool, user.id)
+          .then(profile => {
+            templateVars.profile = profile;
+            res.render("profile", templateVars);
+          })
+          .catch(err => {
+            // profile get info query failed
+            res
+              .status(500)
+              .json({ error: err.message });
+          })
         } else {
           // user in cookie, not in db
           res.render("login", templateVars);
         }
+      })
+      .catch(err => {
+        // user in cookie but query to check id in db failed
+        res
+          .status(500)
+          .json({ error: err.message });
       });
     } else {
       // user not in cookie
       res.render("login", templateVars);
     }
   });
+
+
+  // Get all maps created and contributed to for a given user
+  router.get("/:userid/maps", (req, res) => {
+    
+    if (req.session.user_id) {
+      db.getUserWithId(pool, req.session.user_id)
+      .then(user => {
+        if (user) {
+          db.getAllMapsForUser(pool, user.id)
+          .then(createdMaps => {
+            let data = { createdMaps };
+
+            db.getAllContributions(pool, user.id)
+            .then(contributedMaps => {
+              data.contributedMaps = contributedMaps;
+              
+              db.getAllLikedMaps(pool, user.id)
+              .then(likedMaps => {
+                data.likedMaps = likedMaps;
+                res.json(data);
+
+              })
+              .catch(err => {
+                 // getAllLikedMaps query failed
+                res
+                .status(500)
+                .json({ error: err.message });});
+            })
+            .catch(err => {
+              // getAllContributions query failed
+              res
+              .status(500)
+              .json({ error: err.message });
+            });
+          })
+          .catch(err => {
+            // getAllMapsForUser query failed
+            res
+            .status(500)
+            .json({ error: err.message });
+          });
+        } else {
+          // user in cookie but not in db, so go log in
+        res.render("login", { user: null });
+        }
+      })
+      .catch(err => {
+         // user in cookie but query to check id in db failed
+         res
+         .status(500)
+         .json({ error: err.message });
+      });
+    } else {
+      // user not in cookie so go log in
+      res.render("login", { user: null });
+    }
+  });
+
   return router;
 };

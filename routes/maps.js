@@ -203,8 +203,7 @@ module.exports = (pool, db) => {
           const params = req.body;
           const mapParams = [params.title, params.subject, params.description, params.city];
 
-          // NEED TO USE COOKIES TO INSERT owner_id INTO DB --> based on requirements
-          //    we need to allow anyone to edit
+          // NEED TO USE COOKIES TO INSERT owner_id INTO DB
           db.updateMap(pool, map_id, mapParams)
           .then(map => {
             if (map) {

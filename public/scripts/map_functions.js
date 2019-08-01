@@ -107,14 +107,15 @@ function createMarker(place, createEditInfowindow) {
       newPinCallback: addPinsToContainer
     };
   }
-
-  marker.addListener('click', function() {
-    if (infowindow) {
-      closePinFormWindow();
-    }
-    infowindow = genInfoWindow(place, editParams, marker);
-    infowindow.open(map, marker);
-  });
+  if ($("body").data().user_id) {
+    marker.addListener('click', function() {
+      if (infowindow) {
+        closePinFormWindow();
+      }
+      infowindow = genInfoWindow(place, editParams, marker);
+      infowindow.open(map, marker);
+    });
+  }
 };
 
 function genInfoWindow(place, editParams, marker) {

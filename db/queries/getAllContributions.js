@@ -1,7 +1,7 @@
 const getAllContributions = function (pool, user_id) {
 
   const query = `
-      SELECT maps.*
+      SELECT DISTINCT maps.*
       FROM pins
       JOIN users ON pins.user_id = users.id
       JOIN maps on pins.map_id = maps.id
