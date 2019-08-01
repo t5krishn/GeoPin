@@ -3,12 +3,12 @@ const createPinHTML = (pin, userIsLoggedIn) => {
   let rightSideSpanContent = ``;
   if (userIsLoggedIn) {
     rightSideSpanContent = `
-      <span>
+      <span class="pin-btn-container>
         <form class="edit-form" action="/maps/${pin.map_id}/pins/${pin.id}/" method="GET">
-          <button class="edit-pin-btn pin-btn" type="submit"><i class="fas fa-edit"></i></button>
+          <button class="btn edit-pin-btn pin-btn" type="submit"><i class="fas fa-edit"></i></button>
         </form>
         <form class="delete-form" action="/maps/${pin.map_id}/pins/${pin.id}/delete/?_method=DELETE" method="POST">
-          <button class="delete-pin-btn pin-btn" type="submit"><i class="fas fa-minus-circle"></i></button>
+          <button class="btn delete-pin-btn pin-btn" type="submit"><i class="fas fa-minus-circle"></i></button>
         </form>
       </span>
     `;
@@ -20,9 +20,10 @@ const createPinHTML = (pin, userIsLoggedIn) => {
     `;
   }
   return `
-    <div class="row search-result container">
+    <div class="row search-result container pin-row" data-pin_id=${pin.id}>
       <span class="result-details">
-        <p>This is my pin: ${pin.id}</p>
+        <p>${pin.label}</p>
+        <p>${pin.description}</p>
       </span>${rightSideSpanContent}
     </div> <!-- single pin row -->
   `
