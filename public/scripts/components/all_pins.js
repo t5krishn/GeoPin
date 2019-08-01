@@ -1,8 +1,8 @@
 // Add html for single pin container element
 const createPinHTML = (pin, userIsLoggedIn) => {
-  let editDeleteButtonHTML = ``;
+  let rightSideSpanContent = ``;
   if (userIsLoggedIn) {
-    editDeleteButtonHTML = `
+    rightSideSpanContent = `
       <span>
         <form class="edit-form" action="/maps/${pin.map_id}/pins/${pin.id}/" method="GET">
           <button class="edit-pin-btn pin-btn" type="submit"><i class="fas fa-edit"></i></button>
@@ -12,10 +12,18 @@ const createPinHTML = (pin, userIsLoggedIn) => {
         </form>
       </span>
     `;
+  } else {
+    rightSideSpanContent = `
+    <span class="result-image">
+      <img class="search-result-img img-fluid" src="${pin.pin_thumbnail_url}">
+    </span>
+    `;
   }
   return `
-    <div class="form-row">
-      <p>This is my pin: ${pin.id}</p>${editDeleteButtonHTML}
+    <div class="row search-result container">
+      <span class="result-details">
+        <p>This is my pin: ${pin.id}</p>
+      </span>${rightSideSpanContent}
     </div> <!-- single pin row -->
   `
 };

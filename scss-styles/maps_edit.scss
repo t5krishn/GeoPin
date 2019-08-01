@@ -112,16 +112,13 @@
 }
 
 
+
 // Bottom left container on screen that contains results from searches
-#search-results-container {
+#search-results-container,
+#pin-container {
   padding: 0;
   overflow: scroll;
 
-  #search-results-header,
-  .search-result {
-    border-bottom: .5px solid $secondary-color;
-    padding: 20px 0;
-  }
 
   // Formatting for search results that appear after query in search bar
   .search-result {
@@ -160,12 +157,10 @@
   }
 }
 
-
 .search-result:hover {
   cursor: pointer;
   background: $primary-color;
 }
-
 
 // Pin Submit and Edit Form generated on click of marker
 #pin-create-form {
@@ -234,4 +229,9 @@
   font-weight: bold;
 }
 
-// Your Pins Styling
+#search-results-header,
+#pin-container-header,
+.search-result {
+  border-bottom: .5px solid $secondary-color !important;
+  padding: 20px 0;
+}
