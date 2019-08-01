@@ -21,33 +21,33 @@ module.exports = (pool, db) => {
       user = req.session.user_id;
     }
 
-    db.getAllMaps(pool)
-    .then(maps => {
-      if (user) {
+    if (user) {
+      db.getAllMaps(pool)
+      .then(async maps => {
         for (let map of maps) {
-          db.doesUserLikeMap(pool, [user, map.id])
+
+          await db.doesUserLikeMap(pool, [user, map.id])
           .then(like => {
             if (like) {
               map.likedByUSER = true;
-              console.log("mapliked", map);
             } else {
               map.likedByUSER = false;
-              console.log("mapnotliked", map);
             }
           })
           .catch(err => res.json({error: err.message}))
         }
         res.json(maps);
-      } else {
-        maps.like = false;
-        res.json(maps);
-      }
-    })
-    .catch(err => {
-      response
-        .status(500)
-        .json({ error: err.message });
-    });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+    } else {
+      maps.like = false;
+      res.json(maps);
+    }
+
   });
 
   // GET /maps/create
