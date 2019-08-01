@@ -79,7 +79,18 @@ module.exports = (pool, db, bcrypt) => {
             db.getAllContributions(pool, user.id)
             .then(contributedMaps => {
               data.contributedMaps = contributedMaps;
-              res.json(data);
+              
+              db.getAllLikedMaps(pool, user.id)
+              .then(likedMaps => {
+                data.likedMaps = likedMaps;
+                res.json(data);
+
+              })
+              .catch(err => {
+                 // getAllLikedMaps query failed
+                res
+                .status(500)
+                .json({ error: err.message });});
             })
             .catch(err => {
               // getAllContributions query failed
@@ -95,7 +106,7 @@ module.exports = (pool, db, bcrypt) => {
             .json({ error: err.message });
           });
         } else {
-          // user not logged in
+          // user in cookie but not in db, so go log in
         res.render("login", { user: null });
         }
       })
@@ -106,8 +117,8 @@ module.exports = (pool, db, bcrypt) => {
          .json({ error: err.message });
       });
     } else {
-      // user not logged in
-      res.render("login", { user:null });
+      // user not in cookie so go log in
+      res.render("login", { user: null });
     }
   });
 
