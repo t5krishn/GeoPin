@@ -43,7 +43,7 @@ const editableMapsHTML = map => {
           </button>
           </div>
           </div>
-          
+
   </div><!-- single map -->
 </a>
 <div class="collapse mt-4" id="collapseForm-${map.id}">
@@ -66,22 +66,34 @@ const doesUserLike = (likedByUSER) => {
 const renderUpdateForm = map_id => {
   return `
   <form id="pin-create-form" class="form-group" action="maps/${map_id}" method="POST">
-       <div class="form-row">   
+       <div class="form-row">
           <h3>Update Map</h3>
         </div>
-        <div class="form-group form-row form-inline">
-          <input class="form-control form-control-sm" type="text" id="map-title" name="label" placeholder="New title..." value=""></input>
-        </div>
-        <div class="form-group form-row form-inline">
-          <textarea class="form-control form-control-sm" id="pin-description" name="description" placeholder="Describe your pin..." value=""></textarea>
-        </div>
-        <div class="form-group form-row form-inline">
-          <label for="pin-thumbnail">Thumbnail URL:</label>
-          <input class="form-control form-control-sm" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..." value=""></input>
-        </div>
-        <input name="lat" type="hidden" for="pin-thumbnail" value="">
-        <input name="lng" type="hidden" for="pin-thumbnail" value="">
-        <div class="form-row"> 
+        <div class="form-group" >
+          <label for="title">Any fields left blank will be left as they were!</label>
+          <!-- title of map -->
+          <label for="title">Enter a title</label>
+          <input id="title" class="form-control form-control-lg" type="text" name="title" placeholder="Enter a title for your map...">
+        </div> <!-- title -->
+
+        <!-- subject of map -->
+        <div class="form-group" >
+          <label for="subject">What is the subject of your map</label>
+          <input id="subject" class="form-control form-control-lg" type="text" name="subject" placeholder="Enter a subject for your map...">
+        </div> <!-- subject -->
+
+        <!-- description of map -->
+        <div class="form-group" >
+          <label for="description">Give your map a description</label>
+          <textarea id="description" class="form-control form-control-lg" type="text" name="description" placeholder="Give a brief description of your map..."></textarea>
+        </div>  <!-- description -->
+
+        <!-- city of map -->
+        <div class="form-group" >
+          <label for="city">What city is your map in?</label>
+          <input id="city" class="form-control form-control-lg" type="text" name="city" placeholder="Enter the city your map is centered in...">
+        </div>  <!-- city -->
+        <div class="form-row">
           <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
         </div>
       </form>

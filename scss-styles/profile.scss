@@ -201,3 +201,16 @@ body {
     overflow: auto;
   }
 }
+
+#collapseForm-101 {
+  @include flexThis(center, center, row);
+  label:first-of-type {
+    text-align: center;
+    font-style: italic;
+  }
+}
+
+.form-group {
+  margin: 20px 0 !important;
+}
+
