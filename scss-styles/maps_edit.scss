@@ -12,6 +12,62 @@
   position: relative;
 }
 
+$side-bar-width: 60px;
+.side-bar-collapse {
+  position: absolute;
+  z-index: 2000;
+  background-color: $secondary-color !important;
+  color: $primary-color !important;
+  border: solid 2px $primary-color !important;
+  height: 150px;
+  width: $side-bar-width;
+  transition: 0.4s;
+  @include flexThis(center, center, row);
+
+  p {
+    letter-spacing: 1.8;
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+}
+
+// Right side collapse buttons
+#about-map-container-cl,
+#pin-container-cl {
+  p {
+    transform: rotate(270deg);
+  }
+}
+
+#about-map-container-cl {
+  top: 15vh;
+  right: -$side-bar-width;
+
+}
+
+#pin-container-cl {
+  top: 50vh;
+  right: -$side-bar-width;
+}
+// Let containers
+#search-container-cl,
+#search-results-container-cl {
+  p {
+    transform: rotate(90deg);
+  }
+}
+
+#search-container-cl {
+  top: 15vh;
+  left: -$side-bar-width;
+}
+
+#search-results-container-cl {
+  top: 50vh;
+  left: -$side-bar-width;
+}
+
+
 // Remove default margins from search form
 #search-form {
   margin: 0;
@@ -20,7 +76,8 @@
 // Align top two containers from nav bar
 #search-container,
 #about-map-container {
-  top: 75px;
+  top: 10vh;
+  height: 20vh;
 }
 
 // Width and sizing for left containers
@@ -34,8 +91,8 @@
 // Aligns the bottom 2 containers to consistent distance from nav
 #search-results-container,
 #pin-container {
-  top: 35vh;
-  height: 55vh;
+  top: 30vh;
+  height: 60vh;
 }
 
 // Sizing for the two containers on right of screen
@@ -74,9 +131,8 @@
   border: none;
   z-index: 100;
   padding: 30px;
-  border: solid 2px $secondary-color;
-  border-radius: 10px;
-
+  border: solid 2px $primary-color;
+  transition: .4s;
   p {
     font-size: 1.2rem;
     line-height: 1.1;
@@ -260,4 +316,13 @@
 .search-result {
   border-bottom: .5px solid $secondary-color !important;
   padding: 20px 0;
+}
+
+
+.thingOnLeft {
+  left: -1000px !important;
+}
+
+.thingOnRight {
+  right: -1000px !important;
 }
