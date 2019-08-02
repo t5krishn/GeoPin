@@ -27,7 +27,7 @@ const ajaxGetSinglePin = (url) => {
 const ajaxDeletePin = (url) => {
   return $.ajax(url, { method: 'POST' })
   .done(function(response) {
-    return response;
+    return response.pin;
   });
 };
 

@@ -8,7 +8,6 @@ $(() => {
     // Open infowindow for newly created marker
     pin.openInfoWindowNow = openInfoWindowNow;
     pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
-    createMarker(pin, pin);
 
 
     map.setCenter(pin.geometry.location);
@@ -47,6 +46,18 @@ $(() => {
       ajaxGetSinglePin(url)
       .done((pin) => {
 
+        closeInfoWindowIfPresent();
+
+        removeAllMarkers(allMarkers);
+
+        // Open infowindow for newly created marker
+        pin.openInfoWindowNow = true;
+        pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
+        pin.isUserPin = true;
+        createMarker(pin, true);
+
+
+        map.setCenter(pin.geometry.location);
         focusOnCreatedPin(pin, true);
 
       });
@@ -57,7 +68,8 @@ $(() => {
       event.preventDefault();
       const url = event.target.getAttribute("action");
       ajaxDeletePin(url)
-      .done(() => {
+      .done(data => {
+        removeMarker(data.pin);
         const pinRow = event.target.closest(".pin-row");
         event.target.closest("#all-pins").removeChild(pinRow)
         closeInfoWindowIfPresent();
