@@ -2,7 +2,7 @@
 const createMapHTML = (map) => {
   return `
     <a class="single-map" href="/maps/${map.id}/edit">
-      <div class="map-thumbnail map-container">
+      <div class="map-thumbnail map-container" style='background-image: url("https://maps.googleapis.com/maps/api/staticmap?center=${map.city}&size=512x512&key=AIzaSyBwTwnh2Y7IqPIcltHVnlKMyBPI8pF5UcY");'>
         <div class="hover-read">
           <div class="map-header">
             <h4><i class="fas fa-map-marker-alt"></i>${map.pin_count}</h4>

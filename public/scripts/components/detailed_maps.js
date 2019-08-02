@@ -3,7 +3,7 @@ const createMapHTML = (map) => {
     return `
     <a class="map-details-link" href="/maps/${map.id}/edit">
       <div class="single-map map-info-container">
-        <div class="map-thumbnail map-container"></div>
+        <div class="map-thumbnail map-container" style='background-image: url("https://maps.googleapis.com/maps/api/staticmap?center=${map.city}&size=512x512&key=AIzaSyBwTwnh2Y7IqPIcltHVnlKMyBPI8pF5UcY");'></div>
         <div class="map-details">
             <h3>${map.title}</h3>
             <small><cite title="location">Created At: ${map.created_at}<i class="glyphicon glyphicon-map-marker">
