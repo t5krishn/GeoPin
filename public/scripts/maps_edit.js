@@ -23,7 +23,8 @@ $(() => {
         // Open infowindow for newly created marker
         pin.openInfoWindowNow = true;
         pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
-        createMarker(pin, pin);
+        pin.isUserPin = true;
+        createMarker(pin, true);
 
 
         map.setCenter(pin.geometry.location);
@@ -36,7 +37,8 @@ $(() => {
       event.preventDefault();
       const url = event.target.getAttribute("action");
       ajaxDeletePin(url)
-      .done(() => {
+      .done(data => {
+        removeMarker(data.pin);
         const formRow = event.target.closest(".form-row");
         event.target.closest("#all-pins").removeChild(formRow)
         closeInfoWindowIfPresent();
