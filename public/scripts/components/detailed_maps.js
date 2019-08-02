@@ -16,7 +16,7 @@ const createMapHTML = (map) => {
             <h5><b>Description:</b> ${map.description}</h5></p>
         </div>
       </div>
-  </a> 
+  </a>
     `
   };
 
@@ -88,7 +88,7 @@ const renderUpdateForm = map_id => {
 
 const renderDeleteForm = map_id => {
   return `
-    
+
   `;
 }
 
@@ -118,7 +118,7 @@ const addUsersMapsToContainer = (maps, elementID, usersMaps = false) => {
     $('.map-update-btn').on("click", function(event) {
       event.preventDefault();
       // console.log(this.dataset.map_id);
-      const updateForm = renderUpdateForm(this.dataset.map_id) 
+      const updateForm = renderUpdateForm(this.dataset.map_id)
       // => returns the string(html) to append to form
       // id for the rendering the form collapseForm-${map.id}
       $(`#collapseForm-${this.dataset.map_id}`).html('');
@@ -128,7 +128,7 @@ const addUsersMapsToContainer = (maps, elementID, usersMaps = false) => {
     $('.map-delete-btn').on("click", function(event) {
       event.preventDefault();
         // console.log(this.dataset.map_id);
-      const deleteForm = renderDeleteForm(this.dataset.map_id) 
+      const deleteForm = renderDeleteForm(this.dataset.map_id)
       // => returns the string(html) to append to form
       // id for the rendering the form collapseForm-${map.id}
       $(`#collapseForm-${this.dataset.map_id}`).html('');
