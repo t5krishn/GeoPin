@@ -52,14 +52,15 @@
 #all-pins {
   .btn {
     border-radius: 10px;
-    background-color: $tertiary-color;
+    background-color: $primary-color;
     border: solid 2px transparent;
+    color: $secondary-color;
   }
 
   .btn:hover,
   .btn:focus {
     background-color: $primary-color;
-    color: $secondary-color !important;
+    color: $quaternary-color !important;
     border: solid 2px $secondary-color;
   }
 }
@@ -67,7 +68,7 @@
 // Styling for all 4 containers on screen giving them fixed positioning and general styling
 .edit-container {
   position: absolute;
-  background-color: $quaternary-color;
+  background-color: $secondary-color;
   border: none;
   z-index: 100;
   padding: 30px;
@@ -81,9 +82,8 @@
   }
 
   h2,
-  .btn,
   p {
-    color: $secondary-color !important;
+    color: $primary-color;
   }
 
   .form-item {
@@ -172,7 +172,12 @@
 
 .search-result:hover {
   cursor: pointer;
+
   background: $primary-color;
+  p {
+    color: $secondary-color;
+  }
+
 }
 
 // Pin Submit and Edit Form generated on click of marker
