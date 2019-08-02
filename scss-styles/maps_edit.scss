@@ -19,19 +19,42 @@ $side-bar-width: 60px;
   background-color: $secondary-color !important;
   color: $primary-color !important;
   border: solid 2px $primary-color !important;
-  height: 100px;
+  height: 150px;
   width: $side-bar-width;
   transition: 0.4s;
+  @include flexThis(center, center, row);
+
+  p {
+    letter-spacing: 1.8;
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+}
+
+// Right side collapse buttons
+#about-map-container-cl,
+#pin-container-cl {
+  p {
+    transform: rotate(270deg);
+  }
 }
 
 #about-map-container-cl {
   top: 15vh;
   right: -$side-bar-width;
+
 }
 
 #pin-container-cl {
   top: 50vh;
   right: -$side-bar-width;
+}
+// Let containers
+#search-container-cl,
+#search-results-container-cl {
+  p {
+    transform: rotate(90deg);
+  }
 }
 
 #search-container-cl {
