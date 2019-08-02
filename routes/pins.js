@@ -132,7 +132,9 @@ module.exports = (pool, db) => {
     db.deletePin(pool, req.params.pinid, req.params.mapid)
     .then(pin => {
       if (pin) {
-        res.json({ status: "complete"})
+        res.json({ 
+          pin,
+          status: "complete"});
       } else {
         res.statusCode = 404;
         res.redirect(`/`);
