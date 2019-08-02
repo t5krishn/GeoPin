@@ -202,7 +202,7 @@ body {
   }
 }
 
-#collapseForm-101 {
+.centered-collapse-form {
   @include flexThis(center, center, row);
   label:first-of-type {
     text-align: center;

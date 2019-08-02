@@ -132,7 +132,7 @@ module.exports = (pool, db) => {
     db.deletePin(pool, req.params.pinid, req.params.mapid)
     .then(pin => {
       if (pin) {
-        res.json({ 
+        res.json({
           pin,
           status: "complete"});
       } else {
