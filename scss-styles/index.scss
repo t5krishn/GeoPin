@@ -110,3 +110,19 @@
     opacity: 1;
   }
 }
+
+@media only screen and (max-width: 1025px) {
+  #main-nav {
+    height: 70px;
+  }
+  .hero {
+    height: 50vh;
+    margin-top: 70px;
+  }
+  .single-map {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+}
