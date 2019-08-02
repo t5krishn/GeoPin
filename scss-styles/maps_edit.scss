@@ -48,7 +48,8 @@
 
 // Button styling for page (does not impact nav bar)
 .edit-container,
-#pin-create-form {
+#pin-create-form,
+#all-pins {
   .btn {
     border-radius: 10px;
     background-color: $tertiary-color;
@@ -97,31 +98,39 @@
     span {
       @include flexThis(space-between, center, row);
     }
-
-    .pin-btn {
-      border-radius: 100%;
-      height: 30px;
-      width: 30px;
-
-      i {
-        font-size: .9rem;
-      }
-    }
   }
 
 }
 
+#pin-container {
+  form {
+    z-index: 2000;
+    display: inline;
+  }
+  .pin-btn-container {
+    @include flexThis(space-between, center, row);
+  }
+  .pin-btn {
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    i {
+      font-size: .9rem;
+    }
+  }
+
+  .pin-btn:hover {
+    background-color: $quaternary-color;
+  }
+}
 
 // Bottom left container on screen that contains results from searches
-#search-results-container {
+#search-results-container,
+#pin-container {
   padding: 0;
   overflow: scroll;
 
-  #search-results-header,
-  .search-result {
-    border-bottom: .5px solid $secondary-color;
-    padding: 20px 0;
-  }
 
   // Formatting for search results that appear after query in search bar
   .search-result {
@@ -141,6 +150,7 @@
     .search-result-img {
       display: block;
       height: 100%;
+      border-radius: 25px;
     }
 
     .result-details {
@@ -160,12 +170,10 @@
   }
 }
 
-
 .search-result:hover {
   cursor: pointer;
   background: $primary-color;
 }
-
 
 // Pin Submit and Edit Form generated on click of marker
 #pin-create-form {
@@ -234,4 +242,9 @@
   font-weight: bold;
 }
 
-// Your Pins Styling
+#search-results-header,
+#pin-container-header,
+.search-result {
+  border-bottom: .5px solid $secondary-color !important;
+  padding: 20px 0;
+}
