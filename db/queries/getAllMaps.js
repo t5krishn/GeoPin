@@ -1,4 +1,4 @@
-const getAllMaps = function (pool, limit = 10, offset = 0) {
+const getAllMaps = function (pool, limit = 50, offset = 0) {
 
     const query = `
         SELECT maps.*, users.username AS username, count(liked_maps.*) AS likes
