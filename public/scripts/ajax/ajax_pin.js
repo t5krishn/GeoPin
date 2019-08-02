@@ -43,7 +43,7 @@ const submitPinForm = (newPinCallback) => {
     })
     .done((pin) => {
       if(newPinCallback) {
-        newPinCallback([pin], $("#all-pins"));
+        newPinCallback([pin], $("#all-pins"), true);
       }
       closePinFormWindow();
     })

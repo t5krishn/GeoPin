@@ -16,32 +16,122 @@ const createMapHTML = (map) => {
             <h5><b>Description:</b> ${map.description}</h5></p>
         </div>
       </div>
-    </div><!-- single map -->
-  </a>
+  </a> 
     `
   };
 
-  const doesUserLike = (likedByUSER) => {
-    if (likedByUSER) {
-      // full heart
-      return `fas fa-heart`
-    } else {
-      // empty heart
-      return `far fa-heart`
-    }
-  }
+const editableMapsHTML = map => {
+  return `
+  <a class="map-details-link" href="/maps/${map.id}/edit">
+  <div class="single-map map-info-container">
+    <div class="map-thumbnail map-container" style='background-image: url("https://maps.googleapis.com/maps/api/staticmap?center=${map.city}&size=512x512&key=AIzaSyBwTwnh2Y7IqPIcltHVnlKMyBPI8pF5UcY");'></div>
+    <div class="map-details">
+        <h3>${map.title}</h3>
+        <small><cite title="location">Created At: ${map.created_at}<i class="glyphicon glyphicon-map-marker">
+        </i></cite></small>
+        <p>
+        <h5><b>Created By:</b> ${map.username}</h5>
+        <br />
+        <h5><b>Location:</b> ${map.city}</h5>
+        <h5><b>Type:</b> ${map.subject}</h5>
+        <h5><b>Description:</b> ${map.description}</h5></p>
+          <h5>Description:<br />${map.description}</h5></p>
+          <button data-map_id="${map.id}" type="button" class="map-update-btn btn btn-outline-info mt-5" data-toggle="collapse" data-target="#collapseForm-${map.id}" aria-expanded="false" aria-controls="collapseExample">
+            Update
+          </button>
+          <button data-map_id="${map.id}" type="button" class="map-delete-btn btn btn-outline-danger mt-5 ml-2" data-toggle="collapse" data-target="#collapseForm-${map.id}" aria-expanded="false" aria-controls="collapseExample">
+            Delete
+          </button>
+          </div>
+          </div>
+          <div class="collapse mt-4" id="collapseForm-${map.id}">
+          </div>
+  </div><!-- single map -->
+</a>
+  `
+};
 
-  // Loop through array of map objects and call create HTML funciton for each
-  // When done, append the entire HTML of all Maps to given element
-  const addUsersMapsToContainer = (maps, elementID) => {
-    let allMapsHTML = ``;
-    // clearContainer(elementID);
-    if (maps.length !== 0) {
-        for (const map of maps) {
-            allMapsHTML += createMapHTML(map);
-        }
-    } else {
-        allMapsHTML += `<div>No Maps to show. Go check some out or make your own!</div>`;
+
+const doesUserLike = (likedByUSER) => {
+  if (likedByUSER) {
+    // full heart
+    return `fas fa-heart`
+  } else {
+    // empty heart
+    return `far fa-heart`
+  }
+}
+
+// title, subject, description, city
+const renderUpdateForm = map_id => {
+  return `
+  <form id="pin-create-form" class="form-group" action="maps/${map_id}" method="POST">
+        <h3>Update Map</h3>
+        <div class="form-group form-row form-inline">
+          <label for="pin-label">Label:</label>
+          <input class="form-control form-control-sm" type="text" id="pin-label" name="label" placeholder="Label your pin..." value=""></input>
+        </div>
+        <div class="form-group form-row form-inline">
+          <label for="pin-description">Description:</label>
+          <textarea class="form-control form-control-sm" id="pin-description" name="description" placeholder="Describe your pin..." value=""></textarea>
+        </div>
+        <div class="form-group form-row form-inline">
+          <label for="pin-thumbnail">Thumbnail URL:</label>
+          <input class="form-control form-control-sm" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..." value=""></input>
+        </div>
+        <input name="lat" type="hidden" for="pin-thumbnail" value="">
+        <input name="lng" type="hidden" for="pin-thumbnail" value="">
+        <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
+      </form>
+  `;
+}
+
+const renderDeleteForm = map_id => {
+  return `
+    
+  `;
+}
+
+
+
+
+// Loop through array of map objects and call create HTML funciton for each
+// When done, append the entire HTML of all Maps to given element
+const addUsersMapsToContainer = (maps, elementID, usersMaps = false) => {
+  let allMapsHTML = ``;
+  // clearContainer(elementID);
+  if (maps.length !== 0) {
+    for (const map of maps) {
+      if (!usersMaps) {
+        allMapsHTML += createMapHTML(map);
+      } else {
+        allMapsHTML += editableMapsHTML(map);
+      }
     }
-    $(elementID).append(allMapsHTML);
-  };
+  } else {
+      allMapsHTML += `<div>No Maps to show. Go check some out or make your own!</div>`;
+  }
+  $(elementID).append(allMapsHTML);
+
+  if (usersMaps) {
+
+    $('.map-update-btn').on("click", function(event) {
+      event.preventDefault();
+      // console.log(this.dataset.map_id);
+      const updateForm = renderUpdateForm(this.dataset.map_id) 
+      // => returns the string(html) to append to form
+      // id for the rendering the form collapseForm-${map.id}
+      $(`#collapseForm-${this.dataset.map_id}`).html('');
+      $(`#collapseForm-${this.dataset.map_id}`).append(updateForm);
+    });
+
+    $('.map-delete-btn').on("click", function(event) {
+      event.preventDefault();
+        // console.log(this.dataset.map_id);
+      const deleteForm = renderDeleteForm(this.dataset.map_id) 
+      // => returns the string(html) to append to form
+      // id for the rendering the form collapseForm-${map.id}
+      $(`#collapseForm-${this.dataset.map_id}`).html('');
+      $(`#collapseForm-${this.dataset.map_id}`).append(deleteForm);    });
+  }
+};

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/styles/media/maps_edit.css" type="text/css" />
   </head>
 
-  <body data-user_id=<%=user ? user : undefined%>>
+  <body data-user_id=<%= user ? user.id : undefined%>>
     <a href="#main-content" class="skip-link">Skip to main content.</a>
     <!-- to add: skiplink -->
     <%include ./partials/_nav.ejs%>

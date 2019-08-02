@@ -57,7 +57,7 @@ $(() => {
     // Open infowindow for newly created marker
     pin.openInfoWindowNow = openInfoWindowNow;
     pin.geometry = { location: new google.maps.LatLng(pin.latitude, pin.longitude) };
-
+    createMarker(pin, true);
 
     map.setCenter(pin.geometry.location);
   }
