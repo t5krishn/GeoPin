@@ -23,10 +23,14 @@
     <%include ./partials/_nav.ejs%>
     <main id="main-content">
       <div id="map-container" class="map-container">
+        <div id="about-map-container-cl" class="btn side-bar-collapse"></div>
+        <div id="pin-container-cl" class="btn side-bar-collapse"></div>
+        <div id="search-container-cl" class="btn side-bar-collapse"></div>
+        <div id="search-results-container-cl" class="btn side-bar-collapse"></div>
         <div id="map" data-id=<%=map.id%> data-city=<%=map.city%>>
         </div> <!-- map -->
 
-        <div id="about-map-container" class="container edit-container">
+        <div id="about-map-container" class="container edit-container collapse">
           <h2 id="map-title"><%= map.title %></h2>
           <div class="row">
             <p id="map-subject-label">Subject: </p>
