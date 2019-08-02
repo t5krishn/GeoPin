@@ -31,7 +31,8 @@ $(() => {
       console.log(direction);
       $(containerString).css(direction, 0);
     } else {
-      $collapseButton.css(direction, "-40px");
+      $collapseButton.css(direction, "0");
+      $(containerString).css(direction, "-800px");
     }
   };
 
