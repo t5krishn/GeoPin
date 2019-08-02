@@ -7,9 +7,11 @@
 
 const express = require('express');
 const router  = express.Router();
-
+const methodOverride = require("method-override");
 
 module.exports = (pool, db) => {
+
+  router.use(methodOverride("_method"));
 
   // GET /maps/
   // Localhost:8080/
@@ -205,7 +207,7 @@ module.exports = (pool, db) => {
             (params.title)? params.title : null,
             (params.subject)? params.subject : null,
             (params.description)? params.description : null,
-            (params.city)? params.city : null 
+            (params.city)? params.city : null
           ];
 
           db.updateMap(pool, map_id, mapParams)
@@ -238,7 +240,7 @@ module.exports = (pool, db) => {
 
 
   // Map delete for id
-  router.delete("/:userid/:mapid/delete", (req, res) => {
+  router.delete("/:mapid/delete", (req, res) => {
     // Do we need to check functionality if map already deleted?
     let templateVars = {user: null};
     const map_id = req.params.mapid;
@@ -254,7 +256,7 @@ module.exports = (pool, db) => {
               db.deleteMap(pool, map.id)
               .then(mapOnDelete => {
                 if (mapOnDelete) {
-                  res.redirect(`/users/${req.params.userid}`)
+                  res.redirect(`/users/${user.id}`)
                 } else {
                   // DELETE FAILED, DB ERROR or map deleted not returned properly
                   res.statusCode = 404;
