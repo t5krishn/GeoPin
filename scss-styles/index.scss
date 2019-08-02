@@ -10,7 +10,7 @@
   background-position: center;
   background-size: cover;
   position: relative;
-  margin-top: 10vh;
+  margin-top: 100px;
   z-index: -1000;
   @include flexThis(center, center, column);
 }
