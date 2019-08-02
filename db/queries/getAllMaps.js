@@ -8,7 +8,7 @@ const getAllMaps = function (pool, limit = 10, offset = 0) {
         WHERE maps.deleted = FALSE
         GROUP BY maps.id, username
         ORDER BY maps.id DESC
-        LIMIT $1 OFFSET $2
+        LIMIT $1
     `;
     return pool.query(query, [limit, offset])
         .then(res => {
