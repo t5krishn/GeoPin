@@ -236,7 +236,7 @@ module.exports = (pool, db) => {
 
 
   // Map delete for id
-  router.delete("/:userid/:mapid/delete", (req, res) => {
+  router.post("/:mapid/delete", (req, res) => {
     // Do we need to check functionality if map already deleted?
     let templateVars = {user: null};
     const map_id = req.params.mapid;
@@ -252,7 +252,7 @@ module.exports = (pool, db) => {
               db.deleteMap(pool, map.id)
               .then(mapOnDelete => {
                 if (mapOnDelete) {
-                  res.redirect(`/users/${req.params.userid}`)
+                  res.redirect(`/users/${user.id}`)
                 } else {
                   // DELETE FAILED, DB ERROR or map deleted not returned properly
                   res.statusCode = 404;
