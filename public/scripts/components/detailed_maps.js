@@ -9,10 +9,11 @@ const createMapHTML = (map) => {
             <small><cite title="location">Created At: ${map.created_at}<i class="glyphicon glyphicon-map-marker">
             </i></cite></small>
             <p>
-            <h5>Created By: ${map.username}</h5>
+            <h5><b>Created By:</b> ${map.username}</h5>
             <br />
-            <h5>Location: ${map.city}</h5>
-            <h5>Description:<br />${map.description}</h5></p>
+            <h5><b>Location:</b> ${map.city}</h5>
+            <h5><b>Type:</b> ${map.subject}</h5>
+            <h5><b>Description:</b> ${map.description}</h5></p>
         </div>
       </div>
     </div><!-- single map -->
