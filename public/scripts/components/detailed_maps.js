@@ -35,7 +35,6 @@ const editableMapsHTML = map => {
         <h5><b>Location:</b> ${map.city}</h5>
         <h5><b>Type:</b> ${map.subject}</h5>
         <h5><b>Description:</b> ${map.description}</h5></p>
-          <h5>Description:<br />${map.description}</h5></p>
           <button data-map_id="${map.id}" type="button" class="map-update-btn btn btn-outline-info mt-5" data-toggle="collapse" data-target="#collapseForm-${map.id}" aria-expanded="false" aria-controls="collapseExample">
             Update
           </button>
@@ -44,10 +43,11 @@ const editableMapsHTML = map => {
           </button>
           </div>
           </div>
-          <div class="collapse mt-4" id="collapseForm-${map.id}">
-          </div>
+          
   </div><!-- single map -->
 </a>
+<div class="collapse mt-4" id="collapseForm-${map.id}">
+          </div>
   `
 };
 
@@ -66,13 +66,13 @@ const doesUserLike = (likedByUSER) => {
 const renderUpdateForm = map_id => {
   return `
   <form id="pin-create-form" class="form-group" action="maps/${map_id}" method="POST">
-        <h3>Update Map</h3>
-        <div class="form-group form-row form-inline">
-          <label for="pin-label">Label:</label>
-          <input class="form-control form-control-sm" type="text" id="pin-label" name="label" placeholder="Label your pin..." value=""></input>
+       <div class="form-row">   
+          <h3>Update Map</h3>
         </div>
         <div class="form-group form-row form-inline">
-          <label for="pin-description">Description:</label>
+          <input class="form-control form-control-sm" type="text" id="map-title" name="label" placeholder="New title..." value=""></input>
+        </div>
+        <div class="form-group form-row form-inline">
           <textarea class="form-control form-control-sm" id="pin-description" name="description" placeholder="Describe your pin..." value=""></textarea>
         </div>
         <div class="form-group form-row form-inline">
@@ -81,7 +81,9 @@ const renderUpdateForm = map_id => {
         </div>
         <input name="lat" type="hidden" for="pin-thumbnail" value="">
         <input name="lng" type="hidden" for="pin-thumbnail" value="">
-        <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
+        <div class="form-row"> 
+          <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
+        </div>
       </form>
   `;
 }
