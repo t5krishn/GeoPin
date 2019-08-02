@@ -13,9 +13,12 @@
 
     <ol class="nav">
       <% if (user) { %>
+        <li class="nav-item mr-2">
+            <a href="/users/<%= user.id%>" class="nav-button btn btn-primary">Profile</a> <!-- <-- PUT THE PROFILE PAGE URL IN HERE -->
+          </li>
         <li class="nav-item">
           <form class="form-inline" action="/logout" method="POST">
-            <label for="logout">Logged in as: <%= user.username %></label>
+            <!-- <label for="logout">Logged in as: <%= user.username %></label> -->
             <button type="submit" id="logout" class="nav-button btn btn-primary">Logout</button>
           </form>
         </li>

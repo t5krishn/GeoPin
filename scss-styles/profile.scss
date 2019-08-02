@@ -1,0 +1,150 @@
+@import "fonts";
+@import "colors";
+@import "mixins";
+
+
+body {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  // justify-items: center;
+}
+
+#nav-tab {
+  padding-top: 14vh;
+}
+
+
+main {
+  width: 70%;
+  margin-left: 30%;
+  position: fixed;
+}
+
+.profile-container {
+  padding-top: 14vh;
+  padding-bottom: 2%;
+  height: 100vh;
+  width: 30%; /* SET TO 30VH GREATER THAN  ~830px*/
+  display: -webkit-flex;
+  display: flex;
+  position: fixed;
+  -webkit-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  background: $primary-color;
+  h2 {
+    color: black;
+  }
+}
+
+.profile-picture {
+  top: 1%;
+  height: auto;
+  width: 60%;
+  padding-top: 5%;
+}
+
+#profile-image{
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 16%;
+}
+
+#profile-details {
+  height: 64%;
+  width: 90%;
+  // background-color: salmon;
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+  -webkit-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+}
+
+.profile-details {
+  color: black;
+}
+
+.profile-detail-container {
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+  -webkit-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+}
+
+// Browse Maps Section
+#maps-created-container, #maps-contributed-container, #maps-liked-container {
+  // padding: 10vh 0;
+  display: block;
+  height: 75vh;
+  overflow: auto;
+}
+
+.map-details-link {
+  text-decoration: none !important;
+}
+
+.single-map {
+  border: solid 2px transparent;
+  width: 100%;
+  padding: 2% 4% 2% 4%;
+  color: $black;
+  text-align: left;
+  color: inherit;
+  border-radius: 25px;
+  transition: 0.3s;
+  display: flex;
+
+  h4, h5 {
+    color: $secondary-color;
+    font-weight: lighter;
+  }
+
+  .map-thumbnail {
+    background-image: url(../assets/map-thumbnail.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: inherit;
+    min-height: 300px;
+    width: 40%;
+    height: 100%;
+    margin-bottom: 2vh;
+    position: relative;
+    h4,
+    p,
+    i {
+      color: $black;
+      z-index: 500;
+    }
+  }
+
+  .map-details {
+    margin-left: 3em;
+    margin-top: 1em;
+  }
+
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
+  color: $primary-color;
+}
+
+.single-map:hover {
+  border: solid 2px $primary-color;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(202,245,239,1);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(202,245,239,1);
+  box-shadow: 10px 10px 5px 0px rgba(202,245,239,1);
+
+  .hover-read {
+    opacity: 1;
+  }
+}
