@@ -65,7 +65,7 @@ const doesUserLike = (likedByUSER) => {
 // title, subject, description, city
 const renderUpdateForm = map_id => {
   return `
-  <form id="pin-create-form" class="form-group" action="maps/${map_id}" method="POST">
+  <form id="pin-create-form" class="form-group" action="maps/${map_id}/edit?_method=PUT" method="POST">
        <div class="form-row">   
           <h3>Update Map</h3>
         </div>
@@ -73,11 +73,13 @@ const renderUpdateForm = map_id => {
           <input class="form-control form-control-sm" type="text" id="map-title" name="label" placeholder="New title..." value=""></input>
         </div>
         <div class="form-group form-row form-inline">
-          <textarea class="form-control form-control-sm" id="pin-description" name="description" placeholder="Describe your pin..." value=""></textarea>
+          <input class="form-control form-control-sm" type="text" id="map-subject" name="subject" placeholder="New subject..." value=""></input>
         </div>
         <div class="form-group form-row form-inline">
-          <label for="pin-thumbnail">Thumbnail URL:</label>
-          <input class="form-control form-control-sm" type="text" id="pin-thumbnail" name="pin_thumbnail_url" placeholder="Paste your image URL..." value=""></input>
+          <textarea class="form-control form-control-sm" id="map-description" name="description" placeholder="New description..." value=""></textarea>
+        </div>
+        <div class="form-group form-row form-inline">
+          <input class="form-control form-control-sm" type="text" id="map-city" name="city" placeholder="New city..." value=""></input>
         </div>
         <input name="lat" type="hidden" for="pin-thumbnail" value="">
         <input name="lng" type="hidden" for="pin-thumbnail" value="">
