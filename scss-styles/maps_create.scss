@@ -1,23 +1,13 @@
 @import "colors";
 @import "fonts";
 @import "mixins";
+@import "forms";
 
 main {
   @include flexThis(center, center, column);
-  text-align: center;
 }
 
 .wrapper {
   margin-top: 20vh;
-
-
-  #map-create-form {
-    background-color: $secondary-color;
-    padding: 50px / 615px * 100%;
-    border-radius: 10px;
-    div {
-      @include flexThis(space-between, center, row);
-    }
-  }
 }
 

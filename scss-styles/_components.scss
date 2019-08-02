@@ -1,0 +1,25 @@
+// Scroll to top button
+/* Fixed bottom of screen scroll to top button */
+#scrollToTop {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 30px; /* Place the button at the bottom of the page */
+  right: 40px; /* Place the button 30px from the right */
+  z-index: 100; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: $primary-color; /* Set a background color */
+  color: $secondary-color; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 0; /* Some padding */
+  border-radius: 100%; /* Rounded corners */
+  font-size: 40px; /* Increase font size */
+  width: 125px;
+  height: 125px;
+  transition: 0.3s;
+}
+
+#scrollToTop:hover {
+  background-color: $primary-color; /* Add a dark-grey background on hover */
+  color: $quaternary-color;
+}
