@@ -27,8 +27,6 @@ $(() => {
   const toggleCollapseButton = ($collapseButton, collapseIdString, direction, containerString, $containerClicked) => {
     if ($($containerClicked).attr("id") === collapseIdString) {
       $collapseButton.css(direction, "-60px");
-      console.log(containerString);
-      console.log(direction);
       $(containerString).css(direction, 0);
     } else {
       $collapseButton.css(direction, "0");
@@ -36,8 +34,8 @@ $(() => {
     }
   };
 
-  $(".side-bar-collapse").on('click', (event) => {
-    const $collapseButton = $(event.target);
+  $(".side-bar-collapse, .side-bar-collapse p").on('click', (event) => {
+    const $collapseButton = $(event.target).closest(".side-bar-collapse");
     const $aboutMapContainerCl = $("#about-map-container-cl");
     const $pinContainerCl = $("#pin-container-cl");
     const $searchContainerCl = $("#search-container-cl");
