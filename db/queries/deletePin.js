@@ -6,9 +6,9 @@ const deletePin = function (pool, pin_id, map_id) {
         UPDATE pins
         SET deleted = TRUE
         WHERE pins.id = $1
-        RETURNING *;
+        RETURNING *;x
     `;
-    
+
     return pool.query(query, [pin_id])
         .then(res => {
             if (res.rows) {
