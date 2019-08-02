@@ -201,13 +201,17 @@ module.exports = (pool, db) => {
       .then(user => {
         if (user) {
           const params = req.body;
-          const mapParams = [params.title, params.subject, params.description, params.city];
+          const mapParams = [
+            (params.title)? params.title : null,
+            (params.subject)? params.subject : null,
+            (params.description)? params.description : null,
+            (params.city)? params.city : null 
+          ];
 
-          // NEED TO USE COOKIES TO INSERT owner_id INTO DB
           db.updateMap(pool, map_id, mapParams)
           .then(map => {
             if (map) {
-              res.redirect(`/maps/${map.id}/edit/`)
+              res.redirect(`/users/${user.id}`)
             } else {
               res
               .status(404)
