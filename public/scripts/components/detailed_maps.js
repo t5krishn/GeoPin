@@ -65,12 +65,12 @@ const doesUserLike = (likedByUSER) => {
 // title, subject, description, city
 const renderUpdateForm = map_id => {
   return `
-  <form id="pin-create-form" class="form-group" action="maps/${map_id}/edit?_method=PUT" method="POST">
+  <form id="pin-create-form" class="form-group" action="/maps/${map_id}/edit?_method=PUT" method="POST">
        <div class="form-row">   
           <h3>Update Map</h3>
         </div>
         <div class="form-group form-row form-inline">
-          <input class="form-control form-control-sm" type="text" id="map-title" name="label" placeholder="New title..." value=""></input>
+          <input class="form-control form-control-sm" type="text" id="map-title" name="title" placeholder="New title..." value=""></input>
         </div>
         <div class="form-group form-row form-inline">
           <input class="form-control form-control-sm" type="text" id="map-subject" name="subject" placeholder="New subject..." value=""></input>
