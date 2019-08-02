@@ -43,10 +43,10 @@ const editableMapsHTML = map => {
           </button>
           </div>
           </div>
-          
+
   </div><!-- single map -->
 </a>
-<div class="collapse mt-4" id="collapseForm-${map.id}">
+<div class="collapse mt-4 centered-collapse-form" id="collapseForm-${map.id}">
           </div>
   `
 };
@@ -66,38 +66,52 @@ const doesUserLike = (likedByUSER) => {
 const renderUpdateForm = map_id => {
   return `
   <form id="pin-create-form" class="form-group" action="/maps/${map_id}/edit?_method=PUT" method="POST">
-       <div class="form-row">   
+       <div class="form-row">
           <h3>Update Map</h3>
         </div>
-        <div class="form-group form-row form-inline">
-          <input class="form-control form-control-sm" type="text" id="map-title" name="title" placeholder="New title..." value=""></input>
+        <div class="form-group" >
+          <label for="title">Any fields left blank will be left as they were!</label>
+          <!-- title of map -->
+          <label for="title">Enter a title</label>
+          <input id="title" class="form-control form-control-lg" type="text" name="title" placeholder="Enter a title for your map...">
+        </div> <!-- title -->
+
+        <!-- subject of map -->
+        <div class="form-group" >
+          <label for="subject">What is the subject of your map</label>
+          <input id="subject" class="form-control form-control-lg" type="text" name="subject" placeholder="Enter a subject for your map...">
+        </div> <!-- subject -->
+
+        <!-- description of map -->
+        <div class="form-group" >
+          <label for="description">Give your map a description</label>
+          <textarea id="description" class="form-control form-control-lg" type="text" name="description" placeholder="Give a brief description of your map..."></textarea>
+        </div>  <!-- description -->
+
+        <!-- city of map -->
+        <div class="form-group" >
+          <label for="city">What city is your map in?</label>
+          <input id="city" class="form-control form-control-lg" type="text" name="city" placeholder="Enter the city your map is centered in...">
+        </div>  <!-- city -->
+        <div class="form-row">
+        <div class="form-row">
+          <button id="update-map-btn" class="btn btn-primary" type="submit">Submit</button>
         </div>
-        <div class="form-group form-row form-inline">
-          <input class="form-control form-control-sm" type="text" id="map-subject" name="subject" placeholder="New subject..." value=""></input>
-        </div>
-        <div class="form-group form-row form-inline">
-          <textarea class="form-control form-control-sm" id="map-description" name="description" placeholder="New description..." value=""></textarea>
-        </div>
-        <div class="form-group form-row form-inline">
-          <input class="form-control form-control-sm" type="text" id="map-city" name="city" placeholder="New city..." value=""></input>
-        </div>
-        <input name="lat" type="hidden" for="pin-thumbnail" value="">
-        <input name="lng" type="hidden" for="pin-thumbnail" value="">
-        <div class="form-row"> 
-          <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
-        </div>
-      </form>
   `;
 }
 
 const renderDeleteForm = map_id => {
   return `
-
-  `;
+  <form id="map-update-form" class="form-group" action="/maps/${map_id}/delete?_method=DELETE" method="POST">
+       <div class="form-row">
+          <h3><i class="fa-lg fas fa-exclamation-circle"></i>Are you sure you want to delete this map?</h3>
+        </div>
+        <div>
+          <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </form>
+  `
 }
-
-
-
 
 // Loop through array of map objects and call create HTML funciton for each
 // When done, append the entire HTML of all Maps to given element
