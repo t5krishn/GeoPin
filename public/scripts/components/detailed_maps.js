@@ -37,11 +37,34 @@ const createMapHTML = (map) => {
     let allMapsHTML = ``;
     // clearContainer(elementID);
     if (maps.length !== 0) {
-        for (const map of maps) {
-            allMapsHTML += createMapHTML(map);
+      for (const map of maps) {
+        if (!usersMaps) {
+          allMapsHTML += createMapHTML(map);
+        } else {
+          allMapsHTML += editableMapsHTML(map);
         }
+      }
     } else {
         allMapsHTML += `<div>No Maps to show. Go check some out or make your own!</div>`;
     }
     $(elementID).append(allMapsHTML);
+
+    if (usersMaps) {
+
+      $('.map-update-btn').on("click", function(event) {
+        event.preventDefault();
+        // console.log(this.dataset.map_id);
+        // const updateForm = renderUpdateForm(this.dataset.map_id) => returns the string(html) to append to form
+        // id for the rendering the form collapseForm-${map.id}
+        $(this).append(updateForm);
+      });
+
+      $('.map-delete-btn').on("click", function(event) {
+        event.preventDefault();
+         // console.log(this.dataset.map_id);
+        // const deleteForm = renderDeleteForm(this.dataset.map_id) => returns the string(html) to append to form
+        // id for the rendering the form collapseForm-${map.id}
+        $(this).append(deleteForm);
+      });
+    }
   };
