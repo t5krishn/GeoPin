@@ -36,6 +36,9 @@ main {
   align-items: center;
   justify-content: center;
   background: $primary-color;
+  h2 {
+    color: black;
+  }
 }
 
 .profile-picture {
