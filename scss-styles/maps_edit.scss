@@ -12,6 +12,7 @@
   position: relative;
 }
 
+$side-bar-width: 60px;
 .side-bar-collapse {
   position: absolute;
   z-index: 2000;
@@ -19,28 +20,28 @@
   color: $primary-color !important;
   border: solid 2px $primary-color !important;
   height: 100px;
-  width: 40px;
+  width: $side-bar-width;
   transition: 0.4s;
 }
 
 #about-map-container-cl {
   top: 15vh;
-  right: -40px;
+  right: -$side-bar-width;
 }
 
 #pin-container-cl {
   top: 50vh;
-  right: -40px;
+  right: -$side-bar-width;
 }
 
 #search-container-cl {
   top: 15vh;
-  left: -40px;
+  left: -$side-bar-width;
 }
 
 #search-results-container-cl {
   top: 50vh;
-  left: -40px;
+  left: -$side-bar-width;
 }
 
 
