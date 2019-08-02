@@ -24,6 +24,7 @@ function searchMap(input) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
               console.log(results[i]);
+              results[i].isUserPin = false;
               appendResults(results[i]);
               createMarker(results[i]);
           }
@@ -63,6 +64,7 @@ function appendResults(place) {
     const lat = $(event.target).closest($(".search-result")).data().lat;
     const lng = $(event.target).closest($(".search-result")).data().lng;
     const center = new google.maps.LatLng(lat, lng);
+    place.isUserPin = false;
     createMarker(place);
     map.setCenter(center);
     map.setZoom(18);
@@ -72,14 +74,40 @@ function appendResults(place) {
 
 function createMarker(place, createEditInfowindow) {
 
+  let markerStyle = null;
+  let marker = null;
+  // console.log(place.geometry.location.lat());
+  if (place.isUserPin){
+    markerStyle = {
+      path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+      fillColor: 'gold',
+      fillOpacity: 1,
+      scale: 6,
+      strokeColor: 'black',
+      strokeWeight: 1.5,
+      zIndex: 10
+      // anchor: (place.geometry.location.lat(), place.geometry.location.lng())
+    };
+    marker = new google.maps.Marker({
+      position: place.geometry.location,
+      map: map,
+      icon: markerStyle,
+      animation: google.maps.Animation.DROP,
+      pin_id: place.id ,
+      zIndex: 1
+    });
+    myMarkers.push(marker)
+  } else {
+    marker = new google.maps.Marker({
+      position: place.geometry.location,
+      map: map,
+      icon: markerStyle,
+      // animation: google.maps.Animation.DROP
+    });
+    allMarkers.push(marker);
+  }
   let editParams = {};
 
-  let marker = new google.maps.Marker({
-                position: place.geometry.location,
-                map: map
-        });
-
-  allMarkers.push(marker);
 
   if (createEditInfowindow) {
     editParams = {
@@ -161,10 +189,20 @@ async function initMap() {
     ajaxGetAllPins(mapID)
     .done((pins) => {
       const userID = $("body").data().user_id;
-
       addPinsToContainer(pins, "#all-pins", userID);
     });
 
   })
 
 }
+
+// Loops through myMarkers and removes the marker that has the same pin_id as the pin's id 
+// ADDED pin_id INTO MARKER, which is used to store the pin_id that can be used to delete
+const removeMarker = pin => {
+  for (let index = 0; index < myMarkers.length; index++) {
+    if (pin.id === myMarkers[index].pin_id) {
+      myMarkers[index].setMap(null);
+      myMarkers.splice(index, 1);
+    }
+  }
+};
