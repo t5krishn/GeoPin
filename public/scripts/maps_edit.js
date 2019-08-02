@@ -1,27 +1,14 @@
 // Function runs on edit page load - driver code
 $(() => {
 
-  const toggleForContainer = ($element, idString, direction, collapseString, $container, offScreenValue) => {
-    if ($($container).attr("id") === idString) {
+  const toggleForContainer = ($element, idString, direction, collapseString, $containerClicked) => {
+    if ($($containerClicked).attr("id") === idString) {
       $element.css(direction, 0);
     } else {
-      $element.css(direction, offScreenValue);
+      $element.css(direction, "-800px");
       $(collapseString).css(direction, 0);
     }
   };
-
-  $(".side-bar-collapse").on('click', (event) => {
-    const $container = $(event.target.closest(".edit-container"));
-    const $aboutMapContainer = $("#about-map-container-cl");
-    const $pinContainer = $("#pin-container-cl");
-    const $searchContainer = $("#search-container-cl");
-    const $searchResultsContainer = $("#search-results-container-cl");
-
-    toggleForContainer($aboutMapContainer, "about-map-container-cl", "right", "#about-map-container", $container, "-800px");
-    toggleForContainer($pinContainer, "pin-container-cl", "right", "#pin-container", $container, "-800px");
-    toggleForContainer($searchContainer, "search-container-cl", "left", "#search-container", $container, "-800px");
-    toggleForContainer($searchResultsContainer, "search-results-container-cl", "left", "#search-results-container", $container, "-800px");
-  });
 
   $(".edit-container").on('click', (event) => {
     const $container = $(event.target.closest(".edit-container"));
@@ -30,11 +17,38 @@ $(() => {
     const $searchContainer = $("#search-container");
     const $searchResultsContainer = $("#search-results-container");
 
-    toggleForContainer($aboutMapContainer, "about-map-container", "right", "#about-map-container-cl", $container, "-800px");
-    toggleForContainer($pinContainer, "pin-container", "right", "#pin-container-cl", $container, "-800px");
-    toggleForContainer($searchContainer, "search-container", "left", "#search-container-cl", $container, "-800px");
-    toggleForContainer($searchResultsContainer, "search-results-container", "left", "#search-results-container-cl", $container, "-800px");
+    toggleForContainer($aboutMapContainer, "about-map-container", "right", "#about-map-container-cl", $container);
+    toggleForContainer($pinContainer, "pin-container", "right", "#pin-container-cl", $container);
+    toggleForContainer($searchContainer, "search-container", "left", "#search-container-cl", $container);
+    toggleForContainer($searchResultsContainer, "search-results-container", "left", "#search-results-container-cl", $container);
   });
+
+
+  const toggleCollapseButton = ($collapseButton, collapseIdString, direction, containerString, $containerClicked) => {
+    if ($($containerClicked).attr("id") === collapseIdString) {
+      $collapseButton.css(direction, "-40px");
+      console.log(containerString);
+      console.log(direction);
+      $(containerString).css(direction, 0);
+    } else {
+      $collapseButton.css(direction, "-40px");
+    }
+  };
+
+  $(".side-bar-collapse").on('click', (event) => {
+    const $collapseButton = $(event.target);
+    const $aboutMapContainerCl = $("#about-map-container-cl");
+    const $pinContainerCl = $("#pin-container-cl");
+    const $searchContainerCl = $("#search-container-cl");
+    const $searchResultsContainerCl = $("#search-results-container-cl");
+
+    toggleCollapseButton($aboutMapContainerCl, "about-map-container-cl", "right", "#about-map-container", $collapseButton);
+    toggleCollapseButton($pinContainerCl, "pin-container-cl", "right", "#pin-container", $collapseButton);
+    toggleCollapseButton($searchContainerCl, "search-container-cl", "left", "#search-container", $collapseButton);
+    toggleCollapseButton($searchResultsContainerCl, "search-results-container-cl", "left", "#search-results-container", $collapseButton);
+  });
+
+
 
   const focusOnCreatedPin = (pin, openInfoWindowNow) => {
     closeInfoWindowIfPresent();
