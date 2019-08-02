@@ -103,7 +103,11 @@ main {
   transition: 0.3s;
   display: flex;
 
-  h4, h5 {
+  h3 {
+    font-weight: bold;
+  }
+
+  h5 {
     color: $secondary-color;
     font-weight: lighter;
   }
