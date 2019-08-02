@@ -28,7 +28,6 @@ main {
   padding-bottom: 2%;
   height: 100vh;
   width: 30%; /* SET TO 30VH GREATER THAN  ~830px*/
-  border: 2px solid black;
   display: -webkit-flex;
   display: flex;
   position: fixed;
@@ -36,6 +35,7 @@ main {
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
+  background: $primary-color;
 }
 
 .profile-picture {
@@ -80,29 +80,29 @@ main {
 // Browse Maps Section
 #maps-created-container, #maps-contributed-container, #maps-liked-container {
   // padding: 10vh 0;
-  height: 100vh;
+  display: block;
+  height: 75vh;
   overflow: auto;
+}
+
+.map-details-link {
+  text-decoration: none !important;
 }
 
 .single-map {
   border: solid 2px transparent;
-  width: 40%;
-  max-width: 550px;
-  padding: 2%;
+  width: 100%;
+  padding: 2% 4% 2% 4%;
   color: $black;
   text-align: left;
-  display: block;
-  text-decoration: none !important;
   color: inherit;
   border-radius: 25px;
   transition: 0.3s;
+  display: flex;
 
-  div {
-    width: 90%;
-  }
-
-  h4 {
-    color: $black;
+  h4, h5 {
+    color: $secondary-color;
+    font-weight: lighter;
   }
 
   .map-thumbnail {
@@ -112,7 +112,7 @@ main {
     background-size: cover;
     border-radius: inherit;
     min-height: 300px;
-    width: 100%;
+    width: 40%;
     height: 100%;
     margin-bottom: 2vh;
     position: relative;
@@ -122,27 +122,17 @@ main {
       color: $black;
       z-index: 500;
     }
-
-    .hover-read {
-      padding: 20px;
-      opacity: 0;
-      border-radius: inherit;
-      background-color: $blue-transparent-gradient;
-      transition: 0.3s;
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      @include flexThis(space-between, center, column);
-    }
   }
 
-  .map-footer {
-    text-align: right;
+  .map-details {
+    margin-left: 3em;
+    margin-top: 1em;
   }
+
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
+  color: $primary-color;
 }
 
 .single-map:hover {

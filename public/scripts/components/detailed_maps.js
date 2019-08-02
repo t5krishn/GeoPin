@@ -1,29 +1,22 @@
 // Add html for single map container element
 const createMapHTML = (map) => {
     return `
-      <a class="single-map" href="/maps/${map.id}/edit">
-        <div class="map-thumbnail map-container">
-          <div class="hover-read">
-            <div class="map-header">
-              <h4><i class="fas fa-map-marker-alt"></i>${map.pin_count}</h4>
-            </div> <!-- map-header -->
-            <div class="map-description">
-              <p>${map.description.substring(0, 50)}</p>
-            </div> <!-- map-description -->
-            <div class="map-footer">
-              <span class="socials">
-                <form method="POST" action="maps/${map.id}/like">
-                  <div>
-                    <h4 class="total-likes">${map.likes}</h4>
-                    <i id="like" class="fa-lg ${doesUserLike(map.likedByUSER)}" onclick="likeMap(${map.id})"></i>
-                  </div>
-                </form>
-              </span> <!-- socials -->
-            </div> <!-- map-footer -->
-          </div> <!-- hover-read -->
-        </div> <!-- map-thumbnail -->
-        <h4>${map.username} - ${map.title}</h4>
-      </a> <!-- single map -->
+    <a class="map-details-link" href="/maps/${map.id}/edit">
+      <div class="single-map map-info-container">
+        <div class="map-thumbnail map-container"></div>
+        <div class="map-details">
+            <h3>${map.title}</h3>
+            <small><cite title="location">Created At: ${map.created_at}<i class="glyphicon glyphicon-map-marker">
+            </i></cite></small>
+            <p>
+            <h5>Created By: ${map.username}</h5>
+            <br />
+            <h5>Location: ${map.city}</h5>
+            <h5>Description:<br />${map.description}</h5></p>
+        </div>
+      </div>
+    </div><!-- single map -->
+  </a>
     `
   };
 
