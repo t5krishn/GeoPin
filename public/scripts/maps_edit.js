@@ -26,7 +26,7 @@ $(() => {
 
   const toggleCollapseButton = ($collapseButton, collapseIdString, direction, containerString, $containerClicked) => {
     if ($($containerClicked).attr("id") === collapseIdString) {
-      $collapseButton.css(direction, "-40px");
+      $collapseButton.css(direction, "-60px");
       console.log(containerString);
       console.log(direction);
       $(containerString).css(direction, 0);
