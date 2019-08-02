@@ -210,6 +210,19 @@ body {
   }
 }
 
+#map-update-form {
+  @include flexThis(center,center, column);
+  text-align: center;
+
+  i {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .form-row {
+    margin-bottom: 20px;
+  }
+}
+
 .form-group {
   margin: 20px 0 !important;
 }

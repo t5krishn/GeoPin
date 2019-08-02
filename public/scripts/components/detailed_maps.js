@@ -102,7 +102,7 @@ const renderUpdateForm = map_id => {
 
 const renderDeleteForm = map_id => {
   return `
-  <form id="pin-create-form" class="form-group" action="/maps/${map_id}/delete?_method=DELETE" method="POST">
+  <form id="map-update-form" class="form-group" action="/maps/${map_id}/delete?_method=DELETE" method="POST">
        <div class="form-row">
           <h3><i class="fa-lg fas fa-exclamation-circle"></i>Are you sure you want to delete this map?</h3>
         </div>
