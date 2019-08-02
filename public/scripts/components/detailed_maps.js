@@ -65,7 +65,7 @@ const doesUserLike = (likedByUSER) => {
 // title, subject, description, city
 const renderUpdateForm = map_id => {
   return `
-  <form id="pin-create-form" class="form-group" action="maps/${map_id}" method="POST">
+  <form id="pin-create-form" class="form-group" action="/maps/${map_id}/edit?_method=PUT" method="POST">
        <div class="form-row">
           <h3>Update Map</h3>
         </div>
@@ -94,11 +94,32 @@ const renderUpdateForm = map_id => {
           <input id="city" class="form-control form-control-lg" type="text" name="city" placeholder="Enter the city your map is centered in...">
         </div>  <!-- city -->
         <div class="form-row">
-          <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
+        <div class="form-row">
+          <button id="update-map-btn" class="btn btn-primary" type="submit">Submit</button>
         </div>
-      </form>
   `;
 }
+
+// from T:
+{/* <form id="pin-create-form" class="form-group" action="/maps/${map_id}/edit?_method=PUT" method="POST">
+       <div class="form-row">
+          <h3>Update Map</h3>
+        </div>
+        <div class="form-group form-row form-inline">
+          <input class="form-control form-control-sm" type="text" id="map-title" name="title" placeholder="New title..." value=""></input>
+        </div>
+        <div class="form-group form-row form-inline">
+          <input class="form-control form-control-sm" type="text" id="map-subject" name="subject" placeholder="New subject..." value=""></input>
+        </div>
+        <div class="form-group form-row form-inline">
+          <textarea class="form-control form-control-sm" id="map-description" name="description" placeholder="New description..." value=""></textarea>
+        </div>
+        <div class="form-group form-row form-inline">
+          <input class="form-control form-control-sm" type="text" id="map-city" name="city" placeholder="New city..." value=""></input>
+        </div>
+        <input name="lat" type="hidden" for="pin-thumbnail" value="">
+        <input name="lng" type="hidden" for="pin-thumbnail" value="">
+      </form> */}
 
 const renderDeleteForm = map_id => {
   return `
