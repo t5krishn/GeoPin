@@ -12,28 +12,28 @@ function searchMap(input) {
   let service = new google.maps.places.PlacesService(map);
 
   // Clear current results & markers:
-  $(".search-result").remove();
+  $("#search-results-container").children(".search-result").remove();
   removeAllMarkers(allMarkers);
 
   service.textSearch({
     // pass in input from user + city (map_id)
     query: input,
     location: map.getCenter()
-   },
-    function(results, status) {
+  },
+    function (results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-              console.log(results[i]);
-              results[i].isUserPin = false;
-              appendResults(results[i]);
-              createMarker(results[i]);
-          }
-          map.setCenter(results[0].geometry.location);
+        for (var i = 0; i < results.length; i++) {
+          console.log(results[i]);
+          results[i].isUserPin = false;
+          appendResults(results[i]);
+          createMarker(results[i]);
+        }
+        map.setCenter(results[0].geometry.location);
       }
 
 
 
-  });
+    });
 }
 
 function appendResults(place) {
@@ -45,10 +45,10 @@ function appendResults(place) {
       <p>${place.name}</p>
       <p>${place.formatted_address}</p></span>
       `;
-      // For places that don't have a rating
-      // Temporarily removed extra info about place
-      // <p>Type: ${snakeToString(place.types)}</p></span>
-      // ${place.rating ? `<p>Rating: ${place.rating}</p>` : ``}</span>
+  // For places that don't have a rating
+  // Temporarily removed extra info about place
+  // <p>Type: ${snakeToString(place.types)}</p></span>
+  // ${place.rating ? `<p>Rating: ${place.rating}</p>` : ``}</span>
   // For places that don't have a photo
   if (place.photos) {
     result += `<span class="result-image"><img class="search-result-img img-fluid" src="${place.photos[0].getUrl()}"></span>`;
@@ -77,7 +77,7 @@ function createMarker(place, createEditInfowindow) {
   let markerStyle = null;
   let marker = null;
   // console.log(place.geometry.location.lat());
-  if (place.isUserPin){
+  if (place.isUserPin) {
     markerStyle = {
       path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
       fillColor: 'gold',
@@ -93,7 +93,7 @@ function createMarker(place, createEditInfowindow) {
       map: map,
       icon: markerStyle,
       animation: google.maps.Animation.DROP,
-      pin_id: place.id ,
+      pin_id: place.id,
       zIndex: 1
     });
     myMarkers.push(marker)
@@ -136,7 +136,7 @@ function createMarker(place, createEditInfowindow) {
     };
   }
   if ($("body").data().user_id) {
-    marker.addListener('click', function() {
+    marker.addListener('click', function () {
       if (infowindow) {
         closePinFormWindow();
       }
@@ -151,7 +151,7 @@ function genInfoWindow(place, editParams, marker) {
 
   var infowindow = new google.maps.InfoWindow({ position: marker.position, content: contentString });
 
-  google.maps.event.addListener(infowindow, 'domready', function() {
+  google.maps.event.addListener(infowindow, 'domready', function () {
     // Bind the create pin event listener
     $(document).on("submit", "#pin-create-form", submitPinForm(editParams.newPinCallback));
   });
@@ -172,25 +172,25 @@ async function initMap() {
 
   let service = new google.maps.places.PlacesService(document.createElement('div'));
 
-  await service.findPlaceFromQuery(request, function(results, status) {
+  await service.findPlaceFromQuery(request, function (results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       let lat = results[0].geometry.location.lat();
       let lng = results[0].geometry.location.lng();
       // ADD LAT LNG TO MAP DATABASE
       let center = new google.maps.LatLng(lat, lng);
-      map = new google.maps.Map(document.getElementById('map'), {center: center, zoom: 14});
+      map = new google.maps.Map(document.getElementById('map'), { center: center, zoom: 14 });
       map.addListener('click', event => {
-        console.log(event.latLng.lat(),  event.latLng.lng());
+        console.log(event.latLng.lat(), event.latLng.lng());
       });
     }
 
     // NOTE if we revisit for security, we need to place a query for user exists in DB
     // Call get all pins function to show
     ajaxGetAllPins(mapID)
-    .done((pins) => {
-      const userID = $("body").data().user_id;
-      addPinsToContainer(pins, "#all-pins", userID);
-    });
+      .done((pins) => {
+        const userID = $("body").data().user_id;
+        addPinsToContainer(pins, "#all-pins", userID);
+      });
 
   })
 
