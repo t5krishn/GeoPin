@@ -43,7 +43,7 @@ const editableMapsHTML = map => {
           </button>
           </div>
           </div>
-          
+
   </div><!-- single map -->
 </a>
 <div class="collapse mt-4" id="collapseForm-${map.id}">
@@ -66,7 +66,7 @@ const doesUserLike = (likedByUSER) => {
 const renderUpdateForm = map_id => {
   return `
   <form id="pin-create-form" class="form-group" action="maps/${map_id}" method="POST">
-       <div class="form-row">   
+       <div class="form-row">
           <h3>Update Map</h3>
         </div>
         <div class="form-group form-row form-inline">
@@ -81,7 +81,7 @@ const renderUpdateForm = map_id => {
         </div>
         <input name="lat" type="hidden" for="pin-thumbnail" value="">
         <input name="lng" type="hidden" for="pin-thumbnail" value="">
-        <div class="form-row"> 
+        <div class="form-row">
           <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
         </div>
       </form>
@@ -90,12 +90,16 @@ const renderUpdateForm = map_id => {
 
 const renderDeleteForm = map_id => {
   return `
-
-  `;
+  <form id="pin-create-form" class="form-group" action="maps/${map_id}/delete/?_method=DELETE" method="POST">
+       <div class="form-row">
+          <h3><i class="fa-lg fas fa-exclamation-circle"></i>Are you sure you want to delete this map?</h3>
+        </div>
+        <div>
+          <button id="create-pin-btn" class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </form>
+  `
 }
-
-
-
 
 // Loop through array of map objects and call create HTML funciton for each
 // When done, append the entire HTML of all Maps to given element
