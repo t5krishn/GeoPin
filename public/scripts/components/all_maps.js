@@ -47,7 +47,7 @@ const addMapsToContainer = (maps, elementID) => {
       allMapsHTML += createMapHTML(map);
     }
   } else {
-    allMapsHTML += `<div>No Maps to show. Go check some out or make your own!<>`;
+    allMapsHTML += `<div>No Maps to show. Go check some out or make your own!</div>`;
   }
   $(elementID).append(allMapsHTML);
 };
