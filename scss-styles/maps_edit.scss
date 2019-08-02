@@ -5,7 +5,7 @@
 
 // Set map to full screen size
 #map-container {
-  margin-top: 10vh;
+  margin-top: 100px;
   height: 90vh;
   max-height: 90vh;
   width: 100%;
@@ -52,14 +52,17 @@
 #all-pins {
   .btn {
     border-radius: 10px;
-    background-color: $tertiary-color;
+    background-color: $primary-color;
     border: solid 2px transparent;
+    color: $secondary-color;
   }
 
+  .pin-btn:hover,
   .btn:hover,
   .btn:focus {
+    font-weight: bold;
     background-color: $primary-color;
-    color: $secondary-color !important;
+    color: $secondary-color;
     border: solid 2px $secondary-color;
   }
 }
@@ -67,7 +70,7 @@
 // Styling for all 4 containers on screen giving them fixed positioning and general styling
 .edit-container {
   position: absolute;
-  background-color: $quaternary-color;
+  background-color: $secondary-color;
   border: none;
   z-index: 100;
   padding: 30px;
@@ -81,9 +84,8 @@
   }
 
   h2,
-  .btn,
   p {
-    color: $secondary-color !important;
+    color: $primary-color;
   }
 
   .form-item {
@@ -114,15 +116,16 @@
     border-radius: 100%;
     height: 40px;
     width: 40px;
+    transition: 0.3s;
     padding: 0;
     i {
       font-size: .9rem;
     }
   }
+}
 
-  .pin-btn:hover {
-    background-color: $quaternary-color;
-  }
+.pin-btn:hover {
+  transform: scale(1.1);
 }
 
 // Bottom left container on screen that contains results from searches
@@ -172,7 +175,17 @@
 
 .search-result:hover {
   cursor: pointer;
+
   background: $primary-color;
+  p {
+    color: $secondary-color;
+  }
+
+  .pin-btn {
+    background-color: $secondary-color !important;
+    color: $primary-color !important;
+  }
+
 }
 
 // Pin Submit and Edit Form generated on click of marker
