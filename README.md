@@ -1,4 +1,4 @@
-# ![GeoPin](https://geopin.ca)
+# GeoPin <https://geopin.ca>
 
 GeoPin is an application that allows the user to make a map with lists. It allows users to put markers on the map, like maps, update maps and delete maps. There is authentication for the users so it's a more personalized experience.
 
