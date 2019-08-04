@@ -1,19 +1,26 @@
 LHL Node Skeleton
 =========
 
-## Project Setup
+# GeoPin
+# !["GeoPin.ca"](https://geopin.ca)
 
-1. Create your own empty repo on GitHub, ideally using the name of your project
-2. Clone this repository (<mark>do not fork!</mark>)
-  - When cloning, specify a different folder name that is relevant to your project
-3. Remove the git remote: `git remote rm origin`
-4. Add a remote for your origin: `git remote add origin <your github repo URL>`
-5. Push to the new origin: `git push -u origin master`
-6. Verify that the skeleton code now shows up in your repo on GitHub
+GeoPin is an application that allows the user to make a map with lists. It allows users to put markers on the map, like maps, update maps and delete maps. There is authentication for the users so it's a more personalized experience.
+
+## Final Product
+
+!["Screencapture of Home Page"](https://github.com/t5krishn/GeoPin/blob/master/public/assets/homePage.png?raw=true)
+
+!["Screencapture of Profile Page"](https://github.com/t5krishn/GeoPin/blob/master/public/assets/profileView.png?raw=true)
+
+!["Screenshot of Create New Map Form"](https://github.com/t5krishn/GeoPin/blob/master/public/assets/createMap.png?raw=true)
+
+!["Screencapture of Map View Page"](https://github.com/t5krishn/GeoPin/blob/master/public/assets/mapView.png?raw=true)
+
 
 ## Getting Started
 
-1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
+1. Create a clone of this repository using  `git clone`
+2. Create a `.env` file
 2. Update the .env file with your correct local information 
   - username: `labber` 
   - password: `labber` 
@@ -39,4 +46,16 @@ LHL Node Skeleton
 
 - Node 10.x or above
 - NPM 5.x or above
-- PG 6.x
+- bcrypt: ^3.0.6
+- body-parser: ^1.19.0
+- chalk: ^2.4.2
+- cookie-session: ^1.3.3
+- dotenv: ^2.0.0
+- ejs: ^2.6.2
+- expres: ^4.17.1
+- method-override: ^3.0.0
+- morgan: ^1.9.1
+- node-sass-middleware: ^0.11.0
+- pg: ^6.4.2
+- pg-native: ^3.0.0
+- sass: ^1.22.9 (Used for development and for rendering stylesheets on heroku)
