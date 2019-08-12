@@ -1,8 +1,12 @@
 main form {
-  width: 40%;
+  width: 50%;
   label {
     color: $secondary-color;
     font-size: 1.5rem;
+  }
+
+  .form-row {
+    text-align: center;
   }
 
   .form-group {
@@ -34,9 +38,14 @@ main form {
   }
 }
 
-@media all and (max-width: 1000px) {
-  .nav {
-    justify-content: flex-end !important;
-    width: auto;
+@media all and (max-width: 1200px) {
+  main form {
+    width: 60%;
+  }
+}
+
+@media all and (max-width: 750px) {
+  main form {
+    width: 90%;
   }
 }
