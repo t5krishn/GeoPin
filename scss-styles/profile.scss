@@ -155,11 +155,12 @@ body {
   #nav-tab {
     padding-top: 1.5em;
   }
-  // Browse Maps Section
-  #maps-created-container, #maps-contributed-container, #maps-liked-container {
-    // padding: 10vh 0;
-    display: block;
-  }
+}
+// Browse Maps Section
+#maps-created-container, #maps-contributed-container, #maps-liked-container {
+  // padding: 10vh 0;
+  display: block;
+  width: 100%;
 }
 
 /* Laptops / Desktops: minimum width of 1024px */
@@ -227,3 +228,8 @@ body {
   margin: 20px 0 !important;
 }
 
+@media all and (max-width: 750px) {
+  main form {
+    width: 90%;
+  }
+}

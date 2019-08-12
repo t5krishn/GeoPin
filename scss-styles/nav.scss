@@ -10,6 +10,10 @@
   height: 100px;
   @include flexThis(space-between, center, row);
 
+  .logo {
+    height: 40px;
+  }
+
   li {
     display: inline;
   }
