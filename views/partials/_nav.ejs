@@ -1,17 +1,16 @@
-<nav id="main-nav" class='navbar fixed-top'>
-  <ol class="nav">
-    <li>
-      <a href="/"><img class="logo" src="/assets/LogoMakr_4dwIOn.png" width="110" height="35"></a>
-    </li>
-    <li class="nav-item">
-      <a href="/" class="nav-button btn btn-primary">Home</a>
-    </li>
-    <li class="nav-item">
-      <a href="/maps/create" class="nav-button btn btn-primary">Create Map</a>
-    </li>
-  </ol>
-
-    <ol class="nav">
+<nav id="main-nav" class='navbar fixed-top navbar-expand-lg'>
+  <a href="/"><img class="logo navbar-brand" src="/assets/LogoMakr_4dwIOn.png" width="110" height="35"></a>
+  <ol class="nav menu" id="navbarToggler">
+    <li class="hamburger"><i class="fas fa-bars"></i></li>
+    <div class="nav-list-container navigation-items">
+      <li class="nav-item">
+        <a href="/" class="nav-button btn btn-primary">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="/maps/create" class="nav-button btn btn-primary">Create Map</a>
+      </li>
+    </div> <!-- navigation items -->
+    <div class="nav-list-container login-items">
       <% if (user) { %>
         <li class="nav-item mr-2">
             <a href="/users/<%= user.id%>" class="nav-button btn btn-primary">Profile</a> <!-- <-- PUT THE PROFILE PAGE URL IN HERE -->
@@ -30,5 +29,7 @@
           <a href="/login" class="nav-button btn btn-primary">Login</a>
         </li>
       <% } %>
-    </ol>
+    </div> <!-- login items -->
+
+  </ol>
 </nav>
