@@ -50,6 +50,10 @@
   }
 }
 
+form {
+  display: inline !important;
+}
+
 .nav {
   justify-content: space-between;
   width: 95%;
@@ -59,6 +63,7 @@
 .hamburger {
   display: none !important;
   color: $quaternary-color !important;
+  cursor: pointer;
 
   i {
     transition: 0.3s;
@@ -106,6 +111,7 @@ s
     li {
       text-align: center;
       width: 100%;
+      margin: 5px 0;
     }
   }
 

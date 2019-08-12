@@ -12,15 +12,16 @@
   position: relative;
 }
 
-$side-bar-width: 60px;
 .side-bar-collapse {
+  overflow: hidden;
+  visibility: hidden;
   position: absolute;
   z-index: 2000;
   background-color: $secondary-color !important;
   color: $primary-color !important;
   border: solid 2px $primary-color !important;
   height: 150px;
-  width: $side-bar-width;
+  width: 0;
   transition: 0.4s;
   @include flexThis(center, center, row);
 
@@ -41,15 +42,15 @@ $side-bar-width: 60px;
 
 #about-map-container-cl {
   top: 15vh;
-  right: -$side-bar-width;
+  right: 0;
 
 }
 
 #pin-container-cl {
   top: 50vh;
-  right: -$side-bar-width;
+  right: 0;
 }
-// Let containers
+// Left containers
 #search-container-cl,
 #search-results-container-cl {
   p {
@@ -59,12 +60,12 @@ $side-bar-width: 60px;
 
 #search-container-cl {
   top: 15vh;
-  left: -$side-bar-width;
+  left: 0;
 }
 
 #search-results-container-cl {
   top: 50vh;
-  left: -$side-bar-width;
+  left: 0;
 }
 
 
@@ -83,8 +84,6 @@ $side-bar-width: 60px;
 // Width and sizing for left containers
 #search-results-container,
 #search-container {
-  max-width: 450px;
-  width: 27.5%;
   left: 0;
 }
 
@@ -98,8 +97,6 @@ $side-bar-width: 60px;
 // Sizing for the two containers on right of screen
 #about-map-container,
 #pin-container {
-  max-width: 350px;
-  width: 25%;
   right: 0;
 }
 
@@ -130,13 +127,21 @@ $side-bar-width: 60px;
   background-color: $secondary-color;
   border: none;
   z-index: 100;
+  overflow: hidden;
   padding: 30px;
   border: solid 2px $primary-color;
   transition: .4s;
+  width: 35%;
+
   p {
     font-size: 1.2rem;
     line-height: 1.1;
     font-weight: lighter;
+  }
+
+  *,
+  form {
+    overflow: hidden;
   }
 
   h2,

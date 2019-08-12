@@ -60,3 +60,16 @@ function snakeToString(array) {
   }
   return sentence;
 }
+
+// Jquery to animate and hide an element (used on maps_edit)
+const hideElement = ($element) => {
+  $element.animate({width: "0"}, 300,() => {
+    $element.css("visibility", "hidden");
+  });
+}
+
+// Jquery to animate and show an element (used on maps_edit)
+const showElement = ($element, width) => {
+  $element.css("visibility", "visible");
+  $element.animate({width: width}, 300);
+}

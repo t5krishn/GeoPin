@@ -1,51 +1,48 @@
 // Function runs on edit page load - driver code
 $(() => {
+  // For small screens, enable toggle of individual menus on click
 
-  const toggleForContainer = ($element, idString, direction, collapseString, $containerClicked) => {
-    if ($($containerClicked).attr("id") === idString) {
-      $element.css(direction, 0);
-    } else {
-      $element.css(direction, "-800px");
-      $(collapseString).css(direction, 0);
-    }
-  };
+  if($(window).width() <= 750 ){
+    const toggleForContainer = (idString, collapseString, $containerClicked) => {
+      if ($containerClicked.attr("id") === idString && $($containerClicked)) {
+        hideElement($(`#${idString}`));
+      }
+      showElement($(collapseString), "12.5%");
+    };
 
-  $(".edit-container").on('click', (event) => {
-    const $container = $(event.target.closest(".edit-container"));
-    const $aboutMapContainer = $("#about-map-container");
-    const $pinContainer = $("#pin-container");
-    const $searchContainer = $("#search-container");
-    const $searchResultsContainer = $("#search-results-container");
+    $(".edit-container").on('click', (event) => {
+      event.stopPropagation();
+      const $containerClicked = $(event.target.closest(".edit-container"));
 
-    toggleForContainer($aboutMapContainer, "about-map-container", "right", "#about-map-container-cl", $container);
-    toggleForContainer($pinContainer, "pin-container", "right", "#pin-container-cl", $container);
-    toggleForContainer($searchContainer, "search-container", "left", "#search-container-cl", $container);
-    toggleForContainer($searchResultsContainer, "search-results-container", "left", "#search-results-container-cl", $container);
-  });
+      toggleForContainer("about-map-container", "#about-map-container-cl", $containerClicked);
+      toggleForContainer("pin-container", "#pin-container-cl", $containerClicked);
+      toggleForContainer("search-container", "#search-container-cl", $containerClicked);
+      toggleForContainer("search-results-container", "#search-results-container-cl", $containerClicked);
+    });
 
 
-  const toggleCollapseButton = ($collapseButton, collapseIdString, direction, containerString, $containerClicked) => {
-    if ($($containerClicked).attr("id") === collapseIdString) {
-      $collapseButton.css(direction, "-60px");
-      $(containerString).css(direction, 0);
-    } else {
-      $collapseButton.css(direction, "0");
-      $(containerString).css(direction, "-800px");
-    }
-  };
 
-  $(".side-bar-collapse, .side-bar-collapse p").on('click', (event) => {
-    const $collapseButton = $(event.target).closest(".side-bar-collapse");
-    const $aboutMapContainerCl = $("#about-map-container-cl");
-    const $pinContainerCl = $("#pin-container-cl");
-    const $searchContainerCl = $("#search-container-cl");
-    const $searchResultsContainerCl = $("#search-results-container-cl");
+    const toggleCollapseButton = (collapseIdString, containerString, $containerClicked) => {
 
-    toggleCollapseButton($aboutMapContainerCl, "about-map-container-cl", "right", "#about-map-container", $collapseButton);
-    toggleCollapseButton($pinContainerCl, "pin-container-cl", "right", "#pin-container", $collapseButton);
-    toggleCollapseButton($searchContainerCl, "search-container-cl", "left", "#search-container", $collapseButton);
-    toggleCollapseButton($searchResultsContainerCl, "search-results-container-cl", "left", "#search-results-container", $collapseButton);
-  });
+      if ($containerClicked.attr("id") === collapseIdString) {
+
+        hideElement($(`#${collapseIdString}`));
+        showElement($(containerString), "40%");
+      } else {
+        showElement($(`#${collapseIdString}`), "12.5%");
+        hideElement($(containerString));
+      }
+    };
+
+    $(".side-bar-collapse, .side-bar-collapse p").on('click', (event) => {
+      event.stopPropagation();
+      const $collapseButton = $(event.target).closest(".side-bar-collapse");
+      toggleCollapseButton("about-map-container-cl", "#about-map-container", $collapseButton);
+      toggleCollapseButton("pin-container-cl", "#pin-container", $collapseButton);
+      toggleCollapseButton("search-container-cl", "#search-container", $collapseButton);
+      toggleCollapseButton("search-results-container-cl", "#search-results-container", $collapseButton);
+    });
+  }
 
 
 

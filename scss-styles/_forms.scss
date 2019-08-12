@@ -1,5 +1,3 @@
-
-
 main form {
   width: 40%;
   label {
@@ -33,5 +31,12 @@ main form {
   textarea {
     resize: none;
     overflow: auto;
+  }
+}
+
+@media all and (max-width: 1000px) {
+  .nav {
+    justify-content: flex-end !important;
+    width: auto;
   }
 }

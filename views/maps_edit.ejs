@@ -12,7 +12,6 @@
     <!-- External Style and Scripts -->
     <%include ./partials/_external_tags.ejs%>
 
-
     <link rel="stylesheet" href="/styles/maps_edit.css" type="text/css" />
     <link rel="stylesheet" href="/styles/media/maps_edit.css" type="text/css" />
   </head>
@@ -25,8 +24,6 @@
       <div id="map-container" class="map-container">
         <div id="about-map-container-cl" class="btn side-bar-collapse"><p>About</p></div>
         <div id="pin-container-cl" class="btn side-bar-collapse"><p>Pins</p></div>
-        <div id="search-container-cl" class="btn side-bar-collapse"><p>Search</p></div>
-        <div id="search-results-container-cl" class="btn side-bar-collapse"><p>Results</p></div>
         <div id="map" data-id=<%=map.id%> data-city=<%=map.city%>>
         </div> <!-- map -->
 
@@ -49,6 +46,8 @@
           </div> <!-- all-pins -->
         </div> <!-- pin-containesr -->
         <% if (user) { %>
+          <div id="search-results-container-cl" class="btn side-bar-collapse"><p>Results</p></div>
+          <div id="search-container-cl" class="btn side-bar-collapse"><p>Search</p></div>
           <div id="search-container" class="container edit-container">
 
             <form id="search-form" action="" class="form-group">
