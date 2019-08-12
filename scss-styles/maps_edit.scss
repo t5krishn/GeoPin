@@ -22,7 +22,9 @@
   border: solid 2px $primary-color !important;
   height: 150px;
   width: 0;
-  transition: 0.4s;
+  max-width: 100px;
+  padding: 0;
+  transition: 0.3s;
   @include flexThis(center, center, row);
 
   p {
@@ -91,7 +93,7 @@
 #search-results-container,
 #pin-container {
   top: 30vh;
-  height: 60vh;
+  height: 50vh;
 }
 
 // Sizing for the two containers on right of screen
@@ -130,8 +132,9 @@
   overflow: hidden;
   padding: 30px;
   border: solid 2px $primary-color;
-  transition: .4s;
-  width: 35%;
+  transition: .3s;
+  width: 25%;
+  max-width: 400px;
 
   p {
     font-size: 1.2rem;
@@ -139,7 +142,7 @@
     font-weight: lighter;
   }
 
-  *,
+
   form {
     overflow: hidden;
   }

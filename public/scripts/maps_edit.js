@@ -1,50 +1,13 @@
 // Function runs on edit page load - driver code
 $(() => {
-  // For small screens, enable toggle of individual menus on click
+  addResponsiveListeners();
 
-  if($(window).width() <= 750 ){
-    const toggleForContainer = (idString, collapseString, $containerClicked) => {
-      if ($containerClicked.attr("id") === idString && $($containerClicked)) {
-        hideElement($(`#${idString}`));
-      }
-      showElement($(collapseString), "12.5%");
-    };
-
-    $(".edit-container").on('click', (event) => {
-      event.stopPropagation();
-      const $containerClicked = $(event.target.closest(".edit-container"));
-
-      toggleForContainer("about-map-container", "#about-map-container-cl", $containerClicked);
-      toggleForContainer("pin-container", "#pin-container-cl", $containerClicked);
-      toggleForContainer("search-container", "#search-container-cl", $containerClicked);
-      toggleForContainer("search-results-container", "#search-results-container-cl", $containerClicked);
-    });
-
-
-
-    const toggleCollapseButton = (collapseIdString, containerString, $containerClicked) => {
-
-      if ($containerClicked.attr("id") === collapseIdString) {
-
-        hideElement($(`#${collapseIdString}`));
-        showElement($(containerString), "40%");
-      } else {
-        showElement($(`#${collapseIdString}`), "12.5%");
-        hideElement($(containerString));
-      }
-    };
-
-    $(".side-bar-collapse, .side-bar-collapse p").on('click', (event) => {
-      event.stopPropagation();
-      const $collapseButton = $(event.target).closest(".side-bar-collapse");
-      toggleCollapseButton("about-map-container-cl", "#about-map-container", $collapseButton);
-      toggleCollapseButton("pin-container-cl", "#pin-container", $collapseButton);
-      toggleCollapseButton("search-container-cl", "#search-container", $collapseButton);
-      toggleCollapseButton("search-results-container-cl", "#search-results-container", $collapseButton);
-    });
-  }
-
-
+  $(window).resize(function(){
+    if(!window.matchMedia("screen and ( max-height: 1000px), (max-width: 750px)").matches){
+      hideElement($(".side-bar-collapse"))
+      showElement($(".edit-container"), "25%");
+    }
+  });
 
   const focusOnCreatedPin = (pin, openInfoWindowNow) => {
     closeInfoWindowIfPresent();
